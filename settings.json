@@ -1,0 +1,225 @@
+{
+    // *** WORKBENCH ***
+    "workbench.settings.editor": "json",
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "workbench.editor.enablePreview": false,
+    "workbench.sideBar.location": "right",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.editor.restoreViewState": false,
+    // "workbench.settings.openDefaultSettings": true,
+    // "workbench.settings.useSplitJSON": true,
+
+    // *** EDITOR ***
+    "editor.fontFamily": "Source Code Pro Medium",
+    "editor.fontLigatures": false,
+    "editor.fontSize": 13,
+    "editor.suggestSelection": "first",
+    "editor.wordWrap": "on",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": true,
+    "editor.formatOnSave": true,
+    "editor.matchBrackets": "never",
+    "editor.autoIndent": "full",
+    "editor.columnSelection": false,
+    "editor.cursorStyle": "block",
+    "editor.cursorBlinking": "solid",
+    
+    // *** WINDOW ***
+    "window.restoreWindows": "none",
+    "window.titleBarStyle": "native",
+    "window.zoomLevel": 0,
+    
+    // *** EXPLORER ***
+    "explorer.compactFolders": false,
+
+    // *** TERMINAL ***
+    "terminal.integrated.lineHeight": 1.25,
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.rendererType": "dom",
+    "terminal.integrated.shell.osx": "/bin/zsh",
+
+    // *** BRACKET PAIR COLORIZER ***
+    "bracket-pair-colorizer-2.highlightActiveScope": true,
+    "bracket-pair-colorizer-2.showBracketsInGutter": true,
+    "bracket-pair-colorizer-2.showBracketsInRuler": true,
+
+    // *** CUSTOMIZE UI ***
+    "customizeUI.fontSizeMap": {
+        "13px": "13px",
+        "monospace": "13"
+    },
+    "customizeUI.activityBar": "regular",
+    "customizeUI.titleBar": "inline",
+    "customizeUI.font.regular": "Source Code Pro Medium",
+
+    // *** FORMATTING ***
+    "prettier.tabWidth": 4,
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+
+    // *** PYTHON ***
+    "python.formatting.provider": "black",
+    "python.defaultInterpreterPath": "/usr/local/bin/python3",
+    "python.languageServer": "Pylance",
+    "python.showStartPage": false,
+
+    // *** VIM ***
+    "vim.useCtrlKeys": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.cursorStylePerMode.visual": "block",
+    "vim.cursorStylePerMode.visualblock": "block",
+    "vim.cursorStylePerMode.visualline": "block",
+    "vim.leader": " ",
+    "vim.startofline": false,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["u"],
+            "commands": ["undo"]
+        },
+        {
+            "before": ["<C-r>"],
+            "commands": ["redo"]
+        },
+        {
+            "before": ["<leader>", "s"],
+            "commands": ["workbench.action.splitEditor"]
+        },
+        {
+            "before": ["<leader>", "t"],
+            "commands": ["workbench.action.toggleSidebarVisibility"]
+        },
+        {
+            "before": ["<leader>", "f"],
+            "commands": ["revealInExplorer"]
+        },
+        {
+            "before": ["<leader>", "c"],
+            "commands": ["extension.macColorPicker"]
+        },
+        {
+            "before": ["<leader>", "x"],
+            "commands": ["workbench.action.closePanel"]
+        },
+        {
+            "before": ["<leader>", "h"],
+            "commands": ["workbench.action.navigateLeft"]
+        },
+        {
+            "before": ["<leader>", "l"],
+            "commands": ["workbench.action.navigateRight"]
+        },
+        {
+            "before": ["<leader>", "j"],
+            "commands": ["workbench.action.navigateDown"]
+        },
+        {
+            "before": ["<leader>", "k"],
+            "commands": ["workbench.action.navigateUp"]
+        },
+        {
+            "before": ["<leader>", "i"],
+            "commands": ["workbench.action.nextEditorInGroup"]
+        },
+        {
+            "before": ["<leader>", "u"],
+            "commands": ["workbench.action.previousEditorInGroup"]
+        }
+    ],
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "j"],
+            "after": ["<esc>"]
+        }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["<leader>", "n"],
+            "after": ["^"]
+        },
+        {
+            "before": ["<leader>", "w"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.files.save",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": ["<leader>", "q"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.closeActiveEditor",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": ["<leader>", "a"],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.files.save",
+                    "args": []
+                },
+                {
+                    "command": "workbench.action.closeActiveEditor",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": ["K"],
+            "after": ["leader", "leader", "k"]
+        },
+        {
+            "before": ["J"],
+            "after": ["leader", "leader", "j"]
+        },
+        {
+            "before": ["Y"],
+            "after": ["y", "$"]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["K"],
+            "after": ["leader", "leader", "k"]
+        },
+        {
+            "before": ["J"],
+            "after": ["leader", "leader", "j"]
+        }
+    ],
+    "vim.autoindent": true,
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.easymotion": true
+}
