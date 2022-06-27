@@ -18,7 +18,7 @@
 	lg = log -n 30 --color --graph --branches --all --pretty=format:'%C(cyan)%h%C(reset) -%C(bold red)%d%C(reset) %s %C(green)(%C(reset)%C(bold green)%an%C(reset)%C(green): %cr)' --abbrev-commit
 	amend = commit --amend --no-edit
 	revert = checkout --
-  addnw = !sh -c 'git diff -U0 -w --no-color "$@" | git apply --cached --ignore-whitespace --unidiff-zero -'
+	addnw = !sh -c 'git diff -U0 -w --no-color "$@" | git apply --cached --ignore-whitespace --unidiff-zero -'
 	chk = checkout -b
 	cm = commit -m
 	uncommit = reset --soft HEAD^
