@@ -1,0 +1,234 @@
+{
+  // *** WORKBENCH ***
+  "workbench.settings.editor": "json",
+  "workbench.colorTheme": "Night Owl",
+  "workbench.editor.enablePreview": true,
+  "workbench.sideBar.location": "right",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.editor.restoreViewState": false,
+  "workbench.settings.openDefaultSettings": true,
+  "workbench.settings.useSplitJSON": true,
+
+  // *** WORKBENCH ***
+  "editor.fontFamily": "Source Code Pro Medium",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.suggestSelection": "first",
+  "editor.wordWrap": "on",
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "editor.matchBrackets": "never",
+  "editor.autoIndent": "full",
+  "editor.columnSelection": false,
+  "editor.cursorStyle": "block",
+  "editor.cursorBlinking": "solid",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.lineNumbers": "relative",
+  "editor.cursorSurroundingLines": 12,
+
+  // *** WINDOW ***
+  "window.restoreWindows": "none",
+  "window.titleBarStyle": "custom",
+
+  // *** EXPLORER ***
+  "explorer.compactFolders": false,
+
+  // *** TERMINAL ***
+  "terminal.integrated.lineHeight": 1.25,
+  "terminal.integrated.fontSize": 13,
+
+  // *** CUSTOMIZE UI ***
+  "customizeUI.font.regular": "Source Code Pro Medium",
+  "customizeUI.fontSizeMap": {
+    "13px": "13px",
+    "monospace": "13"
+  },
+
+  // *** FORMATTING AND LANGUAGE SPECIFIC ***
+  "editor.formatOnSave": true,
+  "prettier.requireConfig": true,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+
+  // *** PYTHON ***
+  "python.formatting.provider": "black",
+  "python.defaultInterpreterPath": "/usr/local/bin/python3",
+  "python.languageServer": "Pylance",
+
+  // *** VIM ***
+  "vim.useCtrlKeys": true,
+  "vim.camelCaseMotion.enable": true,
+  "vim.cursorStylePerMode.visual": "block",
+  "vim.cursorStylePerMode.visualblock": "block",
+  "vim.cursorStylePerMode.visualline": "block",
+  "vim.leader": " ",
+  "vim.startofline": false,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["u"],
+      "commands": ["undo"]
+    },
+    {
+      "before": ["<C-r>"],
+      "commands": ["redo"]
+    },
+    {
+      "before": ["<leader>", "s"],
+      "commands": ["workbench.action.splitEditor"]
+    },
+    {
+      "before": ["<leader>", "t"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+    {
+      "before": ["<leader>", "f"],
+      "commands": ["revealInExplorer"]
+    },
+    {
+      "before": ["<leader>", "c"],
+      "commands": ["extension.macColorPicker"]
+    },
+    {
+      "before": ["<leader>", "x"],
+      "commands": ["workbench.action.closePanel"]
+    },
+    {
+      "before": ["<leader>", "h"],
+      "commands": ["workbench.action.navigateLeft"]
+    },
+    {
+      "before": ["<leader>", "l"],
+      "commands": ["workbench.action.navigateRight"]
+    },
+    {
+      "before": ["<leader>", "j"],
+      "commands": ["workbench.action.navigateDown"]
+    },
+    {
+      "before": ["<leader>", "k"],
+      "commands": ["workbench.action.navigateUp"]
+    },
+    {
+      "before": ["<leader>", "i"],
+      "commands": ["workbench.action.nextEditorInGroup"]
+    },
+    {
+      "before": ["<leader>", "u"],
+      "commands": ["workbench.action.previousEditorInGroup"]
+    }
+  ],
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<leader>", "n"],
+      "after": ["^"]
+    },
+    {
+      "before": ["<leader>", "w"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.files.save",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "q"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.closeActiveEditor",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "a"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.files.save",
+          "args": []
+        },
+        {
+          "command": "workbench.action.closeActiveEditor",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["K"],
+      "after": ["leader", "leader", "k"]
+    },
+    {
+      "before": ["J"],
+      "after": ["leader", "leader", "j"]
+    },
+    {
+      "before": ["Y"],
+      "after": ["y", "$"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["K"],
+      "after": ["leader", "leader", "k"]
+    },
+    {
+      "before": ["J"],
+      "after": ["leader", "leader", "j"]
+    }
+  ],
+  "vim.autoindent": true,
+  "vim.hlsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.easymotion": true,
+  "vim.surround": true,
+  "terminal.integrated.gpuAcceleration": "off",
+  "vsicons.dontShowNewVersionMessage": true,
+  "window.zoomLevel": -1,
+  "security.workspace.trust.untrustedFiles": "open",
+  "files.associations": {
+    ".vsvimrc": "pip-requirements"
+  }
+}
