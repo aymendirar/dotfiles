@@ -226,9 +226,6 @@
   "vim.surround": true,
   "terminal.integrated.gpuAcceleration": "off",
   "vsicons.dontShowNewVersionMessage": true,
-  "window.zoomLevel": -1,
-  "security.workspace.trust.untrustedFiles": "open",
-  "files.associations": {
-    ".vsvimrc": "pip-requirements"
-  }
+  "window.zoomLevel": 0,
+  "security.workspace.trust.untrustedFiles": "open"
 }

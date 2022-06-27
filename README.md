@@ -1,3 +1,3 @@
 # .files
 
-handy dandy settings, defaults, configurations
+handy dandy settings, defaults, and configurations
