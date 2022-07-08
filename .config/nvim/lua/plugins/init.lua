@@ -9,6 +9,7 @@ require("plugins.configs.bufferline-config")
 require("plugins.configs.lualine-config")
 require("plugins.configs.colorizer-config")
 require("plugins.configs.neoformat-config")
+require("plugins.configs.telescope-config")
 
 -- packer config
 return require("packer").startup(function()
@@ -67,7 +68,7 @@ return require("packer").startup(function()
   })
   use("windwp/nvim-ts-autotag")
   use("sbdchd/neoformat")
-  use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+  use("kdheepak/lazygit.nvim")
 
   -- completion
   use("hrsh7th/cmp-nvim-lsp")

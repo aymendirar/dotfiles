@@ -48,7 +48,7 @@ require("lspconfig")["rust_analyzer"].setup({
   flags = lsp_flags,
   -- Server-specific settings...
   settings = {
-    ["rust-analyzer"] = {},
+    ["rust_analyzer"] = {},
   },
 })
 require("lspconfig")["sumneko_lua"].setup({

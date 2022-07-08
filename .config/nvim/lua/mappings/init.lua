@@ -24,9 +24,11 @@ map("n", "Y", "y$", options)
 
 -- plugin remappings
 map("n", "<leader>t", ":NeoTreeFocusToggle<CR>", options)
+map("n", "<leader>tr", ":NeoTreeReveal<CR>", options)
 
 map("n", "<leader>p", ":Telescope find_files<CR>", options)
 map("n", "<leader>s", ":Telescope live_grep<CR>", options)
 
-map("n", "<leader>d", ":DiffviewOpen<CR>", options)
-map("n", "<leader>dc", ":DiffviewClose<CR>", options)
+map("n", "<leader>g", ":LazyGit<CR>", options)
+
+map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", options)

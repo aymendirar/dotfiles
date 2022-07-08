@@ -21,6 +21,7 @@ set.smartcase = true
 set.splitbelow = true
 set.splitright = true
 set.wrap = true
+set.mouse = "a"
 
 set.scrolloff = 8
 set.fileencoding = "utf-8"
