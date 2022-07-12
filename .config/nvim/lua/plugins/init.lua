@@ -66,9 +66,16 @@ return require("packer").startup(function()
       require("nvim-autopairs").setup({})
     end,
   })
-  use("windwp/nvim-ts-autotag")
+  use({
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  })
   use("sbdchd/neoformat")
   use("kdheepak/lazygit.nvim")
+
+  use("phelipetls/vim-hugo")
 
   -- completion
   use("hrsh7th/cmp-nvim-lsp")

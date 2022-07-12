@@ -3,11 +3,11 @@ require("telescope").setup({
   defaults = {
     mappings = {
       n = {
-        ["<CR>"] = actions.select_tab,
+        ["<C-t>"] = actions.select_tab,
         ["<C-s>"] = actions.file_vsplit,
       },
       i = {
-        ["<CR>"] = actions.select_tab,
+        ["<C-t>"] = actions.select_tab,
         ["<C-s>"] = actions.file_vsplit,
       },
     },
