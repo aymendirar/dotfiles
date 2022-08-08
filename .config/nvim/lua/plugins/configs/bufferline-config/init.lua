@@ -1,8 +1,8 @@
 vim.opt.termguicolors = true
 require("bufferline").setup({
   options = {
-    mode = "tabs",
+    mode = "buffers",
     offsets = { { filetype = "neo-tree" } },
-    separator_style = "thin",
+    separator_style = "padded slant",
   },
 })

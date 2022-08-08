@@ -26,7 +26,6 @@ set.mouse = "a"
 set.scrolloff = 8
 set.fileencoding = "utf-8"
 
-set.termguicolors = true
 set.cursorline = true
 
 set.hidden = true
@@ -34,6 +33,7 @@ set.hidden = true
 -- raw settings
 raw_set("set clipboard+=unnamedplus") -- use system clipboard
 raw_set("set foldlevel=99")
+raw_set("set signcolumn=yes")
 
 -- window settings
 window.foldmethod = "expr"

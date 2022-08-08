@@ -5,4 +5,4 @@ require("gitsigns").setup({
   },
 })
 
-vim.api.nvim_command("highlight link GitSignsCurrentLineBlame Insert")
+vim.highlight.link("GitSignsCurrentLineBlame", "Comment", true)

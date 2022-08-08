@@ -3,6 +3,7 @@ require("plugins.configs.nvim-cmp-config")
 require("plugins.configs.nvim-neo-tree-config")
 require("plugins.configs.nvim-lsp-installer-config")
 require("plugins.configs.nvim-treesitter-config")
+require("plugins.configs.nvim-treesitter-context-config")
 require("plugins.configs.nvim-lsp-config-config")
 require("plugins.configs.gitsigns-config")
 require("plugins.configs.bufferline-config")
@@ -10,6 +11,10 @@ require("plugins.configs.lualine-config")
 require("plugins.configs.colorizer-config")
 require("plugins.configs.neoformat-config")
 require("plugins.configs.telescope-config")
+require("plugins.configs.rust-tools-config")
+require("plugins.configs.indent-blankline-config")
+require("plugins.configs.diffview-config")
+require("plugins.configs.scrollbar-config")
 
 -- packer config
 return require("packer").startup(function()
@@ -34,6 +39,7 @@ return require("packer").startup(function()
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   })
+  use("nvim-treesitter/nvim-treesitter-context")
   use({
     "nmac427/guess-indent.nvim",
     config = function()
@@ -55,11 +61,7 @@ return require("packer").startup(function()
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
   })
-  use({
-    "akinsho/bufferline.nvim",
-    tag = "v2.*",
-    requires = "kyazdani42/nvim-web-devicons",
-  })
+  use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
   use({
     "windwp/nvim-autopairs",
     config = function()
@@ -73,9 +75,30 @@ return require("packer").startup(function()
     end,
   })
   use("sbdchd/neoformat")
-  use("kdheepak/lazygit.nvim")
 
+  use({
+    "sindrets/diffview.nvim",
+    requires = "nvim-lua/plenary.nvim",
+  })
+  use("lukas-reineke/indent-blankline.nvim")
+  use("petertriho/nvim-scrollbar")
+
+  -- language specific
+  use("simrat39/rust-tools.nvim")
   use("phelipetls/vim-hugo")
+  use({
+    "chipsenkbeil/distant.nvim",
+    config = function()
+      require("distant").setup({
+        -- Applies Chip's personal settings to every machine you connect to
+        --
+        -- 1. Ensures that distant servers terminate with no connections
+        -- 2. Provides navigation bindings for remote directories
+        -- 3. Provides keybinding to jump into a remote file's parent directory
+        ["*"] = require("distant.settings").chip_default(),
+      })
+    end,
+  })
 
   -- completion
   use("hrsh7th/cmp-nvim-lsp")
