@@ -39,7 +39,17 @@ map("n", "<leader>s", ":Telescope live_grep<CR>", options)
 map("n", "<leader>d", ":Telescope diagnostics<CR>", options)
 map("n", "<leader>sr", ":Telescope resume<CR>", options)
 
+map("n", "<leader>lg", ":LazyGit<CR>", options)
 map("n", "<leader>g", ":DiffviewOpen<CR>", options)
 map("n", "<leader>qg", ":DiffviewClose<CR>", options)
 
 map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", options)
+
+map("n", "<leader>dl", ":DistantLaunch thetis.students.cs.ubc.ca mode=ssh ssh.user=adirar01<CR>", options)
+map("n", "<leader>doh", ":DistantOpen /home/a/adirar01<CR>", options)
+
+map("n", "<leader>gcl", ":GitConflictListQf<CR>", options)
+map("n", "<leader>gcn", ":GitConflictNextConflict<CR>", options)
+map("n", "<leader>gcp", ":GitConflictPrevConflict<CR>", options)
+
+map("n", "<leader>gi", ":GuessIndent<CR>", options)

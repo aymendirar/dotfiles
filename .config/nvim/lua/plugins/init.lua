@@ -1,7 +1,7 @@
 -- plugin specific configs
 require("plugins.configs.nvim-cmp-config")
 require("plugins.configs.nvim-neo-tree-config")
-require("plugins.configs.nvim-lsp-installer-config")
+require("plugins.configs.mason-config")
 require("plugins.configs.nvim-treesitter-config")
 require("plugins.configs.nvim-treesitter-context-config")
 require("plugins.configs.nvim-lsp-config-config")
@@ -9,7 +9,7 @@ require("plugins.configs.gitsigns-config")
 require("plugins.configs.bufferline-config")
 require("plugins.configs.lualine-config")
 require("plugins.configs.colorizer-config")
-require("plugins.configs.neoformat-config")
+require("plugins.configs.format-config")
 require("plugins.configs.telescope-config")
 require("plugins.configs.rust-tools-config")
 require("plugins.configs.indent-blankline-config")
@@ -20,6 +20,7 @@ require("plugins.configs.scrollbar-config")
 return require("packer").startup(function()
   use("wbthomason/packer.nvim")
   use("bluz71/vim-nightfly-guicolors")
+  use("folke/tokyonight.nvim")
   use("p00f/nvim-ts-rainbow")
   use("norcalli/nvim-colorizer.lua")
   use({
@@ -33,8 +34,15 @@ return require("packer").startup(function()
   })
 
   -- IDE-esque
-  use("williamboman/nvim-lsp-installer")
-  use("neovim/nvim-lspconfig")
+  use({
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  })
+  use("mfussenegger/nvim-dap")
+  use("mfussenegger/nvim-lint")
+  use({ "mhartington/formatter.nvim" })
+
   use({
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
@@ -74,27 +82,32 @@ return require("packer").startup(function()
       require("nvim-ts-autotag").setup()
     end,
   })
-  use("sbdchd/neoformat")
 
   use({
     "sindrets/diffview.nvim",
     requires = "nvim-lua/plenary.nvim",
   })
+  use({
+    "akinsho/git-conflict.nvim",
+    tag = "*",
+    config = function()
+      require("git-conflict").setup()
+    end,
+  })
+  use("kdheepak/lazygit.nvim")
+
   use("lukas-reineke/indent-blankline.nvim")
   use("petertriho/nvim-scrollbar")
 
   -- language specific
   use("simrat39/rust-tools.nvim")
   use("phelipetls/vim-hugo")
+
+  -- experimental vscode ssh-esque
   use({
     "chipsenkbeil/distant.nvim",
     config = function()
       require("distant").setup({
-        -- Applies Chip's personal settings to every machine you connect to
-        --
-        -- 1. Ensures that distant servers terminate with no connections
-        -- 2. Provides navigation bindings for remote directories
-        -- 3. Provides keybinding to jump into a remote file's parent directory
         ["*"] = require("distant.settings").chip_default(),
       })
     end,

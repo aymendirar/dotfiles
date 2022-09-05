@@ -1,4 +1,19 @@
 require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    "astro",
+    "c",
+    "cpp",
+    "dockerfile",
+    "go",
+    "html",
+    "lua",
+    "markdown",
+    "python",
+    "rust",
+    "sql",
+    "tsx",
+    "typescript",
+  },
   highlight = {
     enable = true,
   },

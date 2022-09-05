@@ -1,7 +1,7 @@
 {
   // *** WORKBENCH ***
   "workbench.settings.editor": "json",
-  "workbench.colorTheme": "Night Owl",
+  "workbench.colorTheme": "Tokyo Night",
   "workbench.editor.enablePreview": true,
   "workbench.sideBar.location": "right",
   "workbench.iconTheme": "material-icon-theme",
@@ -10,7 +10,7 @@
   "workbench.settings.openDefaultSettings": true,
   "workbench.settings.useSplitJSON": true,
 
-  // *** WORKBENCH ***
+  // *** EDITOR ***
   "editor.fontFamily": "Source Code Pro Medium",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
@@ -226,6 +226,8 @@
   "vim.surround": true,
   "terminal.integrated.gpuAcceleration": "off",
   "vsicons.dontShowNewVersionMessage": true,
-  "window.zoomLevel": 0,
-  "security.workspace.trust.untrustedFiles": "open"
+  "security.workspace.trust.untrustedFiles": "open",
+  "workbench.layoutControl.enabled": false,
+  "window.zoomLevel": -1,
+  "editor.stickyScroll.enabled": true
 }
