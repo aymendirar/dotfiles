@@ -21,8 +21,10 @@ return require("packer").startup(function()
   use("wbthomason/packer.nvim")
   use("bluz71/vim-nightfly-guicolors")
   use("folke/tokyonight.nvim")
+  use({ "catppuccin/nvim", as = "catppuccin" })
   use("p00f/nvim-ts-rainbow")
   use("norcalli/nvim-colorizer.lua")
+  use("psliwka/vim-smoothie")
   use({
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",

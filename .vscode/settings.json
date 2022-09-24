@@ -1,7 +1,7 @@
 {
   // *** WORKBENCH ***
   "workbench.settings.editor": "json",
-  "workbench.colorTheme": "Tokyo Night",
+  "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.editor.enablePreview": true,
   "workbench.sideBar.location": "right",
   "workbench.iconTheme": "material-icon-theme",
@@ -13,7 +13,7 @@
   // *** EDITOR ***
   "editor.fontFamily": "Source Code Pro Medium",
   "editor.fontLigatures": true,
-  "editor.fontSize": 14,
+  "editor.fontSize": 15,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,
@@ -228,6 +228,7 @@
   "vsicons.dontShowNewVersionMessage": true,
   "security.workspace.trust.untrustedFiles": "open",
   "workbench.layoutControl.enabled": false,
-  "window.zoomLevel": -1,
-  "editor.stickyScroll.enabled": true
+  "editor.stickyScroll.enabled": true,
+  "editor.minimap.enabled": false,
+  "window.zoomLevel": -1
 }

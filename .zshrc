@@ -5,6 +5,7 @@ ZSH_DISABLE_COMPFIX="true"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/aymendirar/.oh-my-zsh"
+export JAVA_HOME="/Users/aymendirar/Library/Java/JavaVirtualMachines/corretto-1.8.0_312/contents/Home"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -102,6 +103,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias v="nvim"
 alias gdiff="git diff -- ':!*/package-lock.json' ':!*/yarn.lock'"
+alias tree1="tree -L 1"
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
