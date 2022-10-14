@@ -42,8 +42,10 @@ return require("packer").startup(function()
     "neovim/nvim-lspconfig",
   })
   use("mfussenegger/nvim-dap")
+  use({ "rcarriga/nvim-dap-ui" })
   use("mfussenegger/nvim-lint")
   use({ "mhartington/formatter.nvim" })
+  use({ "gpanders/editorconfig.nvim" })
 
   use({
     "nvim-treesitter/nvim-treesitter",
@@ -100,6 +102,15 @@ return require("packer").startup(function()
 
   use("lukas-reineke/indent-blankline.nvim")
   use("petertriho/nvim-scrollbar")
+  use("stevearc/dressing.nvim")
+  use({
+    "ziontee113/icon-picker.nvim",
+    config = function()
+      require("icon-picker").setup({
+        disable_legacy_commands = true,
+      })
+    end,
+  })
 
   -- language specific
   use("simrat39/rust-tools.nvim")

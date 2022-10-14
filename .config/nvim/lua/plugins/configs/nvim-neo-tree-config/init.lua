@@ -9,6 +9,7 @@ require("neo-tree").setup({
       hide_dotfiles = false,
       hide_gitignored = true,
     },
+    use_libuv_file_watcher = true, -- refresh automagically?
     commands = {
       -- Override delete to use trash instead of rm
       delete = function(state)

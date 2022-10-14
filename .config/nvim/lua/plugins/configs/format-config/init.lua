@@ -2,7 +2,7 @@ local default_filetype_configs = require("formatter.filetypes")
 
 require("formatter").setup({
   -- Enable or disable logging
-  logging = true,
+  logging = true, -- Enable or disable logging
   -- Set the log level
   log_level = vim.log.levels.WARN,
   -- All formatter configurations are opt-in
@@ -14,6 +14,7 @@ require("formatter").setup({
     html = default_filetype_configs.html.prettier,
     javascript = default_filetype_configs.javascript.pretier,
     javascriptreact = default_filetype_configs.javascriptreact.prettier,
+    json = default_filetype_configs.json.prettier,
     typescript = default_filetype_configs.typescript.prettier,
     typescriptreact = default_filetype_configs.typescriptreact.prettier,
     rust = default_filetype_configs.rust.rustfmt,

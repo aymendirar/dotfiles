@@ -7,9 +7,6 @@ set.guicursor = ""
 set.termguicolors = true
 set.hidden = true
 set.relativenumber = true
-set.expandtab = true
-set.smarttab = true
-
 set.tabstop = 2
 set.shiftwidth = 2
 
