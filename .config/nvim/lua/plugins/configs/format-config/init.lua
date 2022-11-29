@@ -8,13 +8,13 @@ require("formatter").setup({
   -- All formatter configurations are opt-in
   filetype = {
     lua = default_filetype_configs.lua.stylua,
-    c = default_filetype_configs.c.clangdformat,
-    cpp = default_filetype_configs.cpp.clangdformat,
+    c = default_filetype_configs.c.clangformat,
+    cpp = default_filetype_configs.cpp.clangformat,
     python = default_filetype_configs.python.black,
     html = default_filetype_configs.html.prettier,
     javascript = default_filetype_configs.javascript.pretier,
     javascriptreact = default_filetype_configs.javascriptreact.prettier,
-    json = default_filetype_configs.json.prettier,
+    -- json = default_filetype_configs.json.prettier,
     typescript = default_filetype_configs.typescript.prettier,
     typescriptreact = default_filetype_configs.typescriptreact.prettier,
     rust = default_filetype_configs.rust.rustfmt,

@@ -21,7 +21,7 @@ local colors = {
 
 require("scrollbar").setup({
   handle = {
-    color = colors.color8,
+    color = nil,
   },
   marks = {
     Search = { color = colors.color1 },

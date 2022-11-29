@@ -29,6 +29,13 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+
+  require("lsp_signature").on_attach({
+    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    handler_opts = {
+      border = "rounded",
+    },
+  }, bufnr)
 end
 
 local lsp_flags = {

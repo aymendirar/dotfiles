@@ -4,5 +4,3 @@ require("gitsigns").setup({
     delay = 400,
   },
 })
-
-vim.highlight.link("GitSignsCurrentLineBlame", "Comment", true)

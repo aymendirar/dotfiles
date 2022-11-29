@@ -9,7 +9,6 @@ map("v", "<tab>", ">", options)
 
 -- insert mode remappings
 map("i", "jj", "<Esc>", options)
-map("i", "<C-i>", "<Cmd>IconPickerInsert<CR>", options)
 map("i", "<S-Tab>", "<C-d>", options)
 
 -- normal mode remappings
@@ -29,14 +28,14 @@ map("n", "<leader>a", ":wa<CR>", options)
 map("n", "<leader>q", ":q<CR>", options)
 map("n", "Y", "y$", options)
 map("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", options) -- copy full file path
-map("n", "<leader>et", ":Explore<CR>", options) -- useful for remote?
-map("n", "<leader>ev", ":Vexplore!<CR>", options) -- useful for remote?
 
 -- plugin remappings
+map("n", "<leader>m", "<Cmd>IconPickerNormal<CR>", options)
 map("n", "<leader>u", ":BufferLineCyclePrev<CR>", options)
 map("n", "<leader>i", ":BufferLineCycleNext<CR>", options)
-map("n", "<leader>ql", ":BufferLineCloseRight<CR>", options)
-map("n", "<leader>qh", ":BufferLineCloseLeft<CR>", options)
+map("n", "<leader>ql", ":BufferLineCloseRight<CR>:e<CR>", options)
+map("n", "<leader>qh", ":BufferLineCloseLeft<CR>:e<CR>", options)
+map("n", "<leader>qx", ":BufferLineCloseLeft<CR>:e<CR>:BufferLineCloseRight<CR>:e<CR>", options)
 map("n", "<C-h>", ":BufferLineMovePrev<CR>", options)
 map("n", "<C-l>", ":BufferLineMoveNext<CR>", options)
 

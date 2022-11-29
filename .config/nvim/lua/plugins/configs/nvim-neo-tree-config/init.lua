@@ -2,8 +2,24 @@ require("neo-tree").setup({
   close_if_last_window = true,
   window = {
     position = "right",
+    mappings = {
+      ["c"] = {
+        "copy",
+        config = {
+          show_path = "relative",
+        },
+      },
+      ["m"] = {
+        "move",
+        config = {
+          show_path = "relative",
+        },
+      },
+      ["o"] = "system_open",
+    },
   },
   filesystem = {
+    follow_current_file = true,
     filtered_items = {
       visible = true,
       hide_dotfiles = false,
@@ -16,6 +32,13 @@ require("neo-tree").setup({
         local path = state.tree:get_node().path
         vim.fn.system({ "trash", vim.fn.fnameescape(path) })
         require("neo-tree.sources.manager").refresh(state.name)
+      end,
+      -- open with finder!
+      system_open = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        -- macOS: open file in default application in the background.
+        vim.api.nvim_exec("!open " .. path, "")
       end,
     },
   },

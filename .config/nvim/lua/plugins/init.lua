@@ -22,6 +22,7 @@ return require("packer").startup(function()
   use("bluz71/vim-nightfly-guicolors")
   use("folke/tokyonight.nvim")
   use({ "catppuccin/nvim", as = "catppuccin" })
+  use({ "projekt0n/github-nvim-theme" })
   use("p00f/nvim-ts-rainbow")
   use("norcalli/nvim-colorizer.lua")
   use("psliwka/vim-smoothie")
@@ -41,6 +42,7 @@ return require("packer").startup(function()
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
   })
+  use("ray-x/lsp_signature.nvim")
   use("mfussenegger/nvim-dap")
   use({ "rcarriga/nvim-dap-ui" })
   use("mfussenegger/nvim-lint")
@@ -115,6 +117,12 @@ return require("packer").startup(function()
   -- language specific
   use("simrat39/rust-tools.nvim")
   use("phelipetls/vim-hugo")
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  })
 
   -- experimental vscode ssh-esque
   use({

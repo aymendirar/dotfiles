@@ -6,9 +6,10 @@ local window = vim.wo
 set.guicursor = ""
 set.termguicolors = true
 set.hidden = true
-set.relativenumber = true
+set.number = true
 set.tabstop = 2
 set.shiftwidth = 2
+set.autoindent = true
 
 set.hlsearch = true
 set.incsearch = true
