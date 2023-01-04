@@ -1,3 +1,4 @@
+require("autocmds")
 require("settings")
 require("colorschemes")
 require("plugins")

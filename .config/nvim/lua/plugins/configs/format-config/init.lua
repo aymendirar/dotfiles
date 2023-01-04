@@ -14,7 +14,7 @@ require("formatter").setup({
     html = default_filetype_configs.html.prettier,
     javascript = default_filetype_configs.javascript.pretier,
     javascriptreact = default_filetype_configs.javascriptreact.prettier,
-    -- json = default_filetype_configs.json.prettier,
+    json = default_filetype_configs.json.prettier,
     typescript = default_filetype_configs.typescript.prettier,
     typescriptreact = default_filetype_configs.typescriptreact.prettier,
     rust = default_filetype_configs.rust.rustfmt,
@@ -31,9 +31,9 @@ require("formatter").setup({
   },
 })
 
-vim.cmd([[
-  augroup FormatAutogroup
-    autocmd!
-    autocmd BufWritePost * FormatWrite
-  augroup END
-]])
+-- vim.cmd([[
+--   augroup FormatAutogroup
+--     autocmd!
+--     autocmd BufWritePost * FormatWrite
+--   augroup END
+-- ]])

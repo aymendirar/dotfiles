@@ -1,4 +1,5 @@
 local actions = require("telescope.actions")
+require("telescope").load_extension("emoji")
 require("telescope").setup({
   defaults = {
     mappings = {

@@ -4,3 +4,5 @@ require("gitsigns").setup({
     delay = 400,
   },
 })
+
+require("scrollbar.handlers.gitsigns").setup()

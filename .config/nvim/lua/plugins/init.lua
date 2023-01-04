@@ -22,6 +22,9 @@ return require("packer").startup(function()
   use("bluz71/vim-nightfly-guicolors")
   use("folke/tokyonight.nvim")
   use({ "catppuccin/nvim", as = "catppuccin" })
+  use({ "pappasam/papercolor-theme-slim" })
+  use({ "daschw/leaf.nvim" })
+  use({ "ellisonleao/gruvbox.nvim" })
   use({ "projekt0n/github-nvim-theme" })
   use("p00f/nvim-ts-rainbow")
   use("norcalli/nvim-colorizer.lua")
@@ -67,6 +70,7 @@ return require("packer").startup(function()
     end,
   })
   use("lewis6991/gitsigns.nvim")
+  use("xiyaowong/telescope-emoji.nvim")
   use({
     "nvim-telescope/telescope.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
@@ -105,14 +109,6 @@ return require("packer").startup(function()
   use("lukas-reineke/indent-blankline.nvim")
   use("petertriho/nvim-scrollbar")
   use("stevearc/dressing.nvim")
-  use({
-    "ziontee113/icon-picker.nvim",
-    config = function()
-      require("icon-picker").setup({
-        disable_legacy_commands = true,
-      })
-    end,
-  })
 
   -- language specific
   use("simrat39/rust-tools.nvim")

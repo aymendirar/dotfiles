@@ -9,6 +9,7 @@ map("v", "<tab>", ">", options)
 
 -- insert mode remappings
 map("i", "jj", "<Esc>", options)
+map("i", "JJ", "<Esc>", options)
 map("i", "<S-Tab>", "<C-d>", options)
 
 -- normal mode remappings
@@ -30,7 +31,6 @@ map("n", "Y", "y$", options)
 map("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", options) -- copy full file path
 
 -- plugin remappings
-map("n", "<leader>m", "<Cmd>IconPickerNormal<CR>", options)
 map("n", "<leader>u", ":BufferLineCyclePrev<CR>", options)
 map("n", "<leader>i", ":BufferLineCycleNext<CR>", options)
 map("n", "<leader>ql", ":BufferLineCloseRight<CR>:e<CR>", options)
@@ -42,6 +42,7 @@ map("n", "<C-l>", ":BufferLineMoveNext<CR>", options)
 map("n", "<leader>t", ":NeoTreeFocusToggle<CR>", options)
 map("n", "<leader>tr", ":NeoTreeReveal<CR>", options)
 
+map("n", "<leader>m", ":Telescope emoji<CR>", options)
 map("n", "<leader>p", ":Telescope find_files<CR>", options)
 map("n", "<leader>s", ":Telescope live_grep<CR>", options)
 map("n", "<leader>d", ":Telescope diagnostics<CR>", options)
@@ -61,3 +62,4 @@ map("n", "<leader>gcn", ":GitConflictNextConflict<CR>", options)
 map("n", "<leader>gcp", ":GitConflictPrevConflict<CR>", options)
 
 map("n", "<leader>gi", ":GuessIndent<CR>", options)
+map("n", "<leader>fw", ":FormatWrite<CR>", options)

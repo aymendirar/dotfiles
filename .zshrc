@@ -1,6 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export PATH=$PATH:/Applications/Racket\ v8.7/bin/racket:/Applications/Racket\ v8.7/bin
+
 ZSH_DISABLE_COMPFIX="true"
 
 # Path to your oh-my-zsh installation.

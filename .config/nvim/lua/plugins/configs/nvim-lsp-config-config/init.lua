@@ -62,6 +62,10 @@ require("lspconfig")["pyright"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
+require("lspconfig")["racket_langserver"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
 require("lspconfig")["rust_analyzer"].setup({
   on_attach = on_attach,
   flags = lsp_flags,

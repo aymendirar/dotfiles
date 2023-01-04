@@ -1,6 +1,7 @@
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "astro",
+    "bash",
     "c",
     "cpp",
     "dockerfile",
@@ -9,6 +10,7 @@ require("nvim-treesitter.configs").setup({
     "lua",
     "markdown",
     "python",
+    "racket",
     "rust",
     "sql",
     "tsx",
@@ -18,7 +20,7 @@ require("nvim-treesitter.configs").setup({
     enable = true,
   },
   indent = {
-    enable = true,
+    enable = false, -- this is hit or miss
   },
   rainbow = {
     enable = true,
