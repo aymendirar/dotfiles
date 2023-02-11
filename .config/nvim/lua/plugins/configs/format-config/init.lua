@@ -33,7 +33,6 @@ require("formatter").setup({
   },
 })
 
--- removing this because <leader>fw formats a file now
 -- vim.cmd([[
 --   augroup FormatAutogroup
 --     autocmd!

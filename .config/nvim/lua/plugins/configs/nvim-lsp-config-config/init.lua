@@ -46,7 +46,7 @@ require("lspconfig")["clangd"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["hls"].setup({ -- hls is kinda funky and code suggestions don't work
+require("lspconfig")["hls"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
