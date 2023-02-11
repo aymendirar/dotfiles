@@ -1,4 +1,4 @@
-local colors = require("catppuccin.palettes.mocha")
+local colors = require("catppuccin.palettes.frappe")
 
 require("scrollbar").setup({
   handle = {

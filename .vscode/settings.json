@@ -11,9 +11,10 @@
   "workbench.settings.useSplitJSON": true,
 
   // *** EDITOR ***
-  "editor.fontFamily": "Source Code Pro Medium",
+  "editor.fontFamily": "JetBrainsMonoNL Nerd Font Mono",
+  "editor.fontWeight": "700",
   "editor.fontLigatures": true,
-  "editor.fontSize": 15,
+  "editor.fontSize": 13,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,
@@ -25,7 +26,6 @@
   "editor.cursorBlinking": "solid",
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
-  "editor.lineNumbers": "relative",
   "editor.cursorSurroundingLines": 12,
 
   // *** WINDOW ***
@@ -38,6 +38,7 @@
   // *** TERMINAL ***
   "terminal.integrated.lineHeight": 1.25,
   "terminal.integrated.fontSize": 13,
+  "terminal.integrated.fontWeight": 700,
 
   // *** CUSTOMIZE UI ***
   "customizeUI.font.regular": "Source Code Pro Medium",
@@ -229,6 +230,5 @@
   "security.workspace.trust.untrustedFiles": "open",
   "workbench.layoutControl.enabled": false,
   "editor.stickyScroll.enabled": true,
-  "editor.minimap.enabled": false,
-  "window.zoomLevel": -1
+  "editor.minimap.enabled": false
 }

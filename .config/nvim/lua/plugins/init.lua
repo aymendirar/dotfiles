@@ -15,6 +15,21 @@ require("plugins.configs.rust-tools-config")
 require("plugins.configs.indent-blankline-config")
 require("plugins.configs.diffview-config")
 require("plugins.configs.scrollbar-config")
+require("plugins.configs.peek-config")
+require("plugins.configs.toggle-term-config")
+
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.cmd([[packadd packer.nvim]])
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
 
 -- packer config
 return require("packer").startup(function()
@@ -79,6 +94,7 @@ return require("packer").startup(function()
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
   })
+  use("feline-nvim/feline.nvim")
   use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
   use({
     "windwp/nvim-autopairs",
@@ -92,6 +108,15 @@ return require("packer").startup(function()
       require("nvim-ts-autotag").setup()
     end,
   })
+  use("tpope/vim-surround")
+  use({
+    "folke/trouble.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = function()
+      require("trouble").setup()
+    end,
+  })
+  use {"akinsho/toggleterm.nvim", tag = '*'}
 
   use({
     "sindrets/diffview.nvim",
@@ -119,6 +144,7 @@ return require("packer").startup(function()
       vim.fn["mkdp#util#install"]()
     end,
   })
+  use({ "toppair/peek.nvim", run = "deno task --quiet build:fast" })
 
   -- experimental vscode ssh-esque
   use({
@@ -138,4 +164,8 @@ return require("packer").startup(function()
   use("hrsh7th/nvim-cmp")
   use("hrsh7th/cmp-vsnip")
   use("hrsh7th/vim-vsnip")
+
+  if packer_bootstrap then
+    require("packer").sync()
+  end
 end)

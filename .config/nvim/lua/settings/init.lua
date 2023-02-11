@@ -10,6 +10,7 @@ set.number = true
 set.tabstop = 2
 set.shiftwidth = 2
 set.autoindent = true
+set.expandtab = true
 
 set.hlsearch = true
 set.incsearch = true

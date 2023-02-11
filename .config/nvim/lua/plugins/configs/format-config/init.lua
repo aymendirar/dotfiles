@@ -18,6 +18,8 @@ require("formatter").setup({
     typescript = default_filetype_configs.typescript.prettier,
     typescriptreact = default_filetype_configs.typescriptreact.prettier,
     rust = default_filetype_configs.rust.rustfmt,
+    markdown = default_filetype_configs.markdown.prettier,
+    haskell = default_filetype_configs.haskell.stylish_haskell,
 
     -- Use the special "*" filetype for defining formatter configurations on
     -- any filetype
@@ -31,6 +33,7 @@ require("formatter").setup({
   },
 })
 
+-- removing this because <leader>fw formats a file now
 -- vim.cmd([[
 --   augroup FormatAutogroup
 --     autocmd!

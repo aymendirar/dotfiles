@@ -39,7 +39,7 @@ map("n", "<leader>qx", ":BufferLineCloseLeft<CR>:e<CR>:BufferLineCloseRight<CR>:
 map("n", "<C-h>", ":BufferLineMovePrev<CR>", options)
 map("n", "<C-l>", ":BufferLineMoveNext<CR>", options)
 
-map("n", "<leader>t", ":NeoTreeFocusToggle<CR>", options)
+map("n", "<leader>ts", ":NeoTreeFocusToggle<CR>", options)
 map("n", "<leader>tr", ":NeoTreeReveal<CR>", options)
 
 map("n", "<leader>m", ":Telescope emoji<CR>", options)
@@ -63,3 +63,7 @@ map("n", "<leader>gcp", ":GitConflictPrevConflict<CR>", options)
 
 map("n", "<leader>gi", ":GuessIndent<CR>", options)
 map("n", "<leader>fw", ":FormatWrite<CR>", options)
+
+map("n", "<leader>tb", ":TroubleToggle<CR>", options)
+
+map("n", "<C-`>", ":ToggleTerm<CR>", options)

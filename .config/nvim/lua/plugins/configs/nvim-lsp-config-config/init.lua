@@ -46,6 +46,10 @@ require("lspconfig")["clangd"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
+require("lspconfig")["hls"].setup({ -- hls is kinda funky and code suggestions don't work
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
 require("lspconfig")["html"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
@@ -101,6 +105,7 @@ require("lspconfig")["sumneko_lua"].setup({
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
