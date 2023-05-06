@@ -9,6 +9,8 @@ vim.opt.list = true
 vim.opt.listchars:append("space:⋅")
 
 require("indent_blankline").setup({
+  enabled = true,
+  colored_indent_levels = false,
   space_char_blankline = " ",
   char_highlight_list = {
     "IndentBlanklineIndent1",

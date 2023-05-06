@@ -1,7 +1,7 @@
 {
   // *** WORKBENCH ***
   "workbench.settings.editor": "json",
-  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.colorTheme": "Catppuccin Frappé",
   "workbench.editor.enablePreview": true,
   "workbench.sideBar.location": "right",
   "workbench.iconTheme": "material-icon-theme",
@@ -11,7 +11,7 @@
   "workbench.settings.useSplitJSON": true,
 
   // *** EDITOR ***
-  "editor.fontFamily": "JetBrainsMonoNL Nerd Font Mono",
+  "editor.fontFamily": "BlexMono Nerd Font Mono",
   "editor.fontWeight": "700",
   "editor.fontLigatures": true,
   "editor.fontSize": 13,

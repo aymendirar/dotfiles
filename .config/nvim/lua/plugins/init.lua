@@ -7,7 +7,8 @@ require("plugins.configs.nvim-treesitter-context-config")
 require("plugins.configs.nvim-lsp-config-config")
 require("plugins.configs.gitsigns-config")
 require("plugins.configs.bufferline-config")
-require("plugins.configs.lualine-config")
+-- require("plugins.configs.lualine-config")
+require("plugins.configs.feline-config")
 require("plugins.configs.colorizer-config")
 require("plugins.configs.format-config")
 require("plugins.configs.telescope-config")
@@ -95,6 +96,18 @@ return require("packer").startup(function()
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
   })
   use("feline-nvim/feline.nvim")
+  use({
+    "utilyre/barbecue.nvim",
+    tag = "*",
+    requires = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    after = "nvim-web-devicons", -- keep this if you're using NvChad
+    config = function()
+      require("barbecue").setup()
+    end,
+  })
   use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
   use({
     "windwp/nvim-autopairs",
@@ -116,7 +129,7 @@ return require("packer").startup(function()
       require("trouble").setup()
     end,
   })
-  use {"akinsho/toggleterm.nvim", tag = '*'}
+  use({ "akinsho/toggleterm.nvim", tag = "*" })
 
   use({
     "sindrets/diffview.nvim",

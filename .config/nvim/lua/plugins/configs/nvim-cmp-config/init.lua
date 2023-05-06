@@ -79,7 +79,7 @@ require("lspconfig")["racket_langserver"].setup({
 require("lspconfig")["rust_analyzer"].setup({
   capabilities = capabilities,
 })
-require("lspconfig")["sumneko_lua"].setup({
+require("lspconfig")["lua_ls"].setup({
   capabilities = capabilities,
 })
 require("lspconfig")["tsserver"].setup({

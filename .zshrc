@@ -106,6 +106,11 @@ fi
 alias v="nvim"
 alias gdiff="git diff -- ':!*/package-lock.json' ':!*/yarn.lock'"
 alias tree1="tree -L 1"
+alias diarrhea="cd ~/Developer/diarrhea && v ."
+alias config="cd ~/.config/nvim && v ."
+alias school="cd ~/Desktop/ubc-2022-2023/term-2 && v ."
+alias 411="cd ~/Developer/cpsc411-prj_nzspm && v ."
+alias nuke-swaps="rm ~/.local/state/nvim/swap/*"
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # POWERLEVEL9K_PROMPT_ADD_NEWLINE=true

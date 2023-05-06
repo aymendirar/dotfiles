@@ -16,6 +16,9 @@
     "altThirdCycle" : {
       "int" : 0
     },
+    "alwaysAccountForStage" : {
+      "int" : 0
+    },
     "applyGapsToMaximize" : {
       "int" : 0
     },
@@ -46,8 +49,17 @@
     "disabledApps" : {
 
     },
+    "dragFromStage" : {
+      "int" : 0
+    },
+    "enhancedUI" : {
+      "int" : 1
+    },
     "footprintAlpha" : {
       "float" : 0.30000001192092896
+    },
+    "footprintAnimationDurationMultiplier" : {
+      "float" : 0
     },
     "footprintBorderWidth" : {
       "float" : 2
@@ -84,6 +96,12 @@
     },
     "missionControlDragging" : {
       "int" : 0
+    },
+    "missionControlDraggingAllowedOffscreenDistance" : {
+      "float" : 25
+    },
+    "missionControlDraggingDisallowedDuration" : {
+      "int" : 250
     },
     "moveCursor" : {
       "int" : 0
@@ -172,6 +190,9 @@
     "todoMode" : {
       "bool" : false
     },
+    "todoSidebarSide" : {
+      "int" : 1
+    },
     "todoSidebarWidth" : {
       "float" : 400
     },
@@ -258,6 +279,10 @@
       "keyCode" : 123,
       "modifierFlags" : 1835008
     },
+    "reflowTodo" : {
+      "keyCode" : 45,
+      "modifierFlags" : 786432
+    },
     "restore" : {
       "keyCode" : 51,
       "modifierFlags" : 786432
@@ -268,6 +293,10 @@
     },
     "smaller" : {
       "keyCode" : 27,
+      "modifierFlags" : 786432
+    },
+    "toggleTodo" : {
+      "keyCode" : 11,
       "modifierFlags" : 786432
     },
     "topHalf" : {
@@ -283,5 +312,5 @@
       "modifierFlags" : 786432
     }
   },
-  "version" : "65"
+  "version" : "74"
 }
