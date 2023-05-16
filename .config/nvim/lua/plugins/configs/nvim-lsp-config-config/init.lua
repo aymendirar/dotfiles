@@ -46,6 +46,10 @@ require("lspconfig")["clangd"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
+require("lspconfig")["gopls"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
 require("lspconfig")["hls"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
@@ -67,6 +71,10 @@ require("lspconfig")["pyright"].setup({
   flags = lsp_flags,
 })
 require("lspconfig")["racket_langserver"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
+require("lspconfig")["solargraph"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })

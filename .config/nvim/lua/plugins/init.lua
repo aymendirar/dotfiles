@@ -18,6 +18,7 @@ require("plugins.configs.diffview-config")
 require("plugins.configs.scrollbar-config")
 require("plugins.configs.peek-config")
 require("plugins.configs.toggle-term-config")
+require("plugins.configs.easypick-config")
 
 local ensure_packer = function()
   local fn = vim.fn
@@ -143,10 +144,13 @@ return require("packer").startup(function()
     end,
   })
   use("kdheepak/lazygit.nvim")
+  use({ "axkirillov/easypick.nvim", requires = "nvim-telescope/telescope.nvim" })
 
   use("lukas-reineke/indent-blankline.nvim")
   use("petertriho/nvim-scrollbar")
   use("stevearc/dressing.nvim")
+  use("nvim-pack/nvim-spectre")
+  use("tpope/vim-fugitive")
 
   -- language specific
   use("simrat39/rust-tools.nvim")
