@@ -6,6 +6,7 @@ require("plugins.configs.nvim-treesitter-config")
 require("plugins.configs.nvim-treesitter-context-config")
 require("plugins.configs.nvim-lsp-config-config")
 require("plugins.configs.gitsigns-config")
+require("plugins.configs.gitlinker-config")
 require("plugins.configs.bufferline-config")
 -- require("plugins.configs.lualine-config")
 require("plugins.configs.feline-config")
@@ -14,7 +15,7 @@ require("plugins.configs.format-config")
 require("plugins.configs.telescope-config")
 require("plugins.configs.rust-tools-config")
 require("plugins.configs.indent-blankline-config")
--- require("plugins.configs.diffview-config")
+require("plugins.configs.diffview-config")
 require("plugins.configs.scrollbar-config")
 require("plugins.configs.peek-config")
 require("plugins.configs.toggle-term-config")
@@ -87,6 +88,7 @@ return require("packer").startup(function()
     end,
   })
   use("lewis6991/gitsigns.nvim")
+  use("ruifm/gitlinker.nvim")
   use("xiyaowong/telescope-emoji.nvim")
   use({
     "nvim-telescope/telescope.nvim",
@@ -144,7 +146,7 @@ return require("packer").startup(function()
     end,
   })
   use("kdheepak/lazygit.nvim")
-  use({ "axkirillov/easypick.nvim", requires = "nvim-telescope/telescope.nvim" })
+  use {'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim'}
 
   use("lukas-reineke/indent-blankline.nvim")
   use("petertriho/nvim-scrollbar")
@@ -162,6 +164,7 @@ return require("packer").startup(function()
     end,
   })
   use({ "toppair/peek.nvim", run = "deno task --quiet build:fast" })
+
 
   -- experimental vscode ssh-esque
   use({

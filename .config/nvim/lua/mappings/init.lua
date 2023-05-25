@@ -6,9 +6,6 @@ vim.g.mapleader = " "
 -- visual mode remappings
 map("v", "<S-Tab>", "<", options)
 map("v", "<tab>", ">", options)
-map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-  desc = "Search current word",
-})
 
 -- insert mode remappings
 map("i", "jj", "<Esc>", options)
@@ -75,6 +72,9 @@ map("n", "<leader>S", '<cmd>lua require("spectre").open()<CR>', {
   desc = "Open Spectre",
 })
 map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+  desc = "Search current word",
+})
+map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
   desc = "Search current word",
 })
 map(

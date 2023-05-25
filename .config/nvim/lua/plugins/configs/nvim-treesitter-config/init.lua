@@ -20,7 +20,7 @@ require("nvim-treesitter.configs").setup({
     enable = true,
   },
   indent = {
-    enable = false, -- this is hit or miss
+    enable = true, -- this is hit or miss
   },
   rainbow = {
     enable = true,
