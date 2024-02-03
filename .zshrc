@@ -112,12 +112,13 @@ alias aio="cd ~/Developer/adirar111.github.io && v ."
 alias config="cd ~/.config/nvim && v ."
 alias school="cd ~/Desktop/ubc-2023-2024/term-2 && v ."
 alias zshrc="v ~/.zshrc"
+alias tmux-config="v ~/.config/tmux/tmux.conf"
 
 alias nuke-swaps="rm ~/.local/state/nvim/swap/*"
 alias source-zshrc="source ~/.zshrc"
 alias source-tmux="tmux source ~/.config/tmux/tmux.conf"
 alias tmux-yeet-session="tmux kill-session -a"
-alias tmux-config="v ~/.config/tmux/tmux.conf"
+alias tmux-attach="tmux attach -d -t"
 
 # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
