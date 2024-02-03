@@ -33,6 +33,7 @@ set.hidden = true
 raw_set("set clipboard+=unnamedplus") -- use system clipboard
 raw_set("set foldlevel=99")
 raw_set("set signcolumn=yes")
+raw_set("set laststatus=3")
 
 -- window settings
 window.foldmethod = "expr"

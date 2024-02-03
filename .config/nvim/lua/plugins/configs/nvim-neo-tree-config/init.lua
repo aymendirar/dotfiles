@@ -37,8 +37,14 @@ require("neo-tree").setup({
       system_open = function(state)
         local node = state.tree:get_node()
         local path = node:get_id()
-        -- macOS: open file in default application in the background.
-        vim.api.nvim_exec("!open " .. path, "")
+        -- escape spaces and parens to make them actually open-able
+        local escaped_path = string.gsub(path, ".", {
+          [" "] = "\\ ",
+          ["("] = "\\(",
+          [")"] = "\\)",
+        })
+        -- macOS: open file in default application
+        vim.api.nvim_exec("!open " .. escaped_path, "")
       end,
     },
   },

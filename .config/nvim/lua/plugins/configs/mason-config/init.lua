@@ -9,5 +9,5 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-  ensure_installed = { "clangd", "html", "jdtls", "marksman", "pyright", "rust_analyzer", "lua_ls", "tsserver" },
+  ensure_installed = { "clangd", "html", "marksman", "pyright", "rust_analyzer", "lua_ls", "tsserver" },
 })

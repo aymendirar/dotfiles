@@ -1,8 +1,6 @@
-local colors = require("catppuccin.palettes.frappe")
-
 require("scrollbar").setup({
   handle = {
-    color = colors.surface0,
+    color = "#3C3F50",
   },
   handlers = {
     cursor = true,

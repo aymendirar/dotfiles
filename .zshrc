@@ -1,13 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export PATH=$PATH:/Applications/Racket\ v8.7/bin/racket:/Applications/Racket\ v8.7/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin
+export PATH=$PATH:/Applications/Racket\ v8.7/bin/racket:/Applications/Racket\ v8.7/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:/Users/aymendirar/.local/bin
 
 ZSH_DISABLE_COMPFIX="true"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/aymendirar/.oh-my-zsh"
-export JAVA_HOME="/Users/aymendirar/Library/Java/JavaVirtualMachines/corretto-1.8.0_312/contents/Home"
+export JAVA_HOME="/Users/aymendirar/Library/Java/JavaVirtualMachines/corretto-17.0.8.1/contents/Home"
+# export JAVA_HOME="/Users/aymendirar/Library/Java/JavaVirtualMachines/jdk-21.jdk-x64/contents/Home"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -105,13 +106,19 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias v="nvim"
 alias gdiff="git diff -- ':!*/package-lock.json' ':!*/yarn.lock'"
-alias tree1="tree -L 1"
 alias diarrhea="cd ~/Developer/diarrhea && v ."
+alias dotfiles="cd ~/Developer/dotfiles && v ."
+alias aio="cd ~/Developer/adirar111.github.io && v ."
 alias config="cd ~/.config/nvim && v ."
-alias school="cd ~/Desktop/ubc-2022-2023/term-2 && v ."
-alias 411="cd ~/Developer/cpsc411-prj_nzspm && v ."
+alias school="cd ~/Desktop/ubc-2023-2024/term-2 && v ."
+alias zshrc="v ~/.zshrc"
+
 alias nuke-swaps="rm ~/.local/state/nvim/swap/*"
-# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+alias source-zshrc="source ~/.zshrc"
+alias source-tmux="tmux source ~/.config/tmux/tmux.conf"
+alias tmux-yeet-session="tmux kill-session -a"
+alias tmux-config="v ~/.config/tmux/tmux.conf"
+
 # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs newline virtualenv status)
@@ -124,3 +131,23 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# link 418 course library
+function erl {
+    /opt/homebrew/bin/erl erl -eval 'code:add_path("/Users/aymendirar/Desktop/ubc-2023-2024/term-2/cpsc-418/resources/erl")' "$@"
+}

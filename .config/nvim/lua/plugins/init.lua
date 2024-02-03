@@ -8,13 +8,14 @@ require("plugins.configs.nvim-lsp-config-config")
 require("plugins.configs.gitsigns-config")
 require("plugins.configs.gitlinker-config")
 require("plugins.configs.bufferline-config")
--- require("plugins.configs.lualine-config")
-require("plugins.configs.feline-config")
+require("plugins.configs.lualine-config")
+-- require("plugins.configs.feline-config")
 require("plugins.configs.colorizer-config")
 require("plugins.configs.format-config")
 require("plugins.configs.telescope-config")
 require("plugins.configs.rust-tools-config")
 require("plugins.configs.indent-blankline-config")
+require("plugins.configs.raindbow-delimiters-config")
 require("plugins.configs.diffview-config")
 require("plugins.configs.scrollbar-config")
 require("plugins.configs.peek-config")
@@ -43,9 +44,10 @@ return require("packer").startup(function()
   use({ "pappasam/papercolor-theme-slim" })
   use({ "daschw/leaf.nvim" })
   use({ "ellisonleao/gruvbox.nvim" })
+  use({ "sainnhe/gruvbox-material" })
   use({ "projekt0n/github-nvim-theme" })
-  use("p00f/nvim-ts-rainbow")
   use("norcalli/nvim-colorizer.lua")
+  use("HiPhish/rainbow-delimiters.nvim")
   use("psliwka/vim-smoothie")
   use({
     "nvim-neo-tree/neo-tree.nvim",
@@ -146,7 +148,7 @@ return require("packer").startup(function()
     end,
   })
   use("kdheepak/lazygit.nvim")
-  use {'axkirillov/easypick.nvim', requires = 'nvim-telescope/telescope.nvim'}
+  use({ "axkirillov/easypick.nvim", requires = "nvim-telescope/telescope.nvim" })
 
   use("lukas-reineke/indent-blankline.nvim")
   use("petertriho/nvim-scrollbar")
@@ -165,15 +167,13 @@ return require("packer").startup(function()
   })
   use({ "toppair/peek.nvim", run = "deno task --quiet build:fast" })
 
-
   -- experimental vscode ssh-esque
   use({
     "chipsenkbeil/distant.nvim",
     config = function()
-      require("distant").setup({
-        ["*"] = require("distant.settings").chip_default(),
-      })
+      require("distant"):setup()
     end,
+    commit = "17bcd37f8d91dcb987456be456d8a95db1a772ba",
   })
 
   -- completion

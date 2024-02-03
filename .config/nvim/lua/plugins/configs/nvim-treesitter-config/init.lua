@@ -22,11 +22,6 @@ require("nvim-treesitter.configs").setup({
   indent = {
     enable = true, -- this is hit or miss
   },
-  rainbow = {
-    enable = true,
-    extended_mode = true,
-    max_file_lines = nil,
-  },
   autotag = {
     enable = true,
   },

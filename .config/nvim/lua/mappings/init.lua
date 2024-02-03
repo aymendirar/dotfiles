@@ -49,12 +49,12 @@ map("n", "<leader>d", ":Telescope diagnostics<CR>", options)
 map("n", "<leader>sr", ":Telescope resume<CR>", options)
 
 map("n", "<leader>lg", ":LazyGit<CR>", options)
-map("n", "<leader>gd", ":Gvdiffsplit<CR>", options)
+map("n", "<leader>gd", ":DiffviewOpen<CR>", options)
 map("n", "<leader>ep", ":Easypick<CR>", options)
 
 map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", options)
 
-map("n", "<leader>dl", ":DistantLaunch thetis.students.cs.ubc.ca mode=ssh ssh.user=adirar01<CR>", options)
+map("n", "<leader>dl", ":DistantLaunch ssh://thetis.students.cs.ubc.ca<CR>", options)
 map("n", "<leader>doh", ":DistantOpen /home/a/adirar01<CR>", options)
 
 map("n", "<leader>gcl", ":GitConflictListQf<CR>", options)
@@ -68,7 +68,7 @@ map("n", "<leader>tb", ":TroubleToggle<CR>", options)
 
 map("n", "<C-`>", ":ToggleTerm<CR>", options)
 
-map("n", "<leader>S", '<cmd>lua require("spectre").open()<CR>', {
+map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR>', {
   desc = "Open Spectre",
 })
 map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
@@ -77,9 +77,3 @@ map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=tru
 map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
   desc = "Search current word",
 })
-map(
-  "n",
-  "<leader>sp",
-  '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-  { desc = "Search on current file" }
-)
