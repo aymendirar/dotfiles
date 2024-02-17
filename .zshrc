@@ -104,6 +104,7 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias cd="z"
 alias v="nvim"
 alias gdiff="git diff -- ':!*/package-lock.json' ':!*/yarn.lock'"
 alias diarrhea="cd ~/Developer/diarrhea && v ."
@@ -152,3 +153,5 @@ unset __conda_setup
 function erl {
     /opt/homebrew/bin/erl erl -eval 'code:add_path("/Users/aymendirar/Desktop/ubc-2023-2024/term-2/cpsc-418/resources/erl")' "$@"
 }
+
+eval "$(zoxide init zsh)"
