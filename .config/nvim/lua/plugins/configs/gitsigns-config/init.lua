@@ -5,4 +5,4 @@ require("gitsigns").setup({
   },
 })
 
-vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#a5adce", italic = true, blend = 100 })
+vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })

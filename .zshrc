@@ -15,7 +15,8 @@ export JAVA_HOME="/Users/aymendirar/Library/Java/JavaVirtualMachines/corretto-17
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="intheloop"
+# ZSH_THEME="intheloop"
+ZSH_THEME="dst"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load

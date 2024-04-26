@@ -2,7 +2,7 @@ rm -rf .config/*
 
 cp -r ~/.config/kitty .config
 cp -r ~/.config/nvim .config
-cp -r ~/.config/tmux .config
+cp ~/.config/tmux/tmux.conf .config
 
 rm .zshrc
 rm .gitconfig
