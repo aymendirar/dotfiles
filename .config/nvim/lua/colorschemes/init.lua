@@ -1,6 +1,9 @@
+vim.o.termguicolors = true
 vim.g.catppuccin_flavour = "frappe" -- latte, frappe, macchiato, mocha
 
 require("catppuccin").setup({
+  transparent_background = true, -- disables setting the background color.
+  term_colors = true,
   styles = {
     comments = { "italic" },
     conditionals = {},
@@ -16,7 +19,7 @@ require("catppuccin").setup({
     operators = {},
   },
   dim_inactive = {
-    enabled = true,
+    enabled = false,
     shade = "dark",
     percentage = 0.15,
   },
@@ -36,7 +39,7 @@ require("catppuccin").setup({
     gitsigns = true,
     ts_rainbow = true,
     neotree = {
-      enabled = false,
+      enabled = true,
       show_root = true,
       transparent_panel = false,
     },
@@ -58,6 +61,9 @@ require("catppuccin").setup({
     indent_blankline = {
       enabled = true,
       colored_indent_levels = false,
+    },
+    telescope = {
+      enabled = true,
     },
   },
 })

@@ -1,4 +1,4 @@
--- plugin specific configs
+  -- plugin specific configs
 require("plugins.configs.nvim-cmp-config")
 require("plugins.configs.nvim-neo-tree-config")
 require("plugins.configs.mason-config")
@@ -9,7 +9,6 @@ require("plugins.configs.gitsigns-config")
 require("plugins.configs.gitlinker-config")
 require("plugins.configs.bufferline-config")
 require("plugins.configs.lualine-config")
--- require("plugins.configs.feline-config")
 require("plugins.configs.colorizer-config")
 require("plugins.configs.format-config")
 require("plugins.configs.telescope-config")
@@ -17,7 +16,6 @@ require("plugins.configs.rust-tools-config")
 require("plugins.configs.indent-blankline-config")
 require("plugins.configs.raindbow-delimiters-config")
 require("plugins.configs.diffview-config")
-require("plugins.configs.scrollbar-config")
 require("plugins.configs.peek-config")
 require("plugins.configs.toggle-term-config")
 require("plugins.configs.easypick-config")
@@ -48,7 +46,12 @@ return require("packer").startup(function()
   use({ "projekt0n/github-nvim-theme" })
   use("norcalli/nvim-colorizer.lua")
   use("HiPhish/rainbow-delimiters.nvim")
-  use("psliwka/vim-smoothie")
+  use({
+    "declancm/cinnamon.nvim",
+    config = function()
+      require("cinnamon").setup()
+    end,
+  })
   use({
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
@@ -151,7 +154,6 @@ return require("packer").startup(function()
   use({ "axkirillov/easypick.nvim", requires = "nvim-telescope/telescope.nvim" })
 
   use("lukas-reineke/indent-blankline.nvim")
-  use("petertriho/nvim-scrollbar")
   use("stevearc/dressing.nvim")
   use("nvim-pack/nvim-spectre")
   use("tpope/vim-fugitive")

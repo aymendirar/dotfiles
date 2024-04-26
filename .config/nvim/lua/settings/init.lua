@@ -25,7 +25,7 @@ set.mouse = "a"
 set.scrolloff = 12
 set.fileencoding = "utf-8"
 
-set.cursorline = true
+set.cursorline = false
 
 set.hidden = true
 
