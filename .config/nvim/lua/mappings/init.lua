@@ -38,8 +38,7 @@ map("n", "<leader>qx", ":BufferLineCloseLeft<CR>:e<CR>:BufferLineCloseRight<CR>:
 map("n", "<C-h>", ":BufferLineMovePrev<CR>", options)
 map("n", "<C-l>", ":BufferLineMoveNext<CR>", options)
 
-map("n", "<leader>ts", ":Neotree focus<CR>", options)
-map("n", "<leader>tr", ":Neotree toggle<CR>", options)
+map("n", "<leader>ts", ":Neotree toggle<CR>", options)
 
 map("n", "<leader>m", ":Telescope emoji<CR>", options)
 map("n", "<leader>p", ":Telescope find_files<CR>", options)
