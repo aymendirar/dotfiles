@@ -5,7 +5,6 @@ vim.g.mapleader = " "
 
 -- visual mode remappings
 map("v", "<S-Tab>", "<", options)
-map("v", "<tab>", ">", options)
 
 -- insert mode remappings
 map("i", "jj", "<Esc>", options)
@@ -14,8 +13,8 @@ map("i", "<S-Tab>", "<C-d>", options)
 
 -- normal mode remappings
 -- movement
-map("n", "<S-tab>", "<<", options)
-map("n", "<tab>", ">>", options)
+-- map("n", "<S-tab>", "<<", options)
+-- map("n", "<tab>", ">>", options) this messes w <C-I>, <C-O> :(
 map("n", "<leader>h", "<C-w>h", options)
 map("n", "<leader>l", "<C-w>l", options)
 map("n", "<leader>j", "<C-w>j", options)
@@ -50,7 +49,7 @@ map("n", "<leader>sr", ":Telescope resume<CR>", options)
 
 map("n", "<leader>lg", ":LazyGit<CR>", options)
 map("n", "<leader>gd", ":DiffviewOpen<CR>", options)
-map("n", "<leader>ep", ":Easypick<CR>", options)
+map("n", "<leader>qg", ":DiffviewClose<CR>", options)
 
 map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", options)
 
@@ -65,8 +64,6 @@ map("n", "<leader>gi", ":GuessIndent<CR>", options)
 map("n", "<leader>fw", ":FormatWrite<CR>", options)
 
 map("n", "<leader>tb", ":TroubleToggle<CR>", options)
-
-map("n", "<C-`>", ":ToggleTerm<CR>", options)
 
 map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR>', {
   desc = "Open Spectre",

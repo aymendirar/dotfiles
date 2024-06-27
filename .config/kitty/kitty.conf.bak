@@ -4,7 +4,7 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
-font_family        BlexMono Nerd Font Mono SemiBold
+font_family        JetBrainsMonoNL Nerd Font Mono Bold
 # bold_font        auto
 # italic_font      auto
 # bold_italic_font auto
@@ -22,7 +22,7 @@ font_family        BlexMono Nerd Font Mono SemiBold
 #:     italic_font      Operator Mono Book Italic
 #:     bold_italic_font Operator Mono Medium Italic
 
-font_size 12.0
+font_size 11.0
 
 #: Font size (in pts)
 
@@ -713,7 +713,7 @@ cursor_blink_interval 0
 #: set the vertical and horizontal sides. Three values set top,
 #: horizontal and bottom. Four values set top, right, bottom and left.
 
-window_padding_width 8
+window_padding_width 16
 
 #: The window padding (in pts) (blank area between the text and the
 #: window border). A single value sets all four sides. Two values set
@@ -748,7 +748,7 @@ window_padding_width 8
 #: Fade the text in inactive windows by the specified amount (a number
 #: between zero and one, with zero being fully faded).
 
-# hide_window_decorations titlebar-only
+hide_window_decorations titlebar-only
 
 #: Hide the window decorations (title-bar and window borders) with
 #: yes. On macOS, titlebar-only can be used to only hide the titlebar.
@@ -968,7 +968,7 @@ window_padding_width 8
 
 #: The foreground and background colors.
 
-background_opacity 1.0
+background_opacity 0.70
 
 #: The opacity of the background. A number between zero and one, where
 #: one is opaque and zero is fully transparent. This will only work if
@@ -988,6 +988,8 @@ background_opacity 1.0
 #: (this is off by default as it has a performance cost). Changing
 #: this option when reloading the config will only work if
 #: dynamic_background_opacity was enabled in the original config.
+
+background_blur 50
 
 # background_image none
 
@@ -2171,6 +2173,6 @@ map alt+left send_text all \x1b\x62
 map alt+right send_text all \x1b\x66
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Latte
+# Catppuccin-Macchiato
 include current-theme.conf
 # END_KITTY_THEME

@@ -1,5 +1,5 @@
+require("settings")
 require("autocmds")
-require("colorschemes")
 require("mappings")
 require("plugins")
-require("settings")
+require("colorschemes")
