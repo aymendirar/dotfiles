@@ -21,6 +21,8 @@ require("lazy").setup({
 
 require("plugins.configs.nvim-cmp-config")
 require("plugins.configs.nvim-lsp-config-config")
+require("plugins.configs.nvim-treesitter-config")
+require("plugins.configs.nvim-ts-autotag-config")
 require("plugins.configs.gitsigns-config")
 require("plugins.configs.indent-blankline-config")
 require("plugins.configs.raindbow-delimiters-config")

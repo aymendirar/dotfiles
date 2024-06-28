@@ -113,14 +113,9 @@ alias dotfiles="cd ~/Developer/dotfiles && v ."
 alias aio="cd ~/Developer/adirar111.github.io && v ."
 alias config="cd ~/.config/nvim && v ."
 alias alacritty-config="cd ~/.config/alacritty && v ."
-alias school="cd ~/Desktop/ubc-2023-2024/term-2 && v ."
-alias 330="cd ~/Desktop/ubc-2023-2024/term-2/cpsc-330 && v ."
-alias 404="cd ~/Desktop/ubc-2023-2024/term-2/cpsc-404 && v ."
-alias 418="cd ~/Desktop/ubc-2023-2024/term-2/cpsc-418 && v ."
-alias 351="cd ~/Desktop/ubc-2023-2024/term-2/arth-351 && v ."
 
 alias zshrc="v ~/.zshrc"
-alias tmux-config="v ~/.config/tmux/tmux.conf"
+alias tmux-config="cd ~/.config/tmux && v tmux.conf"
 
 alias nuke-swaps="rm ~/.local/state/nvim/swap/*"
 alias source-zshrc="source ~/.zshrc"
@@ -140,25 +135,5 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# link 418 course library
-function erl {
-    /opt/homebrew/bin/erl erl -eval 'code:add_path("/Users/aymendirar/Desktop/ubc-2023-2024/term-2/cpsc-418/resources/erl")' "$@"
-}
 
 eval "$(zoxide init zsh)"
