@@ -3,8 +3,8 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
     options = {
-      icons_enabled = true,
       theme = "catppuccin",
+      icons_enabled = true,
       component_separators = "|",
       section_separators = { left = "", right = "" },
       disabled_filetypes = {

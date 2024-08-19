@@ -9,7 +9,7 @@ require("catppuccin").setup({
     conditionals = {},
     loops = {},
     functions = { "italic", "bold" },
-    keywords = { "italic", "bold" },
+    keywords = { "bold" },
     strings = {},
     variables = {},
     numbers = {},
@@ -65,9 +65,13 @@ require("catppuccin").setup({
     telescope = {
       enabled = true,
     },
+    rainbow_delimiters = true,
+    mason = false,
   },
 })
 
 vim.cmd([[colorscheme catppuccin]])
 vim.cmd(":highlight VertSplit guifg=#ffffff")
 vim.cmd(":set fillchars+=vert:┃")
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
+vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })

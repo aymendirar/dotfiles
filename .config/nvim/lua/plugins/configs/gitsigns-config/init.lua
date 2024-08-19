@@ -4,5 +4,3 @@ require("gitsigns").setup({
     delay = 50,
   },
 })
-
-vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })

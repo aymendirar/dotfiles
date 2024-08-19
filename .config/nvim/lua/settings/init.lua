@@ -40,3 +40,5 @@ window.foldmethod = "expr"
 window.foldexpr = "nvim_treesitter#foldexpr()"
 
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
+
+vim.g.maplocalleader = ","

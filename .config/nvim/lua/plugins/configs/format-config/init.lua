@@ -20,6 +20,7 @@ require("formatter").setup({
     rust = default_filetype_configs.rust.rustfmt,
     markdown = default_filetype_configs.markdown.prettier,
     haskell = default_filetype_configs.haskell.stylish_haskell,
+    go = default_filetype_configs.go.gofmt,
 
     -- Use the special "*" filetype for defining formatter configurations on
     -- any filetype
