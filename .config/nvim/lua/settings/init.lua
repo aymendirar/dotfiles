@@ -42,3 +42,9 @@ window.foldexpr = "nvim_treesitter#foldexpr()"
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
 
 vim.g.maplocalleader = ","
+vim.opt.termguicolors = true
+
+vim.cmd(":highlight VertSplit guifg=#ffffff")
+vim.cmd(":set fillchars+=vert:┃")
+vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
+vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })

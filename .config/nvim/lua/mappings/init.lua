@@ -39,6 +39,7 @@ map("n", "<C-h>", ":BufferLineMovePrev<CR>", options)
 map("n", "<C-l>", ":BufferLineMoveNext<CR>", options)
 
 map("n", "<leader>ts", ":Neotree toggle reveal<CR>", options)
+map("n", "<leader>tr", ":Neotree reveal<CR>", options)
 
 map("n", "<leader>m", ":Telescope emoji<CR>", options)
 map("n", "<leader>p", ":Telescope find_files<CR>", options)
@@ -73,3 +74,5 @@ map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=tru
 map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
   desc = "Search current word",
 })
+
+map("n", "<leader>tn", ":Telescope neoclip o<CR>", options)

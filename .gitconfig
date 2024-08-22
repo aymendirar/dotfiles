@@ -1,6 +1,6 @@
 [user]
 	name = aymen
-	email = 63937200+adirar111@users.noreply.github.com
+	email = aymendirar@gmail.com
 
 [filter "lfs"]
 	required = true
@@ -23,6 +23,7 @@
 	cm = commit -m
 	uncommit = reset --soft HEAD^
 	dc = diff -- ':!*/package-lock.json' ':!*/yarn.lock'
+	po = !git push -u origin $(git branch --show-current)
 
 [core]
 	pager = delta
