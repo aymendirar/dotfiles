@@ -50,6 +50,16 @@ map("n", "<leader>sr", ":Telescope resume<CR>", options)
 map("n", "<leader>lg", ":LazyGit<CR>", options)
 map("n", "<leader>gd", ":DiffviewOpen<CR>", options)
 map("n", "<leader>qg", ":DiffviewClose<CR>", options)
+map("n", "<leader>qo", ":DiffviewClose<CR>", options)
+map("n", "<leader>o", "", {
+  noremap = true,
+  silent = true,
+  callback = function()
+    vim.cmd([[let $currentPath=@%]])
+    vim.cmd([[DiffviewClose]])
+    vim.cmd([[e $currentPath]])
+  end,
+})
 
 map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", options)
 
