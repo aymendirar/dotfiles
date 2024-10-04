@@ -43,7 +43,6 @@ map("n", "<leader>tr", ":Neotree reveal<CR>", options)
 
 map("n", "<leader>m", ":Telescope emoji<CR>", options)
 map("n", "<leader>p", ":Telescope find_files<CR>", options)
-map("n", "<leader>s", ":Telescope live_grep<CR>", options)
 map("n", "<leader>d", ":Telescope diagnostics<CR>", options)
 map("n", "<leader>sr", ":Telescope resume<CR>", options)
 

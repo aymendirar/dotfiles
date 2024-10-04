@@ -1,3 +1,6 @@
+-- navic can't support multiple LSPs on the same buffer, so silence the errors
+vim.g.navic_silence = true
+
 return {
   "utilyre/barbecue.nvim",
   name = "barbecue",

@@ -86,7 +86,27 @@ require("lspconfig")["racket_langserver"].setup({
 require("lspconfig")["solargraph"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
+  settings = {
+    max_files = 0,
+  },
 })
+-- require("lspconfig")["sorbet"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
+-- require("lspconfig")["rubocop"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+-- })
+-- require("lspconfig")["ruby_lsp"].setup({
+--   on_attach = on_attach,
+--   flags = lsp_flags,
+--   settings = {
+--     indexing = {
+--       includedPatterns = { "./Gemfile" },
+--     },
+--   },
+-- })
 require("lspconfig")["rust_analyzer"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
@@ -135,7 +155,11 @@ require("lspconfig")["texlab"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["tsserver"].setup({
+require("lspconfig")["ts_ls"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
+require("lspconfig")["yamlls"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })

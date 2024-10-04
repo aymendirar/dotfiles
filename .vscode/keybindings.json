@@ -1,0 +1,8 @@
+// Place your key bindings in this file to override the defaults
+[
+  { "key": "cmd+e", "command": "workbench.action.tasks.toggleProblems" },
+  { "key": "cmd+t", "command": "workbench.action.terminal.toggleTerminal" },
+  { "key": "cmd+s", "command": "workbench.action.toggleSidebarVisibility" },
+  { "key": "cmd+shift+s", "command": "workbench.view.search" },
+  { "key": "cmd+shift+g", "command": "workbench.view.scm" }
+]

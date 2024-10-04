@@ -88,17 +88,29 @@ require("lspconfig")["racket_langserver"].setup({
 require("lspconfig")["solargraph"].setup({
   capabilities = capabilities,
 })
+-- require("lspconfig")["sorbet"].setup({
+--   capabilities = capabilities,
+-- })
+-- require("lspconfig")["ruby_lsp"].setup({
+--   capabilities = capabilities,
+-- })
+-- require("lspconfig")["rubocop"].setup({
+--   capabilities = capabilities,
+-- })
 require("lspconfig")["rust_analyzer"].setup({
   capabilities = capabilities,
 })
 require("lspconfig")["lua_ls"].setup({
   capabilities = capabilities,
 })
-require("lspconfig")["tsserver"].setup({
+require("lspconfig")["ts_ls"].setup({
   capabilities = capabilities,
   init_options = {
     preferences = {
-      disableSuggestions = true,
+      disableSuggestions = false,
     },
   },
+})
+require("lspconfig")["yamlls"].setup({
+  capabilities = capabilities,
 })

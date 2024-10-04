@@ -6,14 +6,18 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   opts = {
     defaults = {
-      mappings = {
-        n = {
-          ["<C-s>"] = actions.file_vsplit,
-        },
-        i = {
-          ["<C-s>"] = actions.file_vsplit,
+      -- <C-x> for horizontal split
+      -- <C-v> for vertical split
+      pickers = {
+        find_files = {
+          -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+          find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
         },
       },
     },
+  },
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
   },
 }

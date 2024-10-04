@@ -2,9 +2,9 @@
   // *** WORKBENCH ***
   "workbench.settings.editor": "json",
   "workbench.colorTheme": "Catppuccin Frappé",
-  "workbench.editor.enablePreview": true,
+  "workbench.editor.enablePreview": false,
   "workbench.sideBar.location": "right",
-  "workbench.iconTheme": "material-icon-theme",
+  "workbench.iconTheme": "vs-seti",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.editor.restoreViewState": false,
   "workbench.settings.openDefaultSettings": true,
@@ -12,9 +12,8 @@
 
   // *** EDITOR ***
   "editor.fontFamily": "BlexMono Nerd Font Mono",
-  "editor.fontWeight": "700",
   "editor.fontLigatures": true,
-  "editor.fontSize": 13,
+  "editor.fontSize": 12,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,
@@ -27,6 +26,7 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
   "editor.cursorSurroundingLines": 12,
+  "editor.smoothScrolling": true,
 
   // *** WINDOW ***
   "window.restoreWindows": "none",
@@ -36,16 +36,8 @@
   "explorer.compactFolders": false,
 
   // *** TERMINAL ***
-  "terminal.integrated.lineHeight": 1.25,
-  "terminal.integrated.fontSize": 13,
-  "terminal.integrated.fontWeight": 700,
-
-  // *** CUSTOMIZE UI ***
-  "customizeUI.font.regular": "Source Code Pro Medium",
-  "customizeUI.fontSizeMap": {
-    "13px": "13px",
-    "monospace": "13"
-  },
+  "terminal.integrated.lineHeight": 1.0,
+  "terminal.integrated.fontSize": 12,
 
   // *** FORMATTING AND LANGUAGE SPECIFIC ***
   "editor.formatOnSave": true,
@@ -84,9 +76,11 @@
     "editor.defaultFormatter": null,
     "editor.formatOnSave": false
   },
+  "gopls": {
+    "build.buildFlags": ["-mod=readonly"],
+  },
 
   // *** PYTHON ***
-  "python.formatting.provider": "black",
   "python.defaultInterpreterPath": "/usr/local/bin/python3",
   "python.languageServer": "Pylance",
 
@@ -108,28 +102,48 @@
       "commands": ["redo"]
     },
     {
-      "before": ["<leader>", "s"],
-      "commands": ["workbench.action.splitEditor"]
-    },
-    {
-      "before": ["<leader>", "t"],
+      "before": ["<leader>", "t", "s"],
       "commands": ["workbench.action.toggleSidebarVisibility"]
     },
     {
-      "before": ["<leader>", "f"],
+      "before": ["<leader>", "t", "r"],
       "commands": ["revealInExplorer"]
     },
     {
-      "before": ["<leader>", "c"],
-      "commands": ["extension.macColorPicker"]
+      "before": ["leader", "g", "d"],
+      "commands": ["git.openChange"]
     },
     {
-      "before": ["<leader>", "x"],
-      "commands": ["workbench.action.closePanel"]
+      "before": ["g", "t"],
+      "commands": ["editor.action.goToTypeDefinition"]
+    },
+    {
+      "before": ["g", "r"],
+      "commands": ["editor.action.goToReferences"]
+    },
+    {
+      "before": ["<leader>", "r"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["<leader>", "q", "h"],
+      "commands": ["workbench.action.closeEditorsToTheLeft"]
+    },
+    {
+      "before": ["<leader>", "q", "l"],
+      "commands": ["workbench.action.closeEditorsToTheRight"]
+    },
+    {
+      "before": ["<leader>", "q", "x"],
+      "commands": ["workbench.action.closeOtherEditors"]
     },
     {
       "before": ["<leader>", "h"],
       "commands": ["workbench.action.navigateLeft"]
+    },
+    {
+      "before": ["<leader>", "o"],
+      "commands": ["git.openFile"]
     },
     {
       "before": ["<leader>", "l"],
@@ -150,12 +164,29 @@
     {
       "before": ["<leader>", "u"],
       "commands": ["workbench.action.previousEditorInGroup"]
-    }
-  ],
-  "vim.insertModeKeyBindings": [
+    },
     {
-      "before": ["j", "j"],
-      "after": ["<esc>"]
+      "before": ["<leader>", "f", "w"],
+      "commands": [
+        "editor.action.formatDocument",
+        "workbench.action.files.save"
+      ]
+    },
+    {
+      "before": ["<leader>", "s", "p"],
+      "commands": ["workbench.action.findInFiles"]
+    }
+    {
+      "before": ["<leader>", "p"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["<leader>", "c", "p"],
+      "commands": ["copyFilePath"]
+    },
+    {
+      "before": ["<leader>", "c", "r"],
+      "commands": ["copyRelativeFilePath"]
     }
   ],
   "vim.normalModeKeyBindings": [
@@ -164,60 +195,32 @@
       "after": ["^"]
     },
     {
-      "before": ["<leader>", "w"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.files.save",
-          "args": []
-        }
-      ]
-    },
-    {
-      "before": ["<leader>", "q"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.closeActiveEditor",
-          "args": []
-        }
-      ]
-    },
-    {
-      "before": ["<leader>", "a"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.files.save",
-          "args": []
-        },
-        {
-          "command": "workbench.action.closeActiveEditor",
-          "args": []
-        }
-      ]
-    },
-    {
       "before": ["K"],
-      "after": ["leader", "leader", "k"]
+      "commands": ["editor.action.showHover"]
     },
     {
-      "before": ["J"],
-      "after": ["leader", "leader", "j"]
+      "before": ["T"],
+      "commands": ["editor.action.peekTypeDefinition"]
     },
     {
       "before": ["Y"],
       "after": ["y", "$"]
     }
   ],
-  "vim.visualModeKeyBindings": [
+  "vim.insertModeKeyBindings": [
     {
-      "before": ["K"],
-      "after": ["leader", "leader", "k"]
+      "before": ["j", "j"],
+      "after": ["<esc>"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["leader", "g", "y"],
+      "commands": ["gitlens.copyRemoteFileUrlToClipboard"]
     },
     {
-      "before": ["J"],
-      "after": ["leader", "leader", "j"]
+      "before": ["<leader>", "c"],
+      "commands": ["editor.action.commentLine"]
     }
   ],
   "vim.autoindent": true,
@@ -226,9 +229,12 @@
   "vim.easymotion": true,
   "vim.surround": true,
   "terminal.integrated.gpuAcceleration": "off",
-  "vsicons.dontShowNewVersionMessage": true,
   "security.workspace.trust.untrustedFiles": "open",
   "workbench.layoutControl.enabled": false,
   "editor.stickyScroll.enabled": true,
-  "editor.minimap.enabled": false
+  "editor.minimap.enabled": false,
+  "workbench.colorCustomizations": {
+    "terminal.background": "#00000000"
+  },
+  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"]
 }
