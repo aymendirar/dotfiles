@@ -4,7 +4,7 @@
   "workbench.colorTheme": "Catppuccin Frappé",
   "workbench.editor.enablePreview": false,
   "workbench.sideBar.location": "right",
-  "workbench.iconTheme": "vs-seti",
+  "workbench.iconTheme": "eq-material-theme-icons-light",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.editor.restoreViewState": false,
   "workbench.settings.openDefaultSettings": true,
@@ -38,6 +38,9 @@
   // *** TERMINAL ***
   "terminal.integrated.lineHeight": 1.0,
   "terminal.integrated.fontSize": 12,
+  "terminal.integrated.copyOnSelection": false,
+  "terminal.integrated.tabs.enabled": false,
+  "terminal.integrated.copyOnSelection": true,
 
   // *** FORMATTING AND LANGUAGE SPECIFIC ***
   "editor.formatOnSave": true,
@@ -78,6 +81,7 @@
   },
   "gopls": {
     "build.buildFlags": ["-mod=readonly"],
+    "build.allowModfileModifications": false
   },
 
   // *** PYTHON ***
@@ -175,7 +179,7 @@
     {
       "before": ["<leader>", "s", "p"],
       "commands": ["workbench.action.findInFiles"]
-    }
+    },
     {
       "before": ["<leader>", "p"],
       "commands": ["workbench.action.quickOpen"]
@@ -187,6 +191,11 @@
     {
       "before": ["<leader>", "c", "r"],
       "commands": ["copyRelativeFilePath"]
+    },
+
+    {
+      "before": ["<leader>", "a"],
+      "commands": ["editor.action.quickFix"]
     }
   ],
   "vim.normalModeKeyBindings": [

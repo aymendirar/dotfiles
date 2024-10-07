@@ -4,5 +4,30 @@
   { "key": "cmd+t", "command": "workbench.action.terminal.toggleTerminal" },
   { "key": "cmd+s", "command": "workbench.action.toggleSidebarVisibility" },
   { "key": "cmd+shift+s", "command": "workbench.view.search" },
-  { "key": "cmd+shift+g", "command": "workbench.view.scm" }
+  { "key": "cmd+shift+g", "command": "workbench.view.scm" },
+  {
+    "key": "space",
+    "command": "list.select",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "list.select",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "n",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  }
 ]
