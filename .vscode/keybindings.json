@@ -4,6 +4,10 @@
   { "key": "cmd+t", "command": "workbench.action.terminal.toggleTerminal" },
   { "key": "cmd+s", "command": "workbench.action.toggleSidebarVisibility" },
   { "key": "cmd+shift+s", "command": "workbench.view.search" },
+  {
+    "key": "cmd+j",
+    "command": "workbench.action.joinAllGroups"
+  },
   { "key": "cmd+shift+g", "command": "workbench.view.scm" },
   {
     "key": "space",
@@ -14,6 +18,11 @@
     "key": "enter",
     "command": "list.select",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "list.toggleExpand",
+    "when": "filesExplorerFocus && foldersViewVisible && explorerResourceIsFolder && !inputFocus"
   },
   {
     "key": "r",
