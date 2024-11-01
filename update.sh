@@ -1,6 +1,8 @@
 # don't update .vimrc, .zshrc
 
-trash ~/.config/*
+trash ~/.config/kitty/*
+trash ~/.config/nvim/*
+trash ~/.config/tmux/*
 trash ~/Library/Application\ Support/Code/User/*.json
 
 cp -r .config/kitty ~/.config
