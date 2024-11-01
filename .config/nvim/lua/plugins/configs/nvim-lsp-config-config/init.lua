@@ -58,8 +58,12 @@ require("lspconfig")["elp"].setup({
 })
 require("lspconfig")["gopls"].setup({
   on_attach = on_attach,
-  cmd = { "gopls", "-mod=readonly" },
   flags = lsp_flags,
+  settings = {
+    gopls = {
+      buildFlags = { "-mod=readonly" },
+    },
+  },
 })
 require("lspconfig")["hls"].setup({
   on_attach = on_attach,
