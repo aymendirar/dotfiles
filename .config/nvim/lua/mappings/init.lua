@@ -41,10 +41,8 @@ map("n", "<C-l>", ":BufferLineMoveNext<CR>", options)
 map("n", "<leader>ts", ":Neotree toggle reveal<CR>", options)
 map("n", "<leader>tr", ":Neotree reveal<CR>", options)
 
-map("n", "<leader>m", ":Telescope emoji<CR>", options)
-map("n", "<leader>p", ":Telescope find_files<CR>", options)
-map("n", "<leader>d", ":Telescope diagnostics<CR>", options)
-map("n", "<leader>sr", ":Telescope resume<CR>", options)
+map("n", "<leader>p", ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', options)
+map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
 
 map("n", "<leader>lg", ":LazyGit<CR>", options)
 map("n", "<leader>gd", ":DiffviewOpen<CR>", options)
@@ -65,16 +63,19 @@ map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", 
 map("n", "<leader>dl", ":DistantLaunch ssh://thetis.students.cs.ubc.ca<CR>", options)
 map("n", "<leader>doh", ":DistantOpen /home/a/adirar01<CR>", options)
 
-map("n", "<leader>gcl", ":GitConflictListQf<CR>", options)
-map("n", "<leader>gcn", ":GitConflictNextConflict<CR>", options)
-map("n", "<leader>gcp", ":GitConflictPrevConflict<CR>", options)
+map("n", "<leader>gl", ":GitConflictListQf<CR>", options)
+map("n", "<leader>gn", ":GitConflictNextConflict<CR>", options)
+map("n", "<leader>gp", ":GitConflictPrevConflict<CR>", options)
+map("n", "<leader>gt", ":GitConflictChooseTheirs<CR>", options)
+map("n", "<leader>go", ":GitConflictChooseOurs<CR>", options)
+map("n", "<leader>gm", ":GitConflictChooseBoth<CR>", options)
 
 map("n", "<leader>gi", ":GuessIndent<CR>", options)
 map("n", "<leader>fw", ":FormatWrite<CR>", options)
 
 map("n", "<leader>tb", ":TroubleToggle<CR>", options)
 
-map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR>', {
+map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR><cmd>vertical resize 100<CR>', {
   desc = "Open Spectre",
 })
 map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
@@ -85,3 +86,8 @@ map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
 })
 
 map("n", "<leader>tn", ":Telescope neoclip o<CR>", options)
+
+map("n", "<leader>df", "<cmd>DevdocsFetch<CR>", options)
+map("n", "<leader>du", "<cmd>DevdocsUninstall<CR>", options)
+map("n", "<leader>di", "<cmd>DevdocsInstall<CR>", options)
+map("n", "<leader>do", "<cmd>DevdocsOpen<CR>", options)

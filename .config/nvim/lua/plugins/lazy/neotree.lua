@@ -37,12 +37,12 @@ return {
     },
     filesystem = {
       follow_current_file = {
-        enabled = false, -- This will find and focus the file in the active buffer every time
+        enabled = true, -- This will find and focus the file in the active buffer every time
         --               -- the current file is changed while the tree is open.
         leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
       },
       filtered_items = {
-        visible = false,
+        visible = true,
         hide_dotfiles = false,
         hide_gitignored = false,
         hide_by_name = {
@@ -69,7 +69,7 @@ return {
             [")"] = "\\)",
           })
           -- macOS: open file in default application
-          vim.api.nvim_exec("!open " .. escaped_path, "")
+          vim.api.nvim_exec2("!open " .. escaped_path .. "", {})
         end,
       },
       hijack_netrw_behavior = "open_default",

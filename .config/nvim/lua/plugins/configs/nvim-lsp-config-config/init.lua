@@ -10,7 +10,9 @@ vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -40,7 +42,7 @@ end
 
 local lsp_flags = {
   -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
+  debounce_text_changes = 50,
 }
 require("lspconfig")["astro"].setup({
   on_attach = on_attach,
@@ -83,30 +85,14 @@ require("lspconfig")["racket_langserver"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["solargraph"].setup({
+require("lspconfig")["sorbet"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
-  settings = {
-    max_files = 0,
-  },
 })
--- require("lspconfig")["sorbet"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
--- require("lspconfig")["rubocop"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
--- })
--- require("lspconfig")["ruby_lsp"].setup({
---   on_attach = on_attach,
---   flags = lsp_flags,
---   settings = {
---     indexing = {
---       includedPatterns = { "./Gemfile" },
---     },
---   },
--- })
+require("lspconfig")["terraformls"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
 require("lspconfig")["rust_analyzer"].setup({
   on_attach = on_attach,
   flags = lsp_flags,

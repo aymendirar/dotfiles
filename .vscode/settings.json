@@ -31,6 +31,7 @@
   // *** WINDOW ***
   "window.restoreWindows": "none",
   "window.titleBarStyle": "custom",
+  "window.zoomLevel": -1,
 
   // *** EXPLORER ***
   "explorer.compactFolders": false,
@@ -80,8 +81,7 @@
     "editor.formatOnSave": false
   },
   "gopls": {
-    "build.buildFlags": ["-mod=readonly"],
-    "build.allowModfileModifications": false
+    "build.buildFlags": ["-mod=readonly"]
   },
 
   // *** PYTHON ***
@@ -245,5 +245,6 @@
   "workbench.colorCustomizations": {
     "terminal.background": "#00000000"
   },
-  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"]
+  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
+  "terraform.languageServer.enable": true
 }

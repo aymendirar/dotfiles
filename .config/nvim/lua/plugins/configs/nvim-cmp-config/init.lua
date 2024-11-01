@@ -85,22 +85,16 @@ require("lspconfig")["pbls"].setup({
 require("lspconfig")["racket_langserver"].setup({
   capabilities = capabilities,
 })
-require("lspconfig")["solargraph"].setup({
+require("lspconfig")["sorbet"].setup({
   capabilities = capabilities,
 })
--- require("lspconfig")["sorbet"].setup({
---   capabilities = capabilities,
--- })
--- require("lspconfig")["ruby_lsp"].setup({
---   capabilities = capabilities,
--- })
--- require("lspconfig")["rubocop"].setup({
---   capabilities = capabilities,
--- })
 require("lspconfig")["rust_analyzer"].setup({
   capabilities = capabilities,
 })
 require("lspconfig")["lua_ls"].setup({
+  capabilities = capabilities,
+})
+require("lspconfig")["terraformls"].setup({
   capabilities = capabilities,
 })
 require("lspconfig")["ts_ls"].setup({
