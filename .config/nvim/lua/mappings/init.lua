@@ -5,6 +5,12 @@ vim.g.mapleader = " "
 
 -- visual mode remappings
 map("v", "<S-Tab>", "<", options)
+map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+  desc = "Search current word",
+})
+
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- insert mode remappings
 map("i", "jj", "<Esc>", options)
@@ -28,6 +34,15 @@ map("n", "<leader>a", ":wa<CR>", options)
 map("n", "<leader>q", ":q<CR>", options)
 map("n", "Y", "y$", options)
 map("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", options) -- copy full file path
+
+vim.keymap.set("n", "J", "mzJ`z")
+
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "<leader>res", "<cmd>LspRestart<cr>")
 
 -- plugin remappings
 map("n", "<leader>u", ":BufferLineCyclePrev<CR>", options)
@@ -79,9 +94,6 @@ map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR><cmd>vertical resi
   desc = "Open Spectre",
 })
 map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-  desc = "Search current word",
-})
-map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
   desc = "Search current word",
 })
 
