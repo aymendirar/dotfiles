@@ -26,7 +26,12 @@ return {
         open_in_browser = "",
       },
       ensure_installed = {}, -- get automatically installed
-      after_open = function(bufnr) end, -- callback that runs after the Devdocs window is opened. Devdocs buffer ID will be passed in
+      after_open = function(bufnr)
+        vim.cmd([[vsplit]])
+        vim.cmd([[vertical resize 100]])
+        vim.cmd([[wincmd h]])
+        vim.cmd([[execute "normal \<C-O>"]])
+      end, -- callback that runs after the Devdocs window is opened. Devdocs buffer ID will be passed in
     })
   end,
 }

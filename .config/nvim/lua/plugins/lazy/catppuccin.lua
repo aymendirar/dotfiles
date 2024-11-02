@@ -11,14 +11,14 @@ return {
         comments = { "italic" },
         conditionals = {},
         loops = {},
-        functions = { "italic", "bold" },
-        keywords = { "bold" },
+        functions = { "italic" },
+        keywords = {},
         strings = {},
         variables = {},
         numbers = {},
         booleans = {},
         properties = {},
-        types = { "italic", "bold" },
+        types = { "italic" },
         operators = {},
       },
       dim_inactive = {
@@ -32,7 +32,7 @@ return {
         },
       },
       custom_highlights = {
-        TSParameter = { style = { "bold" } },
+        TSParameter = { style = { "italic" } },
       },
       integrations = {
         lsp_saga = true,
@@ -70,11 +70,11 @@ return {
           enabled = true,
         },
         rainbow_delimiters = true,
-        mason = false,
+        mason = true,
       },
     })
     vim.cmd.colorscheme("catppuccin")
     vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
-    vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })
+    vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994", italic = true })
   end,
 }
