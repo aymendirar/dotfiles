@@ -1,5 +1,5 @@
 local actions = require("telescope.actions")
-local additional_rg_args = { "--hidden", "--glob", "!**/.git/*", "--glob", "!**/node_modules/*" }
+local additional_rg_args = { "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*" }
 
 return {
   {
@@ -8,9 +8,23 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},
     config = function()
-      require("telescope").load_extension("fzf")
       require("telescope").setup({
         defaults = {
+          hidden = true,
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            "--glob",
+            "!.git/*",
+            "--glob",
+            "!node_modules/*",
+          },
           -- <C-x> for horizontal split
           -- <C-v> for vertical split
           mappings = {
@@ -20,9 +34,11 @@ return {
             },
           },
           pickers = {
+            -- idk how to make telescope respect this config
+            -- i just threw it into the mappings/init.lua arguments and that seems to work for now
             find_files = {
-              find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-              hidden = true, -- will still show the inside of `.git/` as it's not `.gitignore`d.
+              hidden = true,
+              find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*" },
             },
           },
           live_grep = { additional_args = additional_rg_args },
@@ -38,6 +54,7 @@ return {
           },
         },
       })
+      require("telescope").load_extension("fzf")
     end,
   },
   {

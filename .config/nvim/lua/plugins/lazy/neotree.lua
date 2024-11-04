@@ -48,7 +48,9 @@ return {
         hide_by_name = {
           ".DS_Store",
           "thumbs.db",
+          "node_modules",
         },
+        never_show = { ".git" },
       },
       use_libuv_file_watcher = true, -- refresh automagically?
       commands = {

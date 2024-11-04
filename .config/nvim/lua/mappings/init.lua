@@ -21,6 +21,14 @@ map("i", "<S-Tab>", "<C-d>", options)
 -- movement
 -- map("n", "<S-tab>", "<<", options)
 -- map("n", "<tab>", ">>", options) this messes w <C-I>, <C-O> :(
+
+map("n", "j", "jzz", options)
+map("n", "k", "kzz", options)
+map("n", "gg", "ggzz", options)
+map("n", "G", "Gzz", options)
+map("n", "<C-d>", "<C-d>zz", options)
+map("n", "<C-u>", "<C-u>zz", options)
+
 map("n", "<leader>h", "<C-w>h", options)
 map("n", "<leader>l", "<C-w>l", options)
 map("n", "<leader>j", "<C-w>j", options)
@@ -37,8 +45,6 @@ map("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", options) -- copy full file
 
 vim.keymap.set("n", "J", "mzJ`z")
 
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
@@ -56,7 +62,12 @@ map("n", "<C-l>", ":BufferLineMoveNext<CR>", options)
 map("n", "<leader>ts", ":Neotree toggle reveal<CR>", options)
 map("n", "<leader>tr", ":Neotree reveal<CR>", options)
 
-map("n", "<leader>p", ':lua require"telescope.builtin".find_files({ hidden = true })<CR>', options)
+map(
+  "n",
+  "<leader>p",
+  ':lua require"telescope.builtin".find_files({hidden=true, find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*", "--glob", "!**/.DS_Store"}})<CR>',
+  options
+)
 map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
 
 map("n", "<leader>lg", ":LazyGit<CR>", options)

@@ -1,1 +1,0 @@
-./copy.sh && ./update.sh
