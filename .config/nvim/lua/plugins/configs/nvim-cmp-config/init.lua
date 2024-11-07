@@ -94,6 +94,9 @@ require("lspconfig")["rust_analyzer"].setup({
 require("lspconfig")["lua_ls"].setup({
   capabilities = capabilities,
 })
+require("lspconfig")["nginx_language_server"].setup({
+  capabilities = capabilities,
+})
 require("lspconfig")["terraformls"].setup({
   capabilities = capabilities,
 })

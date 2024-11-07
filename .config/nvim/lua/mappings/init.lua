@@ -29,6 +29,14 @@ map("n", "G", "Gzz", options)
 map("n", "<C-d>", "<C-d>zz", options)
 map("n", "<C-u>", "<C-u>zz", options)
 
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+map("n", "<C-n>", ":cnext<CR>zz", options)
+map("n", "<C-p>", ":cprev<CR>zz", options)
+
+map("n", "<C-o>", "<C-o>zz", options)
+map("n", "<C-i>", "<C-i>zz", options)
+
 map("n", "<leader>h", "<C-w>h", options)
 map("n", "<leader>l", "<C-w>l", options)
 map("n", "<leader>j", "<C-w>j", options)
@@ -44,7 +52,6 @@ map("n", "Y", "y$", options)
 map("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", options) -- copy full file path
 
 vim.keymap.set("n", "J", "mzJ`z")
-
 
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
@@ -68,12 +75,11 @@ map(
   ':lua require"telescope.builtin".find_files({hidden=true, find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*", "--glob", "!**/.DS_Store"}})<CR>',
   options
 )
-map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
+-- map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
 
-map("n", "<leader>lg", ":LazyGit<CR>", options)
-map("n", "<leader>gd", ":DiffviewOpen<CR>", options)
-map("n", "<leader>qg", ":DiffviewClose<CR>", options)
-map("n", "<leader>qo", ":DiffviewClose<CR>", options)
+-- map("n", "<leader>lg", ":LazyGit<CR>", options)
+map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
+map("n", "<leader>qg", "<cmd>DiffviewClose<CR>", options)
 map("n", "<leader>o", "", {
   noremap = true,
   silent = true,
@@ -103,9 +109,6 @@ map("n", "<leader>tb", ":TroubleToggle<CR>", options)
 
 map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR><cmd>vertical resize 100<CR>', {
   desc = "Open Spectre",
-})
-map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-  desc = "Search current word",
 })
 
 map("n", "<leader>tn", ":Telescope neoclip o<CR>", options)

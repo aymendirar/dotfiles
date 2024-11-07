@@ -50,7 +50,7 @@ return {
           "thumbs.db",
           "node_modules",
         },
-        never_show = { ".git" },
+        never_show = { ".git", "node_modules" },
       },
       use_libuv_file_watcher = true, -- refresh automagically?
       commands = {

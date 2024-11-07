@@ -6,6 +6,7 @@ return {
     -- {'nvim-telescope/telescope.nvim'},
     -- {'ibhagwan/fzf-lua'},
   },
+  event = "VeryLazy",
   config = function()
     require('neoclip').setup({
       enable_persistent_history = true,

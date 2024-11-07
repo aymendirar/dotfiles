@@ -2,10 +2,12 @@ return {
   { "lewis6991/gitsigns.nvim" },
   {
     "ruifm/gitlinker.nvim",
+    event = "VeryLazy"
   },
   {
     "sindrets/diffview.nvim",
     dependencies = "nvim-lua/plenary.nvim",
+    event = "VeryLazy"
   },
   { "akinsho/git-conflict.nvim", version = "*", config = true },
   {

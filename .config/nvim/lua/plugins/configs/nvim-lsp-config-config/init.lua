@@ -17,6 +17,7 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
@@ -140,6 +141,10 @@ require("lspconfig")["lua_ls"].setup({
       },
     },
   },
+})
+require("lspconfig")["nginx_language_server"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
 })
 require("lspconfig")["texlab"].setup({
   on_attach = on_attach,

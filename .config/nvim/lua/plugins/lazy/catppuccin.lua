@@ -11,14 +11,14 @@ return {
         comments = { "italic" },
         conditionals = {},
         loops = {},
-        functions = { "italic" },
+        functions = {},
         keywords = {},
         strings = {},
         variables = {},
         numbers = {},
         booleans = {},
         properties = {},
-        types = { "italic" },
+        types = {},
         operators = {},
       },
       dim_inactive = {
@@ -31,10 +31,16 @@ return {
           base = "#EDEFF3",
         },
       },
-      custom_highlights = {
-        TSParameter = { style = { "italic" } },
-      },
+      custom_highlights = function(_)
+        return {
+          Type = { style = { "bold", "italic" } },
+          Function = { style = { "bold", "italic" } },
+          ["@type.builtin"] = { style = { "bold", "italic" } },
+          ["@parameter"] = { style = { "bold", "italic" } },
+        }
+      end,
       integrations = {
+        notify = true,
         lsp_saga = true,
         treesitter = true,
         treesitter_context = true,

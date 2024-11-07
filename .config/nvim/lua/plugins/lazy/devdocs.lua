@@ -1,5 +1,6 @@
 return {
   "luckasRanarison/nvim-devdocs",
+  event = "VeryLazy",
   config = function()
     require("nvim-devdocs").setup({
       -- ~/.local/share/nvim/devdocs

@@ -23,6 +23,7 @@ set.wrap = true
 set.mouse = "a"
 
 set.scrolloff = 12
+set.scrollbind = false
 set.fileencoding = "utf-8"
 
 set.cursorline = false

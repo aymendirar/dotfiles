@@ -12,6 +12,7 @@
 
   // *** EDITOR ***
   "editor.fontFamily": "BlexMono Nerd Font Mono",
+  "editor.fontWeight": "600",
   "editor.fontLigatures": true,
   "editor.fontSize": 12,
   "editor.suggestSelection": "first",
@@ -104,6 +105,22 @@
     {
       "before": ["<C-r>"],
       "commands": ["redo"]
+    },
+    {
+      "before": ["j"],
+      "after": ["j", "z", "z"]
+    },
+    {
+      "before": ["k"],
+      "after": ["k", "z", "z"]
+    },
+    {
+      "before": ["<C-d>"],
+      "after": ["<C-d>", "z", "z"]
+    },
+    {
+      "before": ["<C-u>"],
+      "after": ["<C-u>", "z", "z"]
     },
     {
       "before": ["<leader>", "t", "s"],

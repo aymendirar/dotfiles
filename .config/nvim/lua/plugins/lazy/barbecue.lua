@@ -3,6 +3,7 @@ vim.g.navic_silence = true
 
 return {
   "utilyre/barbecue.nvim",
+  event = "VeryLazy",
   name = "barbecue",
   version = "*",
   dependencies = {

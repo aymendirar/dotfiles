@@ -24,3 +24,12 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+  pattern = { "*" },
+  callback = function()
+    vim.cmd([[let pos = getpos(".")]])
+    vim.cmd([[normal! zz]])
+    vim.cmd([[call setpos(".", pos)]])
+  end,
+})
