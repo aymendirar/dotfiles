@@ -59,7 +59,7 @@ vim.keymap.set("n", "<leader>res", "<cmd>LspRestart<cr>")
 -- plugin remappings
 map("n", "<C-t>", "<cmd>ToggleTerm direction=float<CR>", options)
 map("t", "<C-t>", "<cmd>ToggleTerm<CR>", options)
-vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], options)
+map('t', '<esc>', [[<C-\><C-n>]], options)
 map("n", "<leader>u", ":BufferLineCyclePrev<CR>", options)
 map("n", "<leader>i", ":BufferLineCycleNext<CR>", options)
 map("n", "<leader>ql", ":BufferLineCloseRight<CR>:e<CR>", options)
@@ -77,7 +77,7 @@ map(
   ':lua require"telescope.builtin".find_files({hidden=true, find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*", "--glob", "!**/.DS_Store"}})<CR>',
   options
 )
--- map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
+map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
 
 -- map("n", "<leader>lg", ":LazyGit<CR>", options)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)

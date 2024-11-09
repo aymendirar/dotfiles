@@ -5,7 +5,7 @@ return {
   event = "VeryLazy",
   keys = {
     {
-      "<leader>d",
+      "<leader>dt",
       "<cmd>Trouble diagnostics toggle<cr>",
       desc = "Diagnostics (Trouble)",
     },
