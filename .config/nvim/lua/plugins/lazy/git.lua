@@ -2,12 +2,12 @@ return {
   { "lewis6991/gitsigns.nvim" },
   {
     "ruifm/gitlinker.nvim",
-    event = "VeryLazy"
+    event = "VeryLazy",
   },
   {
     "sindrets/diffview.nvim",
     dependencies = "nvim-lua/plenary.nvim",
-    event = "VeryLazy"
+    event = "VeryLazy",
   },
   { "akinsho/git-conflict.nvim", version = "*", config = true },
   {
@@ -27,6 +27,14 @@ return {
     -- order to load the plugin when the command is run for the first time
     keys = {
       { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    },
+  },
+  {
+    -- yessssss
+    "dlvhdr/gh-blame.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
+    keys = {
+      { "B", "<cmd>GhBlameCurrentLine<cr>", desc = "GitHub Blame Current Line" },
     },
   },
 }

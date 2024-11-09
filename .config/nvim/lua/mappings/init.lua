@@ -24,18 +24,18 @@ map("i", "<S-Tab>", "<C-d>", options)
 
 map("n", "j", "jzz", options)
 map("n", "k", "kzz", options)
-map("n", "gg", "ggzz", options)
-map("n", "G", "Gzz", options)
 map("n", "<C-d>", "<C-d>zz", options)
 map("n", "<C-u>", "<C-u>zz", options)
-
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
-map("n", "<C-n>", ":cnext<CR>zz", options)
-map("n", "<C-p>", ":cprev<CR>zz", options)
-
+map("n", "gg", "ggzz", options)
+map("n", "G", "Gzz", options)
+map("n", "<C-n>", ":cnext<CR>", options)
+map("n", "<C-p>", ":cprev<CR>", options)
 map("n", "<C-o>", "<C-o>zz", options)
 map("n", "<C-i>", "<C-i>zz", options)
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 map("n", "<leader>h", "<C-w>h", options)
 map("n", "<leader>l", "<C-w>l", options)
@@ -43,6 +43,7 @@ map("n", "<leader>j", "<C-w>j", options)
 map("n", "<leader>k", "<C-w>k", options)
 
 map("n", "<leader>qt", ":tabclose<CR>", options)
+
 
 map("n", "<leader>n", "^", options)
 map("n", "<leader>w", ":w<CR>", options)
@@ -53,11 +54,12 @@ map("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", options) -- copy full file
 
 vim.keymap.set("n", "J", "mzJ`z")
 
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>res", "<cmd>LspRestart<cr>")
 
 -- plugin remappings
+map("n", "<C-t>", "<cmd>ToggleTerm direction=float<CR>", options)
+map("t", "<C-t>", "<cmd>ToggleTerm<CR>", options)
+vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], options)
 map("n", "<leader>u", ":BufferLineCyclePrev<CR>", options)
 map("n", "<leader>i", ":BufferLineCycleNext<CR>", options)
 map("n", "<leader>ql", ":BufferLineCloseRight<CR>:e<CR>", options)
@@ -96,8 +98,6 @@ map("n", "<leader>dl", ":DistantLaunch ssh://thetis.students.cs.ubc.ca<CR>", opt
 map("n", "<leader>doh", ":DistantOpen /home/a/adirar01<CR>", options)
 
 map("n", "<leader>gl", ":GitConflictListQf<CR>", options)
-map("n", "<leader>gn", ":GitConflictNextConflict<CR>", options)
-map("n", "<leader>gp", ":GitConflictPrevConflict<CR>", options)
 map("n", "<leader>gt", ":GitConflictChooseTheirs<CR>", options)
 map("n", "<leader>go", ":GitConflictChooseOurs<CR>", options)
 map("n", "<leader>gm", ":GitConflictChooseBoth<CR>", options)

@@ -135,3 +135,4 @@ eval "$(zoxide init zsh)"
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
 zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands' 'external commands'
 source <(carapace _carapace)
+eval "$(mise activate zsh)"
