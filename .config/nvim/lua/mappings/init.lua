@@ -44,7 +44,6 @@ map("n", "<leader>k", "<C-w>k", options)
 
 map("n", "<leader>qt", ":tabclose<CR>", options)
 
-
 map("n", "<leader>n", "^", options)
 map("n", "<leader>w", ":w<CR>", options)
 map("n", "<leader>a", ":wa<CR>", options)
@@ -59,7 +58,7 @@ vim.keymap.set("n", "<leader>res", "<cmd>LspRestart<cr>")
 -- plugin remappings
 map("n", "<C-t>", "<cmd>ToggleTerm direction=float<CR>", options)
 map("t", "<C-t>", "<cmd>ToggleTerm<CR>", options)
-map('t', '<esc>', [[<C-\><C-n>]], options)
+map("t", "<esc>", [[<C-\><C-n>]], options)
 map("n", "<leader>u", ":BufferLineCyclePrev<CR>", options)
 map("n", "<leader>i", ":BufferLineCycleNext<CR>", options)
 map("n", "<leader>ql", ":BufferLineCloseRight<CR>:e<CR>", options)
@@ -71,16 +70,18 @@ map("n", "<C-l>", ":BufferLineMoveNext<CR>", options)
 map("n", "<leader>ts", ":Neotree toggle reveal<CR>", options)
 map("n", "<leader>tr", ":Neotree reveal<CR>", options)
 
-map(
-  "n",
-  "<leader>p",
-  ':lua require"telescope.builtin".find_files({hidden=true, find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*", "--glob", "!**/.DS_Store"}})<CR>',
-  options
-)
+-- map(
+--   "n",
+--   "<leader>p",
+--   ':lua require"telescope.builtin".find_files({hidden=true, find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*", "--glob", "!**/.DS_Store"}})<CR>',
+--   options
+-- )
+map("n", "<leader>p", ':lua require("fzf-lua").files({cmd = "rg --files --hidden --glob !.git/* --glob !node_modules/* --glob !**/.DS_Store" })<CR>', options)
 map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
 
 -- map("n", "<leader>lg", ":LazyGit<CR>", options)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
+map("n", "<leader>gs", "<cmd>:lua require('fzf-lua').git_status()<CR>", options)
 map("n", "<leader>qg", "<cmd>DiffviewClose<CR>", options)
 map("n", "<leader>o", "", {
   noremap = true,
@@ -108,6 +109,16 @@ map("n", "<leader>fw", ":FormatWrite<CR>", options)
 map("n", "<leader>tb", ":TroubleToggle<CR>", options)
 
 map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR><cmd>vertical resize 100<CR>', {
+  desc = "Open Spectre",
+})
+
+map(
+  "n",
+  "<leader>gf",
+  '<cmd>:lua require("grug-far").open({ engine = "ripgrep", prefills = { flags = "-g", paths = "**" } })<CR><cmd>vertical resize 100<CR><Esc>',
+  {}
+)
+map("n", "<leader>sf", ":set filetype=", {
   desc = "Open Spectre",
 })
 

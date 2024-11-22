@@ -14,7 +14,7 @@
   "editor.fontFamily": "BlexMono Nerd Font Mono",
   "editor.fontWeight": "600",
   "editor.fontLigatures": true,
-  "editor.fontSize": 12,
+  "editor.fontSize": 13,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,
@@ -39,10 +39,15 @@
 
   // *** TERMINAL ***
   "terminal.integrated.lineHeight": 1.0,
+  "terminal.integrated.fontFamily": "BlexMono Nerd Font Mono",
   "terminal.integrated.fontSize": 12,
+  "terminal.integrated.fontWeight": 600,
   "terminal.integrated.copyOnSelection": false,
   "terminal.integrated.tabs.enabled": false,
   "terminal.integrated.copyOnSelection": true,
+
+  "gitlens.currentLine.fontFamily": "BlexMono Nerd Font Mono",
+  "gitlens.currentLine.fontWeight": 600,
 
   // *** FORMATTING AND LANGUAGE SPECIFIC ***
   "editor.formatOnSave": true,
@@ -209,10 +214,13 @@
       "before": ["<leader>", "c", "r"],
       "commands": ["copyRelativeFilePath"]
     },
-
     {
       "before": ["<leader>", "a"],
       "commands": ["editor.action.quickFix"]
+    },
+    {
+      "before": ["<leader>", "s", "f"],
+      "commands": ["workbench.action.editor.changeLanguageMode"]
     }
   ],
   "vim.normalModeKeyBindings": [
@@ -254,7 +262,7 @@
   "vim.useSystemClipboard": true,
   "vim.easymotion": true,
   "vim.surround": true,
-  "terminal.integrated.gpuAcceleration": "off",
+  "terminal.integrated.gpuAcceleration": "on",
   "security.workspace.trust.untrustedFiles": "open",
   "workbench.layoutControl.enabled": false,
   "editor.stickyScroll.enabled": true,

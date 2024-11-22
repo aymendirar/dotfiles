@@ -29,4 +29,8 @@ return {
   {
     "neovim/nvim-lspconfig",
   },
+  {
+    "stevearc/dressing.nvim",
+    opts = {},
+  },
 }
