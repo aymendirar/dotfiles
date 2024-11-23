@@ -1,6 +1,3 @@
-local actions = require("telescope.actions")
-local additional_rg_args = { "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*" }
-
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -9,6 +6,8 @@ return {
     opts = {},
     event = "VeryLazy",
     config = function()
+      local actions = require("telescope.actions")
+      local additional_rg_args = { "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*" }
       require("telescope").setup({
         defaults = {
           hidden = true,
