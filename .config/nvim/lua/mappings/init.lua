@@ -81,6 +81,7 @@ map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', optio
 
 -- map("n", "<leader>lg", ":LazyGit<CR>", options)
 map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
+-- map("n", "<leader>gd", ":lua require('gitsigns').diffthis()<CR>", options)
 map("n", "<leader>gs", "<cmd>:lua require('fzf-lua').git_status()<CR>", options)
 map("n", "<leader>qg", "<cmd>DiffviewClose<CR>", options)
 map("n", "<leader>o", "", {

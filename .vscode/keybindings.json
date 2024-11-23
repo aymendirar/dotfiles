@@ -38,5 +38,15 @@
     "key": "a",
     "command": "explorer.newFile",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "cmd+n",
+    "command": "workbench.action.compareEditor.nextChange",
+    "when": "textCompareEditorVisible"
+  },
+  {
+    "key": "cmd+shift+n",
+    "command": "workbench.action.compareEditor.previousChange",
+    "when": "textCompareEditorVisible"
   }
 ]
