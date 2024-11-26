@@ -76,23 +76,28 @@ map("n", "<leader>tr", ":Neotree reveal<CR>", options)
 --   ':lua require"telescope.builtin".find_files({hidden=true, find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*", "--glob", "!node_modules/*", "--glob", "!**/.DS_Store"}})<CR>',
 --   options
 -- )
-map("n", "<leader>p", ':lua require("fzf-lua").files({cmd = "rg --files --hidden --glob !.git/* --glob !node_modules/* --glob !**/.DS_Store" })<CR>', options)
+map(
+  "n",
+  "<leader>p",
+  ':lua require("fzf-lua").files({cmd = "rg --files --hidden --glob !.git/* --glob !node_modules/* --glob !**/.DS_Store" })<CR>',
+  options
+)
 map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
 
 -- map("n", "<leader>lg", ":LazyGit<CR>", options)
-map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
+-- map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
 -- map("n", "<leader>gd", ":lua require('gitsigns').diffthis()<CR>", options)
 map("n", "<leader>gs", "<cmd>:lua require('fzf-lua').git_status()<CR>", options)
-map("n", "<leader>qg", "<cmd>DiffviewClose<CR>", options)
-map("n", "<leader>o", "", {
-  noremap = true,
-  silent = true,
-  callback = function()
-    vim.cmd([[let $currentPath=@%]])
-    vim.cmd([[DiffviewClose]])
-    vim.cmd([[e $currentPath]])
-  end,
-})
+-- map("n", "<leader>qg", "<cmd>DiffviewClose<CR>", options)
+-- map("n", "<leader>o", "", {
+--   noremap = true,
+--   silent = true,
+--   callback = function()
+--     vim.cmd([[let $currentPath=@%]])
+--     vim.cmd([[DiffviewClose]])
+--     vim.cmd([[e $currentPath]])
+--   end,
+-- })
 
 map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", options)
 
@@ -109,19 +114,17 @@ map("n", "<leader>fw", ":FormatWrite<CR>", options)
 
 map("n", "<leader>tb", ":TroubleToggle<CR>", options)
 
-map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR><cmd>vertical resize 100<CR>', {
-  desc = "Open Spectre",
-})
+-- map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR><cmd>vertical resize 100<CR>', {
+--   desc = "Open Spectre",
+-- })
 
 map(
   "n",
-  "<leader>gf",
-  '<cmd>:lua require("grug-far").open({ engine = "ripgrep", prefills = { flags = "-g", paths = "**" } })<CR><cmd>vertical resize 100<CR><Esc>',
+  "<leader>sp",
+  '<cmd>:lua require("grug-far").open({ engine = "ripgrep", prefills = { flags = "-i" } })<CR><cmd>vertical resize 100<CR>',
   {}
 )
-map("n", "<leader>sf", ":set filetype=", {
-  desc = "Open Spectre",
-})
+map("n", "<leader>sf", ":set filetype=", {})
 
 map("n", "<leader>tn", ":Telescope neoclip o<CR>", options)
 

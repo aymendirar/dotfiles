@@ -2,9 +2,13 @@ return {
   "MagicDuck/grug-far.nvim",
   config = function()
     require("grug-far").setup({
-      -- options, see Configuration section below
-      -- there are no required options atm
-      -- engine = 'ripgrep' is default, but 'astgrep' can be specified
+      normalModeSearch = true,
+      maxSearchMatches = 500,
+      -- highlight the results with TreeSitter, if available
+      resultsHighlight = false,
+
+      -- highlight the inputs with TreeSitter, if available
+      inputsHighlight = false,
     })
   end,
 }

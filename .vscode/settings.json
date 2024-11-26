@@ -1,7 +1,7 @@
 {
   // *** WORKBENCH ***
   "workbench.settings.editor": "json",
-  "workbench.colorTheme": "Catppuccin Frappé",
+  "workbench.colorTheme": "Catppuccin Macchiato",
   "workbench.editor.enablePreview": false,
   "workbench.sideBar.location": "right",
   "workbench.iconTheme": "eq-material-theme-icons-light",
@@ -14,7 +14,7 @@
   "editor.fontFamily": "BlexMono Nerd Font Mono",
   "editor.fontWeight": "600",
   "editor.fontLigatures": true,
-  "editor.fontSize": 11,
+  "editor.fontSize": 13,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,

@@ -1,13 +1,14 @@
-#: Fonts {{{
+#macos_option_as_alt yes
+: Fonts {{{
 
 #: kitty has very powerful font management. You can configure
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
 font_family        BlexMono Nerd Font Mono SemiBold
-# bold_font        auto
-# italic_font      auto
-# bold_italic_font auto
+italic_font        BlexMono Nerd Font Mono SemiBold Italic
+# bold_font          BlexMono Nerd Font Mono Bold Italic
+bold_italic_font BlexMono Nerd Font Mono SemiBold Italic
 
 #: You can specify different fonts for the bold/italic/bold-italic
 #: variants. To get a full list of supported fonts use the `kitty
@@ -22,7 +23,7 @@ font_family        BlexMono Nerd Font Mono SemiBold
 #:     italic_font      Operator Mono Book Italic
 #:     bold_italic_font Operator Mono Medium Italic
 
-font_size 10
+font_size 9.5
 
 #: Font size (in pts)
 
@@ -92,7 +93,7 @@ font_size 10
 
 #:     narrow_symbols codepoints [optionally the number of cells]
 
-# disable_ligatures never
+# disable_ligatures always
 
 #: Choose how you want to handle multi-character ligatures. The
 #: default is to always render them. You can tell kitty to not render
@@ -315,7 +316,7 @@ cursor_blink_interval 0
 #: The color and style for highlighting URLs on mouse-over. url_style
 #: can be one of: none, straight, double, curly, dotted, dashed.
 
-# open_url_with default
+open_url_with default
 
 #: The program to open clicked URLs. The special value default means
 #: to use the operating system's default URL handler (open on macOS
@@ -968,7 +969,7 @@ hide_window_decorations titlebar-only
 
 #: The foreground and background colors.
 
-background_opacity 0.85
+background_opacity 1
 
 #: The opacity of the background. A number between zero and one, where
 #: one is opaque and zero is fully transparent. This will only work if
@@ -1356,7 +1357,7 @@ shell_integration no-cursor
 #: background_opacity. If you want to use both, you are probably
 #: better off just hiding the titlebar with hide_window_decorations.
 
-# macos_option_as_alt no
+macos_option_as_alt yes
 
 #: Use the Option key as an Alt key on macOS. With this set to no,
 #: kitty will use the macOS native Option+Key to enter Unicode
@@ -2173,6 +2174,6 @@ map alt+left send_text all \x1b\x62
 map alt+right send_text all \x1b\x66
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Mocha
+# Catppuccin-Frappe
 include current-theme.conf
 # END_KITTY_THEME

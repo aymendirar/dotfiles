@@ -111,6 +111,7 @@ export AWS_CONFIG_FILE="$HOME/figma/figma/config/aws/sso_config"
 
 alias cd="z"
 alias v="nvim"
+alias c="code"
 alias gdiff="git diff -- ':!*/package-lock.json' ':!*/yarn.lock'"
 alias zshrc="v ~/.zshrc"
 alias config="cd ~/.config/nvim && v ."
