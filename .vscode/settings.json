@@ -14,7 +14,7 @@
   "editor.fontFamily": "BlexMono Nerd Font Mono",
   "editor.fontWeight": "600",
   "editor.fontLigatures": true,
-  "editor.fontSize": 13,
+  "editor.fontSize": 15,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,
@@ -32,7 +32,7 @@
   // *** WINDOW ***
   "window.restoreWindows": "none",
   "window.titleBarStyle": "custom",
-  "window.zoomLevel": -1,
+  "window.zoomLevel": -1.6,
 
   // *** EXPLORER ***
   "explorer.compactFolders": false,
@@ -40,7 +40,7 @@
   // *** TERMINAL ***
   "terminal.integrated.lineHeight": 1.0,
   "terminal.integrated.fontFamily": "BlexMono Nerd Font Mono",
-  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.fontSize": 14,
   "terminal.integrated.fontWeight": 600,
   "terminal.integrated.tabs.enabled": false,
   "terminal.integrated.copyOnSelection": true,

@@ -89,15 +89,15 @@ map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', optio
 -- map("n", "<leader>gd", ":lua require('gitsigns').diffthis()<CR>", options)
 map("n", "<leader>gs", "<cmd>:lua require('fzf-lua').git_status()<CR>", options)
 -- map("n", "<leader>qg", "<cmd>DiffviewClose<CR>", options)
--- map("n", "<leader>o", "", {
---   noremap = true,
---   silent = true,
---   callback = function()
---     vim.cmd([[let $currentPath=@%]])
---     vim.cmd([[DiffviewClose]])
---     vim.cmd([[e $currentPath]])
---   end,
--- })
+map("n", "<leader>o", "", {
+  noremap = true,
+  silent = true,
+  callback = function()
+    vim.cmd([[let $currentPath=@%]])
+    vim.cmd([[DiffviewClose]])
+    vim.cmd([[e $currentPath]])
+  end,
+})
 
 map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", options)
 
