@@ -88,7 +88,37 @@ require("diffview").setup({
     DiffviewOpen = {},
     DiffviewFileHistory = {},
   },
-  hooks = {}, -- See |diffview-config-hooks|
+  hooks = {
+    view_enter = function()
+      vim.cmd([[TSDisable typescript]])
+      vim.cmd([[LspStop]])
+      vim.cmd([[echo "stopped"]])
+    end,
+    view_opened = function()
+      vim.cmd([[TSDisable typescript]])
+      vim.cmd([[LspStop]])
+    end,
+    view_leave = function()
+      vim.cmd([[TSDisable typescript]])
+      vim.cmd([[LspStop]])
+    end,
+    view_closed = function()
+      vim.cmd([[TSDisable typescript]])
+      vim.cmd([[LspStop]])
+    end,
+    view_post_layout = function()
+      vim.cmd([[TSDisable typescript]])
+      vim.cmd([[LspStop]])
+    end,
+    diff_buf_read = function()
+      vim.cmd([[TSDisable typescript]])
+      vim.cmd([[LspStop]])
+    end,
+    diff_buf_win_enter = function()
+      vim.cmd([[TSDisable typescript]])
+      vim.cmd([[LspStop]])
+    end,
+  }, -- See |diffview-config-hooks|
   keymaps = {
     disable_defaults = false, -- Disable the default keymaps
     view = {

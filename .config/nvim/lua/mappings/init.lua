@@ -85,8 +85,8 @@ map(
 map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
 
 -- map("n", "<leader>lg", ":LazyGit<CR>", options)
--- map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
--- map("n", "<leader>gd", ":lua require('gitsigns').diffthis()<CR>", options)
+map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
+-- -- map("n", "<leader>gd", ":lua require('gitsigns').diffthis()<CR>", options)
 map("n", "<leader>gs", "<cmd>:lua require('fzf-lua').git_status()<CR>", options)
 -- map("n", "<leader>qg", "<cmd>DiffviewClose<CR>", options)
 map("n", "<leader>o", "", {
@@ -121,7 +121,7 @@ map("n", "<leader>tb", ":TroubleToggle<CR>", options)
 map(
   "n",
   "<leader>sp",
-  '<cmd>:lua require("grug-far").open({ engine = "ripgrep", prefills = { flags = "-i" } })<CR><cmd>vertical resize 100<CR>',
+  '<cmd>:lua require("grug-far").open({ engine = "ripgrep", prefills = { flags = "-i" }, transient = true })<CR><cmd>vertical resize 100<CR>',
   {}
 )
 map("n", "<leader>sf", ":set filetype=", {})

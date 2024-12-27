@@ -9,6 +9,7 @@ return {
 
       -- highlight the inputs with TreeSitter, if available
       inputsHighlight = false,
+      startInInsertMode = false,
     })
   end,
 }

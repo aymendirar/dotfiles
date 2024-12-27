@@ -9,6 +9,8 @@ cp -r .config/kitty ~/.config
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
 cp -r .config/tmux/tmux.conf ~/
+cp -r .config/bat .config
+cp -r .config/delta .config
 
 cp .vscode/settings.json ~/Library/Application\ Support/Code/User
 cp .vscode/keybindings.json ~/Library/Application\ Support/Code/User

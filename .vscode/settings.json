@@ -264,5 +264,6 @@
     "terminal.background": "#00000000"
   },
   "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
-  "terraform.languageServer.enable": true
+  "terraform.languageServer.enable": true,
+  "chat.commandCenter.enabled": false
 }

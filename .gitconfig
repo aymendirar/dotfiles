@@ -1,3 +1,4 @@
+
 [user]
 	name = aymen
 	email = adirar@figma.com
@@ -25,6 +26,9 @@
 	dc = diff -- ':!*/package-lock.json' ':!*/yarn.lock'
 	po = !git push -u origin $(git branch --show-current)
 
+[include]
+	path = .config/delta/themes/catppuccin.gitconfig
+
 [core]
 	pager = delta
 
@@ -36,6 +40,7 @@
 	light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
 	side-by-side= true
   line-numbers = true
+	features = catppuccin-macchiato
 
 [merge]
 	conflictstyle = diff3
