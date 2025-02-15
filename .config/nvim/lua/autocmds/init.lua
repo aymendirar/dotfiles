@@ -1,3 +1,8 @@
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "*.ts, *.go,.tf, *.rb",
+  command = "e",
+})
+
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = { "*.rkt", "*.rktl", "*.rktd" },
   command = "set filetype=racket",

@@ -14,7 +14,7 @@
   "editor.fontFamily": "BlexMono Nerd Font Mono",
   "editor.fontWeight": "600",
   "editor.fontLigatures": true,
-  "editor.fontSize": 15,
+  "editor.fontSize": 14,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,
@@ -39,6 +39,7 @@
 
   // *** TERMINAL ***
   "terminal.integrated.lineHeight": 1.0,
+  "terminal.integrated.letterSpacing": 1,
   "terminal.integrated.fontFamily": "BlexMono Nerd Font Mono",
   "terminal.integrated.fontSize": 14,
   "terminal.integrated.fontWeight": 600,

@@ -49,11 +49,12 @@ map("n", "<leader>w", ":w<CR>", options)
 map("n", "<leader>a", ":wa<CR>", options)
 map("n", "<leader>q", ":q<CR>", options)
 map("n", "Y", "y$", options)
-map("n", "<leader>cp", ":let @+ = expand('%:p')<CR>", options) -- copy full file path
+map("n", "<leader>cp", ":let @+ = expand('%:.')<CR>", options) -- copy relative file path
+map("n", "<leader>cf", ":let @+ = expand('%:p')<CR>", options) -- copy full file path
 
 vim.keymap.set("n", "J", "mzJ`z")
 
-vim.keymap.set("n", "<leader>res", "<cmd>LspRestart<cr>")
+vim.keymap.set("n", "<leader>res", "<cmd>LspRestart<CR>")
 
 -- plugin remappings
 map("n", "<C-t>", "<cmd>ToggleTerm direction=float<CR>", options)
@@ -84,8 +85,8 @@ map(
 )
 map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
 
--- map("n", "<leader>lg", ":LazyGit<CR>", options)
-map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
+-- map("n", "<leader>gd", ":LazyGit<CR>", options)
+-- map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", options)
 -- -- map("n", "<leader>gd", ":lua require('gitsigns').diffthis()<CR>", options)
 map("n", "<leader>gs", "<cmd>:lua require('fzf-lua').git_status()<CR>", options)
 -- map("n", "<leader>qg", "<cmd>DiffviewClose<CR>", options)
@@ -112,7 +113,7 @@ map("n", "<leader>gm", ":GitConflictChooseBoth<CR>", options)
 map("n", "<leader>gi", ":GuessIndent<CR>", options)
 map("n", "<leader>fw", ":FormatWrite<CR>", options)
 
-map("n", "<leader>tb", ":TroubleToggle<CR>", options)
+-- map("n", "<leader>tb", ":TroubleToggle<CR>", options)
 
 -- map("n", "<leader>sp", '<cmd>lua require("spectre").open()<CR><cmd>vertical resize 100<CR>', {
 --   desc = "Open Spectre",
@@ -121,7 +122,7 @@ map("n", "<leader>tb", ":TroubleToggle<CR>", options)
 map(
   "n",
   "<leader>sp",
-  '<cmd>:lua require("grug-far").open({ engine = "ripgrep", prefills = { flags = "-i" }, transient = true })<CR><cmd>vertical resize 100<CR>',
+  '<cmd>:lua require("grug-far").toggle_instance({ instanceName = "search", engine = "ripgrep", prefills = { flags = "-i" }, transient = true })<CR><cmd>vertical resize 100<CR>',
   {}
 )
 map("n", "<leader>sf", ":set filetype=", {})

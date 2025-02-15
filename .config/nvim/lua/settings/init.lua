@@ -35,6 +35,7 @@ raw_set("set clipboard+=unnamedplus") -- use system clipboard
 raw_set("set foldlevel=99")
 raw_set("set signcolumn=yes")
 raw_set("set laststatus=3")
+raw_set("set noreadonly")
 
 -- window settings
 window.foldmethod = "expr"
@@ -49,3 +50,5 @@ vim.cmd(":highlight VertSplit guifg=#ffffff")
 vim.cmd(":set fillchars+=vert:┃")
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
 vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })
+
+vim.lsp.set_log_level("off")

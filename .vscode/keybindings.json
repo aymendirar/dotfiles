@@ -48,5 +48,6 @@
     "key": "cmd+shift+n",
     "command": "workbench.action.compareEditor.previousChange",
     "when": "textCompareEditorVisible"
-  }
+  },
+  { "key": "cmd+r", "command": "git.refresh" }
 ]

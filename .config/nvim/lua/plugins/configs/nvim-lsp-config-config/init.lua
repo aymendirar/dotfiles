@@ -1,3 +1,7 @@
+if vim.opt.diff:get() then
+  return
+end
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
@@ -9,8 +13,6 @@ vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
@@ -151,6 +153,7 @@ require("lspconfig")["texlab"].setup({
   flags = lsp_flags,
 })
 require("lspconfig")["ts_ls"].setup({
+  init_options = { hostInfo = "neovim", maxTsServerMemory = 8192 },
   on_attach = on_attach,
   flags = lsp_flags,
 })

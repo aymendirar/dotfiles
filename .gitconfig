@@ -25,6 +25,11 @@
 	uncommit = reset --soft HEAD^
 	dc = diff -- ':!*/package-lock.json' ':!*/yarn.lock'
 	po = !git push -u origin $(git branch --show-current)
+  pause = !git add . && git commit -m "wip"
+  start = !git reset HEAD^
+  rb = !git fetch origin && git rebase -i origin/master
+  rbc = !git add . && git rebase --continue
+  oops = !git add . && git commit --amend
 
 [include]
 	path = .config/delta/themes/catppuccin.gitconfig
