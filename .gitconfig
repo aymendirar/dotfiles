@@ -30,6 +30,10 @@
   rb = !git fetch origin && git rebase -i origin/master
   rbc = !git add . && git rebase --continue
   oops = !git add . && git commit --amend
+  dt = difftool
+  d = diff
+  p = push
+  pf = push --force
 
 [include]
 	path = .config/delta/themes/catppuccin.gitconfig

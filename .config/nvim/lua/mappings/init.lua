@@ -12,6 +12,8 @@ map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+vim.keymap.set("v", "u", ":Gitsigns reset_hunk<CR>")
+
 -- insert mode remappings
 map("i", "jj", "<Esc>", options)
 map("i", "JJ", "<Esc>", options)
@@ -80,7 +82,7 @@ map("n", "<leader>tr", ":Neotree reveal<CR>", options)
 map(
   "n",
   "<leader>p",
-  ':lua require("fzf-lua").files({cmd = "rg --files --hidden --glob !.git/* --glob !node_modules/* --glob !**/.DS_Store" })<CR>',
+  '<cmd>Neotree close<CR>:lua require("fzf-lua").files({cmd = "rg --files --hidden --glob !.git/* --glob !node_modules/* --glob !**/.DS_Store" })<CR>',
   options
 )
 map("n", "<leader>d", ':lua require"telescope.builtin".diagnostics()<CR>', options)
@@ -122,10 +124,13 @@ map("n", "<leader>fw", ":FormatWrite<CR>", options)
 map(
   "n",
   "<leader>sp",
-  '<cmd>:lua require("grug-far").toggle_instance({ instanceName = "search", engine = "ripgrep", prefills = { flags = "-i" }, transient = true })<CR><cmd>vertical resize 100<CR>',
+  '<cmd>Neotree close<CR><cmd>:lua require("grug-far").toggle_instance({ instanceName = "search", engine = "ripgrep", prefills = { flags = "-i" }, transient = true })<CR><cmd>vertical resize 100<CR>',
   {}
 )
 map("n", "<leader>sf", ":set filetype=", {})
+
+map("n", "<leader>za", "zR", {})
+map("n", "<leader>zc", "zM", {})
 
 map("n", "<leader>tn", ":Telescope neoclip o<CR>", options)
 

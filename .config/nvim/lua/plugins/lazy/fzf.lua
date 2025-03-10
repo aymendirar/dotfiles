@@ -8,7 +8,7 @@ return {
       files = {
         -- <C-p>, <C-n> to go through history
         fzf_opts = {
-          ["--history"] = vim.fn.shellescape(vim.fn.stdpath("data") .. "/fzf_files_hist"),
+          ["--history"] = vim.fn.stdpath("data") .. "/fzf_files_hist",
         },
       },
     })
