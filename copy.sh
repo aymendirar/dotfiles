@@ -10,7 +10,7 @@ cp -r ~/.config/delta .config
 cp ~/Library/Application\ Support/Code/User/settings.json .vscode
 cp ~/Library/Application\ Support/Code/User/keybindings.json .vscode
 
-trash .zshrc
+# trash .zshrc
 trash .gitconfig
 
 # cp ~/.zshrc .
