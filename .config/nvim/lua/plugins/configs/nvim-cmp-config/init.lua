@@ -95,6 +95,9 @@ require("lspconfig")["racket_langserver"].setup({
 require("lspconfig")["sorbet"].setup({
   capabilities = capabilities,
 })
+require("lspconfig")["ruby_lsp"].setup({
+  capabilities = capabilities,
+})
 require("lspconfig")["rust_analyzer"].setup({
   capabilities = capabilities,
 })
@@ -102,6 +105,9 @@ require("lspconfig")["lua_ls"].setup({
   capabilities = capabilities,
 })
 require("lspconfig")["nginx_language_server"].setup({
+  capabilities = capabilities,
+})
+require("lspconfig")["protols"].setup({
   capabilities = capabilities,
 })
 require("lspconfig")["terraformls"].setup({

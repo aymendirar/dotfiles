@@ -25,10 +25,11 @@ return {
               return true
             end
           end,
+          additional_vim_regex_highlighting = true,
         },
 
         indent = {
-          enable = true, -- this is hit or miss
+          -- enable = true, -- this is hit or miss
         },
       })
     end,

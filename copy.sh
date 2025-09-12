@@ -13,5 +13,5 @@ cp ~/Library/Application\ Support/Code/User/keybindings.json .vscode
 trash .zshrc
 trash .gitconfig
 
-cp ~/.zshrc .
+# cp ~/.zshrc .
 cp ~/.gitconfig .

@@ -52,6 +52,7 @@ require("lspconfig")["astro"].setup({
   flags = lsp_flags,
 })
 require("lspconfig")["clangd"].setup({
+  filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "hpp" },
   on_attach = on_attach,
   flags = lsp_flags,
 })
@@ -93,6 +94,10 @@ require("lspconfig")["racket_langserver"].setup({
   flags = lsp_flags,
 })
 require("lspconfig")["sorbet"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
+require("lspconfig")["ruby_lsp"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
@@ -148,7 +153,11 @@ require("lspconfig")["nginx_language_server"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["texlab"].setup({
+require("lspconfig")["protols"].setup({
+  on_attach = on_attach,
+  flags = lsp_flags,
+})
+require("lspconfig")["protols"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
 })

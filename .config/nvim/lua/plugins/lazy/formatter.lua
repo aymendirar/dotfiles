@@ -3,6 +3,8 @@ return {
   event = "VeryLazy",
   config = function()
     local default_filetype_configs = require("formatter.filetypes")
+    local defaults = require("formatter.defaults")
+    local util = require("formatter.util")
 
     require("formatter").setup({
       -- Enable or disable logging
@@ -25,6 +27,8 @@ return {
         markdown = default_filetype_configs.markdown.prettier,
         haskell = default_filetype_configs.haskell.stylish_haskell,
         go = default_filetype_configs.go.gofmt,
+        ruby = util.copyf(defaults.prettier),
+        yaml = util.copyf(defaults.prettier),
 
         -- Use the special "*" filetype for defining formatter configurations on
         -- any filetype
