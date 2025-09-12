@@ -3,11 +3,13 @@
 trash ~/.config/kitty
 trash ~/.config/nvim
 trash ~/.config/tmux
+trash ~/.config/ghostty
 trash ~/Library/Application\ Support/Code/User/*.json
 
 cp -r .config/kitty ~/.config
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
+cp -r .config/ghostty ~/.config
 cp -r .config/tmux/tmux.conf ~/
 cp -r .config/bat .config
 cp -r .config/delta .config
