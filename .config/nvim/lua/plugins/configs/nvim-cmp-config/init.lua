@@ -95,9 +95,9 @@ require("lspconfig")["racket_langserver"].setup({
 require("lspconfig")["sorbet"].setup({
   capabilities = capabilities,
 })
-require("lspconfig")["ruby_lsp"].setup({
-  capabilities = capabilities,
-})
+-- require("lspconfig")["ruby_lsp"].setup({
+--   capabilities = capabilities,
+-- })
 require("lspconfig")["rust_analyzer"].setup({
   capabilities = capabilities,
 })

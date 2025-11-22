@@ -12,7 +12,7 @@ map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("v", "u", ":Gitsigns reset_hunk<CR>")
+vim.keymap.set("v", "<C-u>", ":Gitsigns reset_hunk<CR>")
 
 -- insert mode remappings
 map("i", "jj", "<Esc>", options)

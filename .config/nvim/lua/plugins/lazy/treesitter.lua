@@ -8,14 +8,14 @@ return {
         ensure_installed = "all",
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
-
+  
         -- Automatically install missing parsers when entering buffer
         -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
         auto_install = true,
-
+  
         -- List of parsers to ignore installing (or "all")
         ignore_install = {},
-
+  
         highlight = {
           enable = true,
           disable = function(_, buf)
@@ -27,7 +27,7 @@ return {
           end,
           additional_vim_regex_highlighting = true,
         },
-
+  
         indent = {
           -- enable = true, -- this is hit or miss
         },
@@ -68,10 +68,10 @@ return {
         -- exactly match "impl_item" only)
         -- rust = true,
       },
-
+  
       -- [!] The options below are exposed but shouldn't require your attention,
       --     you can safely ignore them.
-
+  
       zindex = 20, -- The Z-index of the context window
       mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
       separator = nil, -- Separator between context and content. Should be a single character string, like '-'.

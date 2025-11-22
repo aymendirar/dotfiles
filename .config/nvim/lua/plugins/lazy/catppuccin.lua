@@ -68,10 +68,10 @@ return {
             information = { "underline" },
           },
         },
-        indent_blankline = {
-          enabled = true,
-          colored_indent_levels = false,
-        },
+        -- indent_blankline = {
+        --   enabled = true,
+        --   colored_indent_levels = false,
+        -- },
         telescope = {
           enabled = true,
         },

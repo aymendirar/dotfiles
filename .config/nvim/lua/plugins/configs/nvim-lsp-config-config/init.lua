@@ -100,10 +100,21 @@ require("lspconfig")["sorbet"].setup({
 require("lspconfig")["ruby_lsp"].setup({
   on_attach = on_attach,
   flags = lsp_flags,
+  cmd = { "bundle", "exec", "ruby-lsp" },
+  filetypes = { "ruby" },
+  root_dir = require("lspconfig").util.root_pattern("Gemfile", ".git"),
+  init_options = {
+    formatter = "auto",
+  },
 })
 require("lspconfig")["terraformls"].setup({
+  filetypes = { "terraform", "tf", "terraform-vars" },
   on_attach = on_attach,
   flags = lsp_flags,
+  root_dir = function(fname)
+    -- Only activate in directories that actually contain terraform files
+    return require("lspconfig").util.root_pattern("*.tf", ".terraform")(fname)
+  end,
 })
 require("lspconfig")["rust_analyzer"].setup({
   on_attach = on_attach,
