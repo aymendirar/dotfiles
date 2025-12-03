@@ -3,6 +3,9 @@ set -xuo pipefail
 
 # this is to be run on a devcontainer
 
+# change to the script's directory
+cd "$(dirname "$0")"
+
 install_fzf() {
   if [ ! -d "${HOME}/.fzf" ]; then
     rm -rf "${HOME}/.fzf"
@@ -36,6 +39,8 @@ cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
 cp .gitconfig ~
 cp work.zshrc ~/.zshrc
+
+source ~/.zshrc
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
