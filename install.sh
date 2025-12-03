@@ -1,9 +1,19 @@
 #!/bin/bash
 set -xeuo pipefail
 
+install_fzf() {
+  if [ ! -d "${HOME}/.fzf" ]; then
+    rm -rf "${HOME}/.fzf"
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  fi
+
+  ~/.fzf/install --all
+}
+
 # this is to be run on a devcontainer
-sudo apt install fzf
-sudo apt install nvim
+install_fzf
+
+sudo apt install neovim
 
 rm -rf .config/nvim
 rm -rf .config/tmux
