@@ -1,6 +1,7 @@
-# this is to be run on a devcontainer
-set -euo pipefail
+#!/bin/bash
+set -xeuo pipefail
 
+# this is to be run on a devcontainer
 sudo apt install fzf
 sudo apt install nvim
 
