@@ -15,7 +15,6 @@ return {
           "javascript",
           "python",
           "yaml",
-          "swift",
           "sql",
           "racket",
           "proto",
