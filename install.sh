@@ -51,4 +51,4 @@ source ~/.zshrc
 # need to install TPM for tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-~/nvim-linux-x86_64/bin/nvim --headless "+Lazy! install" +qa
+nvim --headless "+Lazy! install" +qa
