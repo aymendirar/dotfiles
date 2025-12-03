@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xeuo pipefail
+set -xuo pipefail
 
 # this is to be run on a devcontainer
 
