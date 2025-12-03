@@ -1,6 +1,8 @@
 #!/bin/bash
 set -xeuo pipefail
 
+# this is to be run on a devcontainer
+
 install_fzf() {
   if [ ! -d "${HOME}/.fzf" ]; then
     rm -rf "${HOME}/.fzf"
@@ -10,15 +12,31 @@ install_fzf() {
   ~/.fzf/install --all
 }
 
-# this is to be run on a devcontainer
+install_nvim() {
+  curl -o ~/nvim-linux-x86_64/bin/nvim "https://github.com/neovim/neovim/releases/download/v0.11.5/nvim-linux-x86_64.tar.gz"
+  tar xzvf nvim-linux-x86_64.tar.gz
+}
+
 install_fzf
+install_nvim
 
 sudo apt install neovim
 
-rm -rf .config/nvim
-rm -rf .config/tmux
-rm .gitconfig
-rm .zshrc
+if [ -d "~/.config/nvim" ]; then
+  rm -rf ~/.config/nvim
+fi
+
+if [ -d "~/.config/tmux" ]; then
+  rm -rf ~/.config/tmux
+fi
+
+if [ -f "~/.gitconfig" ]; then
+  rm .gitconfig
+fi
+
+if [ -f "~/.zshrc" ]; then
+  rm .zshrc
+fi
 
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
@@ -34,4 +52,4 @@ source ~/.zshrc
 # need to install TPM for tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-nvim --headless "+Lazy! install" +qa
+~/nvim-linux-x86_64/bin/nvim --headless "+Lazy! install" +qa

@@ -17,7 +17,7 @@ export PATH="$PATH:$HOME/.cargo/bin:$(go env GOPATH)/bin"
 
 export AWS_CONFIG_FILE="$HOME/figma/figma/config/aws/sso_config"
 
-alias v="nvim"
+alias v="~/nvim-linux-arm64/bin/nvim"
 alias gdiff="git diff -- ':!*/package-lock.json' ':!*/yarn.lock'"
 alias gd="git diff"
 alias gs="git status"
