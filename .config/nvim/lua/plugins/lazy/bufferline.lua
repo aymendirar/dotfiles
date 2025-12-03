@@ -8,8 +8,9 @@ return {
       mode = "buffers",
     },
   },
-  init = function()
-    local bufline = require("catppuccin.groups.integrations.bufferline")
-    bufline.get = bufline.get_theme
+  config = function()
+    require("bufferline").setup({
+      highlights = require("catppuccin.groups.integrations.bufferline").get()
+    })
   end,
 }

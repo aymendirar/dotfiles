@@ -62,58 +62,58 @@ local capabilities = function()
 end
 
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require("lspconfig")["clangd"].setup({
+vim.lsp.config("clangd", {
   capabilities = capabilities,
 })
-require("lspconfig")["elp"].setup({
+vim.lsp.config("elp", {
   capabilities = capabilities,
 })
-require("lspconfig")["gopls"].setup({
+vim.lsp.config("gopls", {
   capabilities = capabilities,
 })
-require("lspconfig")["hls"].setup({
+vim.lsp.config("hls", {
   capabilities = capabilities,
 })
-require("lspconfig")["html"].setup({
+vim.lsp.config("html", {
   capabilities = capabilities,
 })
-require("lspconfig")["jdtls"].setup({
+vim.lsp.config("jdtls", {
   capabilities = capabilities,
 })
-require("lspconfig")["marksman"].setup({
+vim.lsp.config("marksman", {
   capabilities = capabilities,
 })
-require("lspconfig")["pyright"].setup({
+vim.lsp.config("pyright", {
   capabilities = capabilities,
 })
-require("lspconfig")["pbls"].setup({
+vim.lsp.config("pbls", {
   capabilities = capabilities,
 })
-require("lspconfig")["racket_langserver"].setup({
+vim.lsp.config("racket_langserver", {
   capabilities = capabilities,
 })
-require("lspconfig")["sorbet"].setup({
+vim.lsp.config("sorbet", {
   capabilities = capabilities,
 })
--- require("lspconfig")["ruby_lsp"].setup({
+-- vim.lsp.config("ruby_lsp",{
 --   capabilities = capabilities,
 -- })
-require("lspconfig")["rust_analyzer"].setup({
+vim.lsp.config("rust_analyzer", {
   capabilities = capabilities,
 })
-require("lspconfig")["lua_ls"].setup({
+vim.lsp.config("lua_ls", {
   capabilities = capabilities,
 })
-require("lspconfig")["nginx_language_server"].setup({
+vim.lsp.config("nginx_language_server", {
   capabilities = capabilities,
 })
-require("lspconfig")["protols"].setup({
+vim.lsp.config("protols", {
   capabilities = capabilities,
 })
-require("lspconfig")["terraformls"].setup({
+vim.lsp.config("terraformls", {
   capabilities = capabilities,
 })
-require("lspconfig")["ts_ls"].setup({
+vim.lsp.config("ts_ls", {
   capabilities = capabilities,
   init_options = {
     preferences = {
@@ -121,6 +121,6 @@ require("lspconfig")["ts_ls"].setup({
     },
   },
 })
-require("lspconfig")["yamlls"].setup({
+vim.lsp.config("yamlls", {
   capabilities = capabilities,
 })
