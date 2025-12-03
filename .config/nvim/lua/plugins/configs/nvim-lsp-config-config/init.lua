@@ -47,20 +47,20 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 50,
 }
-require("lspconfig")["astro"].setup({
+vim.lsp.config("astro", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["clangd"].setup({
+vim.lsp.config("clangd", {
   filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "hpp" },
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["elp"].setup({
+vim.lsp.config("elp", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["gopls"].setup({
+vim.lsp.config("gopls", {
   on_attach = on_attach,
   flags = lsp_flags,
   settings = {
@@ -69,35 +69,35 @@ require("lspconfig")["gopls"].setup({
     },
   },
 })
-require("lspconfig")["hls"].setup({
+vim.lsp.config("hls", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["html"].setup({
+vim.lsp.config("html", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["jdtls"].setup({
+vim.lsp.config("jdtls", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["marksman"].setup({
+vim.lsp.config("marksman", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["pyright"].setup({
+vim.lsp.config("pyright", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["racket_langserver"].setup({
+vim.lsp.config("racket_langserver", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["sorbet"].setup({
+vim.lsp.config("sorbet", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["ruby_lsp"].setup({
+vim.lsp.config("ruby_lsp", {
   on_attach = on_attach,
   flags = lsp_flags,
   cmd = { "bundle", "exec", "ruby-lsp" },
@@ -107,7 +107,7 @@ require("lspconfig")["ruby_lsp"].setup({
     formatter = "auto",
   },
 })
-require("lspconfig")["terraformls"].setup({
+vim.lsp.config("terraformls", {
   filetypes = { "terraform", "tf", "terraform-vars" },
   on_attach = on_attach,
   flags = lsp_flags,
@@ -116,7 +116,7 @@ require("lspconfig")["terraformls"].setup({
     return require("lspconfig").util.root_pattern("*.tf", ".terraform")(fname)
   end,
 })
-require("lspconfig")["rust_analyzer"].setup({
+vim.lsp.config("rust_analyzer", {
   on_attach = on_attach,
   flags = lsp_flags,
   -- Server-specific settings...
@@ -135,7 +135,7 @@ require("lspconfig")["rust_analyzer"].setup({
     },
   },
 })
-require("lspconfig")["lua_ls"].setup({
+vim.lsp.config("lua_ls", {
   on_attach = on_attach,
   flags = lsp_flags,
   settings = {
@@ -160,24 +160,24 @@ require("lspconfig")["lua_ls"].setup({
     },
   },
 })
-require("lspconfig")["nginx_language_server"].setup({
+vim.lsp.config("nginx_language_server", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["protols"].setup({
+vim.lsp.config("protols", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["protols"].setup({
+vim.lsp.config("protols", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["ts_ls"].setup({
+vim.lsp.config("ts_ls", {
   init_options = { hostInfo = "neovim", maxTsServerMemory = 8192 },
   on_attach = on_attach,
   flags = lsp_flags,
 })
-require("lspconfig")["yamlls"].setup({
+vim.lsp.config("yamlls", {
   on_attach = on_attach,
   flags = lsp_flags,
 })
