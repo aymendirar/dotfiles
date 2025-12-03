@@ -8,7 +8,7 @@ export HK_SLOW=1
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="dst"
 
-plugins=(git)
+plugins=(git zsh-autosuggestions zsh-autocomplete zsh-syntax-highlighting)
 
 export EDITOR='nvim'
 
