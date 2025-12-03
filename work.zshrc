@@ -18,7 +18,7 @@ export PATH="$PATH:$HOME/.cargo/bin:$(go env GOPATH)/bin"
 
 export AWS_CONFIG_FILE="$HOME/figma/figma/config/aws/sso_config"
 
-alias v="~/nvim-linux-arm64/bin/nvim"
+alias v="nvim"
 alias gdiff="git diff -- ':!*/package-lock.json' ':!*/yarn.lock'"
 alias gd="git diff"
 alias gs="git status"
@@ -31,8 +31,5 @@ alias source-zshrc="source ~/.zshrc"
 alias source-tmux="tmux source ~/.config/tmux/tmux.conf"
 alias tmux-kill-rest="tmux kill-session -a"
 alias tmux-attach="tmux attach -d -t"
-
-export MISE_ENV=macos # loads mise.macos.toml
-eval "$(mise activate zsh)"
 
 export GLOBAL_GEMFILE="~/figma/figma/Gemfile"

@@ -40,7 +40,7 @@ cp -r .config/tmux ~/.config
 cp .gitconfig ~
 cp work.zshrc ~/.zshrc
 
-source ~/.zshrc
+export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
