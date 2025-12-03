@@ -19,20 +19,20 @@ if ! fzf --version ; then
   install_fzf
 fi
 
-if [ -d "~/.config/nvim" ]; then
-  rm -rf ~/.config/nvim
+if [ -d "${HOME}/.config/nvim" ]; then
+  rm -rf "${HOME}/.config/nvim"
 fi
 
-if [ -d "~/.config/tmux" ]; then
-  rm -rf ~/.config/tmux
+if [ -d "${HOME}/.config/tmux" ]; then
+  rm -rf "${HOME}/.config/tmux"
 fi
 
-if [ -f "~/.gitconfig" ]; then
-  rm .gitconfig
+if [ -f "${HOME}/.gitconfig" ]; then
+  rm "${HOME}/.gitconfig"
 fi
 
-if [ -f "~/.zshrc" ]; then
-  rm .zshrc
+if [ -f "${HOME}/.zshrc" ]; then
+  rm "${HOME}/.zshrc"
 fi
 
 cp -r .config/nvim ~/.config
