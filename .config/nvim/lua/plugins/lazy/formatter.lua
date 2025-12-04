@@ -33,11 +33,7 @@ return {
         -- Use the special "*" filetype for defining formatter configurations on
         -- any filetype
         ["*"] = {
-          -- "formatter.filetypes.any" defines default configurations for any
-          -- filetype
-          function()
-            return { exe = "sed", args = { "-i", "''", "'s/[	 ]*$//'" } }
-          end,
+          require("formatter.filetypes.any").substitute_trailing_whitespace,
         },
       },
     })

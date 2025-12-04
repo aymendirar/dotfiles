@@ -31,7 +31,8 @@ set.cursorline = false
 set.hidden = true
 
 -- raw settings
-raw_set("set clipboard+=unnamedplus") -- use system clipboard
+
+raw_set("set clipboard=unnamedplus")
 raw_set("set foldlevel=99")
 raw_set("set signcolumn=yes")
 raw_set("set laststatus=3")
@@ -51,3 +52,15 @@ vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
 vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })
 
 vim.lsp.set_log_level(vim.log.levels.DEBUG)
+
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste '+',
+    ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+  },
+}

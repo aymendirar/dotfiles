@@ -70,15 +70,21 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 nvim --headless "+Lazy! install" +qa
 
-# needed for sorbet lsp
+# needed for sorbet
 sudo mkdir -p ~/figma/figma/.cache/sorbet-vsc
 sudo chown -R $USER:$USER ~/figma/figma/.cache/sorbet-vsc
 chmod -R 755 ~/figma/figma/.cache/sorbet-vsc
 
-# install nvim/bat/delta
+sudo mkdir -p ~/figma/figma/.cache/sorbet-githook
+sudo chown -R $USER:$USER ~/figma/figma/.cache/sorbet-githook
+chmod -R 755 ~/figma/figma/.cache/sorbet-githook
+
+# install tools
 mise use -g bat
 mise use -g delta
 mise use -g neovim@0.11.5
+mise use -g prettier
+mise use -g stylua
 
 bat cache --build
 
