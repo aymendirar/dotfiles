@@ -10,7 +10,7 @@ ZSH_THEME="dst"
 
 source $ZSH/oh-my-zsh.sh
 
-plugins=(git zsh-autosuggestions zsh-autocomplete zsh-syntax-highlighting)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-autocomplete)
 
 export EDITOR='nvim'
 
