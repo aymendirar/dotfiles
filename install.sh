@@ -81,3 +81,5 @@ mise use -g delta
 mise use -g neovim@0.11.5
 
 bat cache --build
+
+source "${HOME}/.zshrc"
