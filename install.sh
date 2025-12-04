@@ -75,9 +75,9 @@ sudo mkdir -p ~/figma/figma/.cache/sorbet-vsc
 sudo chown -R $USER:$USER ~/figma/figma/.cache/sorbet-vsc
 chmod -R 755 ~/figma/figma/.cache/sorbet-vsc
 
-# install bat/delta
-mise use bat
-mise use delta
-mise use neovim@0.11.5
+# install nvim/bat/delta
+mise use -g bat
+mise use -g delta
+mise use -g neovim@0.11.5
 
 bat cache --build
