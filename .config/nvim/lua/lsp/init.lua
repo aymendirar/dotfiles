@@ -25,7 +25,7 @@ vim.lsp.enable({
   "protols",
   "pyright",
   "racket_langserver",
-  "ruby_lsp",
+  -- "ruby_lsp",
   "rust_analyzer",
   "sorbet",
   "terraformls",
