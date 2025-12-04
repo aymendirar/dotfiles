@@ -1,13 +1,14 @@
 # Path to your Oh My Zsh installation.
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 export ZSH="$HOME/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
 
 export FIGMA_HK=1
 export HK_SLOW=1
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="dst"
+
+source $ZSH/oh-my-zsh.sh
 
 plugins=(git zsh-autosuggestions zsh-autocomplete zsh-syntax-highlighting)
 

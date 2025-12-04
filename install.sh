@@ -42,7 +42,7 @@ cp work.zshrc ~/.zshrc
 
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
@@ -52,3 +52,8 @@ source ~/.zshrc
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 nvim --headless "+Lazy! install" +qa
+
+# needed for sorbet lsp
+sudo mkdir ~/figma/figma/.cache/sorbet-vsc
+sudo chown -R $USER:$USER ~/figma/figma/.cache/sorbet-vsc
+chmod -R 755 ~/figma/figma/.cache/sorbet-vsc
