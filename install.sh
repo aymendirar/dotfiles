@@ -54,6 +54,6 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 nvim --headless "+Lazy! install" +qa
 
 # needed for sorbet lsp
-sudo mkdir ~/figma/figma/.cache/sorbet-vsc
+sudo mkdir -p ~/figma/figma/.cache/sorbet-vsc
 sudo chown -R $USER:$USER ~/figma/figma/.cache/sorbet-vsc
 chmod -R 755 ~/figma/figma/.cache/sorbet-vsc
