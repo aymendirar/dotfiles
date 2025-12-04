@@ -6,9 +6,9 @@ if vim.opt.diff:get() then
 end
 
 -- Set global root markers for all LSP clients
-vim.lsp.config("*", {
-  root_markers = { ".git" },
-})
+-- vim.lsp.config("*", {
+--   root_markers = { ".git" },
+-- })
 
 -- Enable all configured LSP servers
 vim.lsp.enable({

@@ -31,13 +31,30 @@ if [ -f "${HOME}/.gitconfig" ]; then
   rm "${HOME}/.gitconfig"
 fi
 
+if [ -f "${HOME}/.gitignore_global" ]; then
+  rm "${HOME}/.gitignore_global"
+fi
+
+if [ -d "${HOME}/.config/bat" ]; then
+  rm -rf "${HOME}/.config/bat"
+fi
+
+if [ -d "${HOME}/.config/delta" ]; then
+  rm -rf "${HOME}/.config/delta"
+fi
+
+
 if [ -f "${HOME}/.zshrc" ]; then
   rm "${HOME}/.zshrc"
 fi
 
+
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
+cp -r .config/bat ~/.config
+cp -r .config/delta ~/.config
 cp .gitconfig ~
+cp .gitignore_global ~
 cp work.zshrc ~/.zshrc
 
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
@@ -57,3 +74,7 @@ nvim --headless "+Lazy! install" +qa
 sudo mkdir -p ~/figma/figma/.cache/sorbet-vsc
 sudo chown -R $USER:$USER ~/figma/figma/.cache/sorbet-vsc
 chmod -R 755 ~/figma/figma/.cache/sorbet-vsc
+
+# install bat/delta
+mise use bat
+mise use delta
