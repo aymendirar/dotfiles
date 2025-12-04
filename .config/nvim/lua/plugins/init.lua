@@ -19,13 +19,3 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = true, notify = false }, -- automatically check for plugin updates
 })
-
-require("plugins.configs.nvim-cmp-config")
-require("plugins.configs.nvim-lsp-config-config")
--- require("plugins.configs.nvim-treesitter-config")
--- require("plugins.configs.nvim-ts-autotag-config")
--- require("plugins.configs.gitsigns-config")
--- require("plugins.configs.indent-blankline-config")
--- require("plugins.configs.diffview-config")
--- require("plugins.configs.gitlinker-config")
--- require("plugins.configs.format-config")

@@ -12,24 +12,6 @@ return {
     },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {
-        "clangd",
-        "elp",
-        "gopls",
-        "jdtls",
-        "marksman",
-        "pyright",
-        "lua_ls",
-        "ts_ls",
-      },
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-  },
-  {
     "stevearc/dressing.nvim",
     opts = {},
   },

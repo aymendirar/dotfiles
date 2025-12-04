@@ -18,7 +18,7 @@ return {
         cpp = default_filetype_configs.cpp.clangformat,
         python = default_filetype_configs.python.black,
         html = default_filetype_configs.html.prettier,
-        javascript = default_filetype_configs.javascript.pretier,
+        javascript = default_filetype_configs.javascript.prettier,
         javascriptreact = default_filetype_configs.javascriptreact.prettier,
         json = default_filetype_configs.json.prettier,
         typescript = default_filetype_configs.typescript.prettier,
