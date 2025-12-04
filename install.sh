@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 set -xuo pipefail
 
 # this is to be run on a devcontainer
@@ -46,7 +46,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/z
 git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-source ~/.zshrc
+source "${HOME}/.zshrc"
 
 # need to install TPM for tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
