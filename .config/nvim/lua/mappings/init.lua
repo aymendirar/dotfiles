@@ -18,12 +18,16 @@ vim.keymap.set("v", "<C-u>", ":Gitsigns reset_hunk<CR>")
 map("i", "jj", "<Esc>", options)
 map("i", "JJ", "<Esc>", options)
 
-vim.keymap.set('i', '<Tab>', function()
-  return vim.fn.pumvisible() == 1 and '<Down>' or '<C-n>'
-end, { expr = true })
-vim.keymap.set('i', '<S-Tab>', function()
-  return vim.fn.pumvisible() == 1 and '<Up>' or '<C-p>'
-end, { expr = true })
+-- vim.keymap.set("i", "<Tab>", function()
+--   if vim.fn.pumvisible() == 1 then
+--     return "<C-n>"
+--   end
+-- end, { expr = true })
+-- vim.keymap.set("i", "<S-Tab>", function()
+--   if vim.fn.pumvisible() == 1 then
+--     return "<C-p>"
+--   end
+-- end, { expr = true })
 
 -- normal mode remappings
 -- movement
