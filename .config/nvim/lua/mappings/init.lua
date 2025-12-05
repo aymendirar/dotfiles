@@ -17,7 +17,13 @@ vim.keymap.set("v", "<C-u>", ":Gitsigns reset_hunk<CR>")
 -- insert mode remappings
 map("i", "jj", "<Esc>", options)
 map("i", "JJ", "<Esc>", options)
-map("i", "<S-Tab>", "<C-d>", options)
+
+vim.keymap.set('i', '<Tab>', function()
+  return vim.fn.pumvisible() == 1 and '<Down>' or '<C-n>'
+end, { expr = true })
+vim.keymap.set('i', '<S-Tab>', function()
+  return vim.fn.pumvisible() == 1 and '<Up>' or '<C-p>'
+end, { expr = true })
 
 -- normal mode remappings
 -- movement

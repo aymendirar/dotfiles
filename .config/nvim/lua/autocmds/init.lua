@@ -32,10 +32,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action, bufopts)
 
     -- Setup autocomplete
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client and client:supports_method("textDocument/completion") then
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-    end
+    -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    -- if client and client:supports_method("textDocument/completion") then
+    --   vim.o.completeopt = "fuzzy,menuone,popup,noinsert,noselect"
+    --   vim.o.pumheight = 7
+    --   vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    -- end
 
     -- Setup lsp_signature for this buffer
     require("lsp_signature").on_attach({
@@ -47,10 +49,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = { "*.ts", "*.go", "*.tf", "*.rb" },
-  command = "e",
-})
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = { "*.ts", "*.go", "*.tf", "*.rb" },
+--   command = "e",
+-- })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = { "*.rkt", "*.rktl", "*.rktd" },
