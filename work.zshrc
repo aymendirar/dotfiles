@@ -15,7 +15,7 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='nvim'
 
 export RACK_ENV=development
-export PATH="$PATH:$HOME/.cargo/bin:$(go env GOPATH)/bin:/usr/local/mise/installs/neovim/0.11.5/nvim-linux-x86_64/bin/nvim:/home/ubuntu/.fzf/bin/fzf"
+export PATH="$PATH:$HOME/.cargo/bin:$(go env GOPATH)/bin:/usr/local/mise/installs/neovim/0.11.5/nvim-linux-x86_64/bin/nvim:/home/ubuntu/.fzf/bin"
 
 export AWS_CONFIG_FILE="$HOME/figma/figma/config/aws/sso_config"
 
