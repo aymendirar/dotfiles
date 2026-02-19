@@ -6,9 +6,11 @@ set -xuo pipefail
 # change to the script's directory
 cd "$(dirname "$0")"
 
+# install oh my zsh
+~/figma/figma/.devcontainer/personalization/_shared_scripts/install_oh_my_zsh.sh
+
 install_fzf() {
   if [ ! -d "${HOME}/.fzf" ]; then
-    rm -rf "${HOME}/.fzf"
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   fi
 
@@ -59,14 +61,14 @@ cp work.zshrc ~/.zshrc
 
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
-git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-autocomplete" ] && git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
+[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
 source "${HOME}/.zshrc"
 
 # need to install TPM for tmux
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+[ ! -d "${HOME}/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 nvim --headless "+Lazy! install" +qa
 
