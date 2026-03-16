@@ -8,9 +8,17 @@ export HK_SLOW=1
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="dst"
 
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions zsh-autocomplete)
+plugins=(
+  git 
+  zsh-syntax-highlighting 
+  zsh-autocomplete
+  zsh-autosuggestions 
+)
 
 source $ZSH/oh-my-zsh.sh
+
+# Override devcontainer completer to remove _correct _approximate (causes recursive loops)
+zstyle ':completion:*' completer _expand _complete
 
 export EDITOR='nvim'
 
