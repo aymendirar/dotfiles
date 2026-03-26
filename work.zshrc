@@ -41,4 +41,6 @@ alias source-tmux="tmux source ~/.config/tmux/tmux.conf"
 alias tmux-kill-rest="tmux kill-session -a"
 alias tmux-attach="tmux attach -d -t"
 
+alias claude="claude --dangerously-skip-permissions"
+
 export GLOBAL_GEMFILE="~/figma/figma/Gemfile"

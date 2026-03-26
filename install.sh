@@ -51,6 +51,7 @@ if [ -f "${HOME}/.zshrc" ]; then
 fi
 
 
+cp -r .claude/settings.json ~/.claude
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
 cp -r .config/bat ~/.config

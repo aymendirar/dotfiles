@@ -1,0 +1,27 @@
+{
+  "model": "sonnet[1m]",
+  "skipDangerousModePermissionPrompt": true,
+  "permissions": {
+    "allow": [
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(ls *)",
+      "Bash(file *)",
+      "Bash(which *)",
+      "Bash(wc *)",
+      "Bash(pwd)",
+      "Bash(whoami)",
+      "Bash(du *)",
+      "Bash(df *)",
+      "Bash(stat *)",
+      "Bash(diff *)",
+      "Bash(env *)",
+      "Bash(echo *)",
+      "Bash(tree *)"
+    ]
+  }
+}
