@@ -11,7 +11,6 @@ ZSH_THEME="dst"
 plugins=(
   git 
   zsh-syntax-highlighting 
-  zsh-autocomplete
   zsh-autosuggestions 
 )
 
