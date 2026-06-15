@@ -7,7 +7,16 @@ set -xuo pipefail
 cd "$(dirname "$0")"
 
 # install oh my zsh
-~/figma/figma/.devcontainer/personalization/_shared_scripts/install_oh_my_zsh.sh
+if [ ! -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
+  if [ -d "$HOME/.oh-my-zsh" ]; then
+    mv "$HOME/.oh-my-zsh" "$HOME/.oh-my-zsh.prev"
+  fi
+  git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
+  if [ -d "$HOME/.oh-my-zsh.prev/custom" ]; then
+    cp -r "$HOME/.oh-my-zsh.prev/custom/." "$HOME/.oh-my-zsh/custom/"
+    rm -rf "$HOME/.oh-my-zsh.prev"
+  fi
+fi
 
 install_fzf() {
   if [ ! -d "${HOME}/.fzf" ]; then
