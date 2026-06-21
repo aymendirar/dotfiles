@@ -23,7 +23,25 @@
   },
   {
     "key": "cmd+s",
-    "command": "workbench.action.toggleSidebarVisibility",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.toggleSidebarVisibility",
+        "workbench.files.action.showActiveFileInExplorer",
+        "workbench.files.action.focusFilesExplorer"
+      ]
+    }
+  },
+  {
+    "key": "cmd+s",
+    "command": "runCommands",
+    "when": "filesExplorerFocus",
+    "args": {
+      "commands": [
+        "workbench.action.toggleSidebarVisibility",
+        "workbench.action.focusActiveEditorGroup"
+      ]
+    }
   },
   {
     "key": "cmd+shift+s",
