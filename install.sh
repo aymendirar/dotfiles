@@ -54,12 +54,12 @@ if [ -d "${HOME}/.config/delta" ]; then
   rm -rf "${HOME}/.config/delta"
 fi
 
-
 if [ -f "${HOME}/.zshrc" ]; then
   rm "${HOME}/.zshrc"
 fi
 
 
+# Copy config files
 cp -r .claude/settings.json ~/.claude
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
@@ -68,6 +68,24 @@ cp -r .config/delta ~/.config
 cp .gitconfig ~
 cp .gitignore_global ~
 cp work.zshrc ~/.zshrc
+
+# Install VSCode/Cursor settings if directories exist
+VSCODE_USER_DIR="${HOME}/Library/Application Support/Code/User"
+CURSOR_USER_DIR="${HOME}/Library/Application Support/Cursor/User"
+
+if [[ -d "${VSCODE_USER_DIR}" ]]; then
+  echo "Installing VSCode settings..."
+  mkdir -p "${VSCODE_USER_DIR}"
+  cp .vscode/settings.json "${VSCODE_USER_DIR}/"
+  cp .vscode/keybindings.json "${VSCODE_USER_DIR}/"
+fi
+
+if [[ -d "${CURSOR_USER_DIR}" ]]; then
+  echo "Installing Cursor settings..."
+  mkdir -p "${CURSOR_USER_DIR}"
+  cp .vscode/settings.json "${CURSOR_USER_DIR}/"
+  cp .vscode/keybindings.json "${CURSOR_USER_DIR}/"
+fi
 
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
