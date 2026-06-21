@@ -17,7 +17,7 @@
     "args": {
       "commands": [
         "workbench.action.terminal.toggleTerminal",
-        "workbench.action.focusActiveEditorGroup"
+        "workbench.action.focusFirstEditorGroup"
       ]
     }
   },
@@ -39,9 +39,13 @@
     "args": {
       "commands": [
         "workbench.action.toggleSidebarVisibility",
-        "workbench.action.focusActiveEditorGroup"
+        "workbench.action.focusFirstEditorGroup"
       ]
     }
+  },
+  {
+    "key": "cmd+e",
+    "command": "workbench.action.focusFirstEditorGroup"
   },
   {
     "key": "cmd+shift+s",
