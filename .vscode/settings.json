@@ -12,7 +12,7 @@
   "editor.fontFamily": "Berkeley Mono",
   "editor.fontWeight": "Bold",
   "editor.fontLigatures": true,
-  "editor.fontSize": 12,
+  "editor.fontSize": 13,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,
@@ -33,11 +33,12 @@
   "terminal.integrated.lineHeight": 1,
   "terminal.integrated.letterSpacing": 1,
   "terminal.integrated.fontFamily": "Berkeley Mono",
-  "terminal.integrated.fontSize": 11,
+  "terminal.integrated.fontSize": 13,
   "terminal.integrated.fontWeight": "Regular",
   "terminal.integrated.tabs.enabled": false,
   "terminal.integrated.copyOnSelection": true,
   "gitlens.currentLine.fontFamily": "Berkeley Mono",
+  "gitlens.codeLens.enabled": true,
   "editor.formatOnSave": true,
   "prettier.requireConfig": true,
   "[html]": {
@@ -251,11 +252,13 @@
   "window.commandCenter": true,
   "security.workspace.trust.enabled": true,
   "redhat.telemetry.enabled": false,"remote.SSH.remotePlatform": {
-    "coder-vscode.coder.figdev.systems--adirar--aymen-devbox-5.devcontainer": "linux"
+    "coder-vscode.coder.figdev.systems--adirar--aymen-devbox-5.devcontainer": "linux",
+    "coder-vscode.coder.figdev.systems--adirar--aymen-devbox-3.devcontainer": "linux"
   },
   "remote.SSH.connectTimeout": 1800,
   "remote.SSH.reconnectionGraceTime": 28800,
   "remote.SSH.serverShutdownTimeout": 28800,
   "remote.SSH.maxReconnectionAttempts": null,
-  "workbench.colorTheme": "Catppuccin Macchiato"
+  "workbench.colorTheme": "Catppuccin Macchiato",
+  "cursorBlame.editorDecoration.enabled": false
 }
