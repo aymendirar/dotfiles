@@ -1,14 +1,42 @@
 // Place your key bindings in this file to override the defaults
 [
-  // { "key": "cmd+e", "command": "workbench.action.tasks.toggleProblems" },
-  { "key": "cmd+t", "command": "workbench.action.terminal.toggleTerminal" },
-  { "key": "cmd+s", "command": "workbench.action.toggleSidebarVisibility" },
-  { "key": "cmd+shift+s", "command": "workbench.view.search" },
+  {
+    "key": "cmd+t",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.terminal.toggleTerminal",
+        "workbench.action.terminal.focus"
+      ]
+    }
+  },
+  {
+    "key": "cmd+t",
+    "command": "runCommands",
+    "when": "terminalFocus",
+    "args": {
+      "commands": [
+        "workbench.action.terminal.toggleTerminal",
+        "workbench.action.focusActiveEditorGroup"
+      ]
+    }
+  },
+  {
+    "key": "cmd+s",
+    "command": "workbench.action.toggleSidebarVisibility",
+  },
+  {
+    "key": "cmd+shift+s",
+    "command": "workbench.view.search"
+  },
   {
     "key": "cmd+j",
     "command": "workbench.action.joinAllGroups"
   },
-  { "key": "cmd+shift+g", "command": "workbench.view.scm" },
+  {
+    "key": "cmd+shift+g",
+    "command": "workbench.view.scm"
+  },
   {
     "key": "space",
     "command": "list.select",
@@ -27,6 +55,11 @@
   {
     "key": "r",
     "command": "renameFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "d",
+    "command": "deleteFile",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
@@ -49,7 +82,10 @@
     "command": "workbench.action.compareEditor.previousChange",
     "when": "textCompareEditorVisible"
   },
-  { "key": "cmd+r", "command": "git.refresh" },
+  {
+    "key": "cmd+r",
+    "command": "git.refresh"
+  },
   {
     "key": "z",
     "command": "list.collapse",
