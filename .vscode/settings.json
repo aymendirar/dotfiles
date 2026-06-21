@@ -1,20 +1,18 @@
 {
-  // *** WORKBENCH ***
   "workbench.settings.editor": "json",
-  "workbench.colorTheme": "Catppuccin Macchiato",
   "workbench.editor.enablePreview": false,
   "workbench.sideBar.location": "right",
-  "workbench.iconTheme": "eq-material-theme-icons-light",
+  "workbench.iconTheme": "catppuccin-macchiato",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.editor.restoreViewState": false,
   "workbench.settings.openDefaultSettings": true,
   "workbench.settings.useSplitJSON": true,
-
-  // *** EDITOR ***
-  "editor.fontFamily": "Berkeley Mono Bold",
-  // "editor.fontWeight": "600",
+  "workbench.list.smoothScrolling": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.fontFamily": "Berkeley Mono",
+  "editor.fontWeight": "Bold",
   "editor.fontLigatures": true,
-  "editor.fontSize": 13,
+  "editor.fontSize": 12,
   "editor.suggestSelection": "first",
   "editor.wordWrap": "on",
   "editor.insertSpaces": true,
@@ -28,28 +26,18 @@
   "editor.guides.bracketPairs": "active",
   "editor.cursorSurroundingLines": 9999,
   "editor.smoothScrolling": true,
-
-  // *** WINDOW ***
   "window.restoreWindows": "none",
   "window.titleBarStyle": "custom",
-  "window.zoomLevel": -1.6,
-
-  // *** EXPLORER ***
+  "window.zoomLevel": -1.0,
   "explorer.compactFolders": false,
-
-  // *** TERMINAL ***
-  "terminal.integrated.lineHeight": 1.0,
+  "terminal.integrated.lineHeight": 1,
   "terminal.integrated.letterSpacing": 1,
   "terminal.integrated.fontFamily": "Berkeley Mono",
-  "terminal.integrated.fontSize": 13,
-  "terminal.integrated.fontWeight": 600,
+  "terminal.integrated.fontSize": 11,
+  "terminal.integrated.fontWeight": "Regular",
   "terminal.integrated.tabs.enabled": false,
   "terminal.integrated.copyOnSelection": true,
-
   "gitlens.currentLine.fontFamily": "Berkeley Mono",
-  // "gitlens.currentLine.fontWeight": "600",
-
-  // *** FORMATTING AND LANGUAGE SPECIFIC ***
   "editor.formatOnSave": true,
   "prettier.requireConfig": true,
   "[html]": {
@@ -83,12 +71,8 @@
   "gopls": {
     "build.buildFlags": ["-mod=readonly"]
   },
-
-  // *** PYTHON ***
   "python.defaultInterpreterPath": "/usr/local/bin/python3",
-  "python.languageServer": "Pylance",
-
-  // *** VIM ***
+  "python.languageServer": "None",
   "vim.useCtrlKeys": true,
   "vim.camelCaseMotion.enable": true,
   "vim.cursorStylePerMode.visual": "block",
@@ -123,7 +107,7 @@
     },
     {
       "before": ["<leader>", "t", "s"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
+      "commands": ["workbench.files.action.showActiveFileInExplorer"]
     },
     {
       "before": ["<leader>", "t", "r"],
@@ -258,13 +242,20 @@
   "vim.surround": true,
   "terminal.integrated.gpuAcceleration": "on",
   "security.workspace.trust.untrustedFiles": "open",
-  "workbench.layoutControl.enabled": false,
   "editor.stickyScroll.enabled": true,
   "editor.minimap.enabled": false,
-  "workbench.colorCustomizations": {
-    "terminal.background": "#00000000"
-  },
-  "workbench.settings.applyToAllProfiles": ["workbench.colorCustomizations"],
+  "workbench.colorCustomizations": {},
+  "workbench.settings.applyToAllProfiles": [],
   "terraform.languageServer.enable": true,
-  "chat.commandCenter.enabled": false
+  "chat.commandCenter.enabled": false,
+  "window.commandCenter": true,
+  "security.workspace.trust.enabled": true,
+  "redhat.telemetry.enabled": false,"remote.SSH.remotePlatform": {
+    "coder-vscode.coder.figdev.systems--adirar--aymen-devbox-5.devcontainer": "linux"
+  },
+  "remote.SSH.connectTimeout": 1800,
+  "remote.SSH.reconnectionGraceTime": 28800,
+  "remote.SSH.serverShutdownTimeout": 28800,
+  "remote.SSH.maxReconnectionAttempts": null,
+  "workbench.colorTheme": "Catppuccin Macchiato"
 }

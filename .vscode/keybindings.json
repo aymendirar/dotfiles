@@ -1,6 +1,6 @@
 // Place your key bindings in this file to override the defaults
 [
-  { "key": "cmd+e", "command": "workbench.action.tasks.toggleProblems" },
+  // { "key": "cmd+e", "command": "workbench.action.tasks.toggleProblems" },
   { "key": "cmd+t", "command": "workbench.action.terminal.toggleTerminal" },
   { "key": "cmd+s", "command": "workbench.action.toggleSidebarVisibility" },
   { "key": "cmd+shift+s", "command": "workbench.view.search" },
@@ -49,5 +49,10 @@
     "command": "workbench.action.compareEditor.previousChange",
     "when": "textCompareEditorVisible"
   },
-  { "key": "cmd+r", "command": "git.refresh" }
+  { "key": "cmd+r", "command": "git.refresh" },
+  {
+    "key": "z",
+    "command": "list.collapse",
+    "when": "listFocus && treeElementCanCollapse && !inputFocus && !treestickyScrollFocused || listFocus && treeElementHasParent && !inputFocus && !treestickyScrollFocused"
+  }
 ]

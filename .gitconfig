@@ -40,7 +40,7 @@
 	path = .config/delta/themes/catppuccin.gitconfig
 
 [core]
-	pager = delta
+  pager = delta
   excludesfile = ~/.gitignore_global
 
 [interactive]

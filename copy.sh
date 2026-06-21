@@ -17,20 +17,21 @@ cp -r ~/.claude/CLAUDE.md .claude
 # Ensure .vscode directory exists
 mkdir -p .vscode
 
-# Copy VSCode settings (prefer VSCode if both exist)
-VSCODE_USER_DIR="${HOME}/Library/Application Support/Code/User"
+# Copy Cursor settings
 CURSOR_USER_DIR="${HOME}/Library/Application Support/Cursor/User"
 
-if [[ -f "${VSCODE_USER_DIR}/settings.json" ]]; then
-  echo "Copying VSCode settings..."
-  cp "${VSCODE_USER_DIR}/settings.json" .vscode/
-  cp "${VSCODE_USER_DIR}/keybindings.json" .vscode/ 2>/dev/null || true
-elif [[ -f "${CURSOR_USER_DIR}/settings.json" ]]; then
+if [[ -f "${CURSOR_USER_DIR}/settings.json" ]]; then
   echo "Copying Cursor settings..."
   cp "${CURSOR_USER_DIR}/settings.json" .vscode/
   cp "${CURSOR_USER_DIR}/keybindings.json" .vscode/ 2>/dev/null || true
 else
-  echo "Warning: No VSCode or Cursor settings found"
+  echo "Warning: No Cursor settings found"
+fi
+
+# Capture installed Cursor extensions
+if command -v cursor >/dev/null 2>&1; then
+  echo "Capturing Cursor extensions..."
+  cursor --list-extensions > extensions.txt
 fi
 
 # trash .zshrc
