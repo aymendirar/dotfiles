@@ -25,6 +25,7 @@ ms-python.black-formatter
 ms-python.debugpy
 ms-python.flake8
 ms-python.python
+peterj.proto
 pkief.material-icon-theme
 redhat.vscode-yaml
 shd101wyy.markdown-preview-enhanced

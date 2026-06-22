@@ -57,7 +57,15 @@
   },
   {
     "key": "cmd+shift+g",
-    "command": "workbench.view.scm"
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.view.scm",
+        "workbench.scm.focus",
+        "workbench.scm.action.focusNextResourceGroup"
+      ]
+    },
+    "when": "editorTextFocus"
   },
   {
     "key": "space",
