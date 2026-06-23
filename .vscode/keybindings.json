@@ -56,20 +56,12 @@
     "command": "workbench.view.search"
   },
   {
-    "key": "cmd+j",
-    "command": "workbench.action.joinAllGroups"
+    "key": "cmd+shift+x",
+    "command": "workbench.action.closeOtherEditors"
   },
   {
-    "key": "cmd+shift+g",
-    "command": "runCommands",
-    "args": {
-      "commands": [
-        "workbench.view.scm",
-        "workbench.scm.focus",
-        "workbench.scm.action.focusNextResourceGroup"
-      ]
-    },
-    "when": "editorTextFocus"
+    "key": "cmd+j",
+    "command": "workbench.action.joinAllGroups"
   },
   {
     "key": "space",
@@ -107,22 +99,24 @@
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
-    "key": "cmd+n",
-    "command": "workbench.action.compareEditor.nextChange",
-    "when": "textCompareEditorVisible"
+    "key": "z",
+    "command": "list.collapse",
+    "when": "listFocus && treeElementCanCollapse && !inputFocus && !treestickyScrollFocused || listFocus && treeElementHasParent && !inputFocus && !treestickyScrollFocused"
   },
   {
-    "key": "cmd+shift+n",
-    "command": "workbench.action.compareEditor.previousChange",
-    "when": "textCompareEditorVisible"
+    "key": "cmd+shift+g",
+    "command": "runCommands",
+    "when": "editorTextFocus",
+    "args": {
+      "commands": [
+        "git.viewChanges",
+        "workbench.view.scm",
+        "workbench.scm.action.focusNextResourceGroup"
+      ]
+    }
   },
   {
     "key": "cmd+r",
     "command": "git.refresh"
   },
-  {
-    "key": "z",
-    "command": "list.collapse",
-    "when": "listFocus && treeElementCanCollapse && !inputFocus && !treestickyScrollFocused || listFocus && treeElementHasParent && !inputFocus && !treestickyScrollFocused"
-  }
 ]

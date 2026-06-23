@@ -277,7 +277,7 @@
         "i"
       ],
       "commands": [
-        "workbench.action.nextEditorInGroup"
+        "workbench.action.nextEditor"
       ]
     },
     {
@@ -286,7 +286,7 @@
         "u"
       ],
       "commands": [
-        "workbench.action.previousEditorInGroup"
+        "workbench.action.previousEditor"
       ]
     },
     {
