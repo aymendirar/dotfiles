@@ -326,16 +326,6 @@
         "p"
       ],
       "commands": [
-        "copyFilePath"
-      ]
-    },
-    {
-      "before": [
-        "<leader>",
-        "c",
-        "r"
-      ],
-      "commands": [
         "copyRelativeFilePath"
       ]
     },

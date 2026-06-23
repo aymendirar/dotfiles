@@ -48,6 +48,10 @@
     "command": "workbench.action.focusFirstEditorGroup"
   },
   {
+    "key": "cmd+shift+e",
+    "command": "workbench.view.extensions"
+  },
+  {
     "key": "cmd+shift+s",
     "command": "workbench.view.search"
   },
