@@ -17,7 +17,6 @@ illixion.vscode-vibrancy-continued
 llvm-vs-code-extensions.vscode-clangd
 mads-hartmann.bash-ide-vscode
 matepek.vscode-catch2-test-adapter
-morishjs.matchit
 ms-azuretools.vscode-containers
 ms-azuretools.vscode-docker
 ms-kubernetes-tools.vscode-kubernetes-tools

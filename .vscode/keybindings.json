@@ -109,14 +109,40 @@
     "when": "editorTextFocus",
     "args": {
       "commands": [
-        "git.viewChanges",
         "workbench.view.scm",
-        "workbench.scm.action.focusNextResourceGroup"
+        "workbench.scm.action.graph.refresh",
+        "git.viewChanges",
       ]
     }
   },
   {
+    "key": "cmd+g",
+    "command": "workbench.scm.action.focusNextResourceGroup"
+  },
+  {
+    "key": "cmd+n",
+    "command": "workbench.action.compareEditor.nextChange"
+  },
+  {
+    "key": "cmd+shift+n",
+    "command": "workbench.action.compareEditor.previousChange"
+  },
+  {
+    "key": "cmd+u",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "cmd+i",
+    "command": "workbench.action.nextEditor"
+  },
+  {
     "key": "cmd+r",
-    "command": "git.refresh"
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.scm.action.graph.refresh",
+        "git.refresh",
+      ]
+    }
   },
 ]
