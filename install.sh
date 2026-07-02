@@ -69,24 +69,6 @@ cp .gitconfig ~
 cp .gitignore_global ~
 cp work.zshrc ~/.zshrc
 
-# Install Cursor settings if directory exists
-CURSOR_USER_DIR="${HOME}/Library/Application Support/Cursor/User"
-
-if [[ -d "${CURSOR_USER_DIR}" ]]; then
-  echo "Installing Cursor settings..."
-  mkdir -p "${CURSOR_USER_DIR}"
-  cp .vscode/settings.json "${CURSOR_USER_DIR}/"
-  cp .vscode/keybindings.json "${CURSOR_USER_DIR}/"
-fi
-
-# Install Cursor extensions
-if command -v cursor >/dev/null 2>&1 && [[ -f extensions.txt ]]; then
-  echo "Installing Cursor extensions..."
-  while read -r extension; do
-    [[ -n "$extension" ]] && cursor --install-extension "$extension"
-  done < extensions.txt
-fi
-
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions

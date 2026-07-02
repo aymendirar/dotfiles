@@ -1,6 +1,12 @@
 #!/bin/zsh
 set -uo pipefail
 
+# Only install Cursor extensions when --cursor is passed
+install_cursor=false
+for arg in "$@"; do
+  [[ "$arg" == "--cursor" ]] && install_cursor=true
+done
+
 # don't update .vimrc, .zshrc
 
 trash ~/.config/kitty
@@ -34,7 +40,7 @@ else
 fi
 
 # Install Cursor extensions
-if command -v cursor >/dev/null 2>&1 && [[ -f extensions.txt ]]; then
+if [[ "$install_cursor" == true ]] && command -v cursor >/dev/null 2>&1 && [[ -f extensions.txt ]]; then
   echo "Installing Cursor extensions..."
   while read -r extension; do
     [[ -n "$extension" ]] && cursor --install-extension "$extension"
