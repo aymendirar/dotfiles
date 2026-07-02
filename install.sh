@@ -61,6 +61,7 @@ fi
 
 # Copy config files
 cp -r .claude/settings.json ~/.claude
+cp -r .claude/CLAUDE.md ~/.claude
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
 cp -r .config/bat ~/.config
