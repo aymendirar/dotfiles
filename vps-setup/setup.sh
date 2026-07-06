@@ -50,10 +50,10 @@ echo "==> running vps-install.sh on the VPS"
 ssh "${ssh_opts[@]}" -i "$SSH_KEY" "$VPS_USER@$VPS_HOST" "chmod +x ~/dotfiles/vps-install.sh && ~/dotfiles/vps-install.sh"
 
 echo "==> installing ghostty terminfo on the VPS"
-if command -v ghostty >/dev/null 2>&1; then
-  ghostty +show-terminfo | ssh "${ssh_opts[@]}" -i "$SSH_KEY" "$VPS_USER@$VPS_HOST" -- tic -x -
+if infocmp -x xterm-ghostty >/dev/null 2>&1; then
+  infocmp -x xterm-ghostty | ssh "${ssh_opts[@]}" -i "$SSH_KEY" "$VPS_USER@$VPS_HOST" -- tic -x -
 else
-  echo "    ghostty CLI not found locally, skipping (ssh sessions will render garbled if you use Ghostty)"
+  echo "    xterm-ghostty terminfo not found locally (run this from a Ghostty window, not tmux or another terminal) — skipping"
 fi
 
 echo
