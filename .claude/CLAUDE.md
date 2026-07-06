@@ -98,6 +98,14 @@ Sections 2–4 apply to all code; these are the Ruby-specific specifics.
 - Reach for enumerable methods (`map`, `select`, `each_with_object`, etc.) over manual loops, guard clauses over nested conditionals, and `&.`, `||=`, and keyword arguments where they read naturally.
 - Favor plain objects and composition over inheritance and metaprogramming.
 
+## 7. Comment Style
+
+**Lowercase, succinct, only when the why isn't obvious.**
+
+- Write comments in lowercase, except for acronyms (API, URL, SQL) or names that require capitalization (React, GitHub).
+- Keep comments as short as possible — a fragment, not a sentence, whenever a fragment suffices.
+- Only comment on the WHY (hidden constraint, subtle invariant, workaround) — never the WHAT, since well-named code already shows that.
+
 ---
 
 **Before finishing, sanity-check against these:** every changed line traces to the request, the interview happened before coding when the task warranted it, the solution is the simplest that works, and no code was touched that didn't need to be.
