@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SETUP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$SETUP_DIR/.." && pwd)"
+ENV_FILE="${ENV_FILE:-$SETUP_DIR/.env}"
+
+if [ ! -f "$ENV_FILE" ]; then
+  echo "missing $ENV_FILE (copy .env.example to .env and fill it in)" >&2
+  exit 1
+fi
+set -a
+# shellcheck disable=SC1090
+source "$ENV_FILE"
+set +a
+
+: "${VPS_HOST:?Set VPS_HOST in $ENV_FILE}"
+: "${VPS_PASSWORD:?Set VPS_PASSWORD in $ENV_FILE}"
+VPS_USER="${VPS_USER:-root}"
+VPS_PORT="${VPS_PORT:-22}"
+SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519}"
+
+if ! command -v sshpass >/dev/null 2>&1; then
+  echo "sshpass is required: brew install hudochenkov/sshpass/sshpass" >&2
+  exit 1
+fi
+
+ssh_opts=(-p "$VPS_PORT" -o StrictHostKeyChecking=accept-new)
+
+if [ ! -f "$SSH_KEY" ]; then
+  echo "==> generating ssh key at $SSH_KEY"
+  ssh-keygen -t ed25519 -f "$SSH_KEY" -N "" -C "$(whoami)@$(hostname -s)-vps"
+fi
+
+echo "==> installing public key on $VPS_HOST (using initial password)"
+SSHPASS="$VPS_PASSWORD" sshpass -e ssh "${ssh_opts[@]}" "$VPS_USER@$VPS_HOST" \
+  "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys" \
+  < "${SSH_KEY}.pub"
+
+echo "==> verifying key-based auth"
+ssh "${ssh_opts[@]}" -o BatchMode=yes -i "$SSH_KEY" "$VPS_USER@$VPS_HOST" "echo ok" >/dev/null
+
+echo "==> syncing dotfiles to VPS"
+ssh "${ssh_opts[@]}" -i "$SSH_KEY" "$VPS_USER@$VPS_HOST" "mkdir -p ~/dotfiles"
+rsync -az --delete -e "ssh ${ssh_opts[*]} -i $SSH_KEY" \
+  --exclude '.git' --exclude 'vps-setup/.env' \
+  "$REPO_DIR/" "$VPS_USER@$VPS_HOST:~/dotfiles/"
+
+echo "==> running vps-install.sh on the VPS"
+ssh "${ssh_opts[@]}" -i "$SSH_KEY" "$VPS_USER@$VPS_HOST" "chmod +x ~/dotfiles/vps-install.sh && ~/dotfiles/vps-install.sh"
+
+echo "==> installing ghostty terminfo on the VPS"
+if command -v ghostty >/dev/null 2>&1; then
+  ghostty +show-terminfo | ssh "${ssh_opts[@]}" -i "$SSH_KEY" "$VPS_USER@$VPS_HOST" -- tic -x -
+else
+  echo "    ghostty CLI not found locally, skipping (ssh sessions will render garbled if you use Ghostty)"
+fi
+
+echo
+echo "done. ssh in with: ssh $VPS_USER@$VPS_HOST"
