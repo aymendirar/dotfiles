@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # minimal, idempotent dotfiles setup for a fresh ubuntu vps.
-# installs zsh + oh-my-zsh, tmux + tpm, neovim/bat/delta/just (via mise), fzf, docker,
+# installs zsh + oh-my-zsh, tmux + tpm, neovim/bat/delta/just/go/ruby/node (via mise), fzf, docker,
 # and symlinks this repo's configs into place. safe to re-run.
 
 DOTFILES_REPO="${DOTFILES_REPO:-git@github.com:adirar111/dotfiles.git}"
@@ -39,12 +39,12 @@ ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 [ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] || git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 [ -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] || git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
-echo "==> mise (neovim, bat, delta, just)"
+echo "==> mise (neovim, bat, delta, just, go, ruby, node)"
 if [ ! -x "$HOME/.local/bin/mise" ]; then
   curl https://mise.run | sh
 fi
 MISE="$HOME/.local/bin/mise"
-"$MISE" use -g neovim@0.11.5 bat delta just
+"$MISE" use -g neovim@0.11.5 bat delta just go ruby node
 
 echo "==> fzf"
 if [ ! -d "$HOME/.fzf" ]; then
