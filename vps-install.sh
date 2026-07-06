@@ -20,7 +20,8 @@ SUDO=""
 
 echo "==> apt packages"
 $SUDO apt-get update -y
-$SUDO apt-get install -y git curl ca-certificates zsh tmux unzip build-essential ripgrep fd-find
+$SUDO apt-get install -y git curl ca-certificates zsh tmux unzip build-essential ripgrep fd-find \
+  libssl-dev libreadline-dev zlib1g-dev libyaml-dev libncurses5-dev libffi-dev libgdbm-dev autoconf
 
 echo "==> dotfiles repo at $DOTFILES_DIR"
 if [ "$USING_LOCAL_CHECKOUT" = true ]; then

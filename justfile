@@ -1,2 +1,2 @@
-vps-setup:
+vps:
     ./vps-setup/setup.sh
