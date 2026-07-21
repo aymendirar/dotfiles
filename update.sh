@@ -26,6 +26,12 @@ cp -r .claude ~/.claude
 cp -r .config/bat .config
 cp -r .config/delta .config
 
+# Update opencode config (preserve node_modules)
+rm -f ~/.config/opencode/opencode.json ~/.config/opencode/tui.json
+rm -rf ~/.config/opencode/themes
+cp .config/opencode/opencode.json .config/opencode/tui.json ~/.config/opencode
+cp -r .config/opencode/themes ~/.config/opencode
+
 # Copy settings to Cursor
 CURSOR_USER_DIR="${HOME}/Library/Application Support/Cursor/User"
 

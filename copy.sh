@@ -12,6 +12,7 @@ cp -r ~/.config/tmux .config
 cp -r ~/.config/bat .config
 cp -r ~/.config/delta .config
 cp -r ~/.config/ghostty .config
+cp -r ~/.config/opencode .config
 cp -r ~/.claude/CLAUDE.md .claude
 
 # Ensure .vscode directory exists
