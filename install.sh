@@ -55,7 +55,7 @@ cp -r .config/delta ~/.config
 mkdir -p ~/.config/opencode/themes
 cp .config/opencode/opencode.json .config/opencode/tui.json ~/.config/opencode
 cp -r .config/opencode/themes ~/.config/opencode
-cp .gitconfig ~
+cp work.gitconfig ~/.gitconfig
 cp .gitignore_global ~
 cp work.zshrc ~/.zshrc
 

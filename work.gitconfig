@@ -1,0 +1,110 @@
+
+[user]
+	name = aymen
+	email = adirar@figma.com
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
+[alias]
+	brl = !git for-each-ref --sort='-authordate'  --format='%(align:50,left)%(refname)%(color:yellow bold) %(HEAD)%(end)%09%(color:reset)%(color:green)%(authordate:relative)%(color:cyan)%09%(objectname:short)%(color:reset)%09%(authorname)%(color:reset)' refs/heads | sed -e 's-refs/heads/--' | nl -w2 -d $'\n' -s')  ' | head -n 15
+	col = !sh -c 'git checkout $(git branch-number $1)' -
+	del = !sh -c 'git branch -d $(git branch-number $1)' -
+	branch-name = "!git rev-parse --abbrev-ref HEAD"
+   	branch-number = "!git for-each-ref --sort='-authordate' --format='%(refname)' refs/heads | sed -e 's-refs/heads/--' | tail -n +$1 | head -n 1 #"
+	gui = !sh -c /usr/local/opt/git/libexec/git-core/git-gui
+	lg = log -n 30 --color --graph --branches --all --pretty=format:'%C(cyan)%h%C(reset) -%C(bold red)%d%C(reset) %s %C(green)(%C(reset)%C(bold green)%an%C(reset)%C(green): %cr)' --abbrev-commit
+	amend = commit --amend --no-edit
+	revert = checkout --
+	addnw = !sh -c 'git diff -U0 -w --no-color "$@" | git apply --cached --ignore-whitespace --unidiff-zero -'
+	chk = checkout -b
+	cm = commit -m
+	uncommit = reset --soft HEAD^
+	dc = diff -- ':!*/package-lock.json' ':!*/yarn.lock'
+	po = !git push -u origin $(git branch --show-current)
+  pause = !git add . && git commit -m "wip"
+  start = !git reset HEAD^
+  rb = !git fetch origin && git rebase origin/master
+  rbc = !git add . && git rebase --continue
+  oops = !git add . && git commit --amend --no-edit
+  dt = difftool
+  d = diff
+  s = status
+  p = push
+  pf = push --force
+
+[include]
+	path = .config/delta/themes/catppuccin.gitconfig
+
+[core]
+  pager = delta
+  excludesfile = ~/.gitignore_global
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true  # use n and N to move between diff sections
+	light = false    # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+	side-by-side= true
+  line-numbers = true
+	features = catppuccin-macchiato
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
+
+[column]
+        ui = auto
+[branch]
+        sort = -committerdate
+[tag]
+        sort = version:refname
+[init]
+        defaultBranch = main
+[diff]
+        algorithm = histogram
+        colorMoved = plain
+        mnemonicPrefix = true
+        renames = true
+[push]
+        default = simple
+        autoSetupRemote = true
+        followTags = true
+[fetch]
+        ; prune = true
+        ; pruneTags = true
+
+[help]
+        autocorrect = prompt
+[commit]
+        verbose = true
+; [rerere]
+;         enabled = true
+;         autoupdate = true
+[core]
+        excludesfile = ~/.gitignore
+[rebase]
+        autoSquash = true
+        autoStash = true
+        updateRefs = true
+
+# Figma-recommended performance settings for large repositories.
+[core]
+		untrackedCache = true
+[remote "origin"]
+		tagOpt = --no-tags
+
+# a matter of taste (uncomment if you dare)
+[core]
+		# fsmonitor = true
+[merge]
+        # (just 'diff3' if git version < 2.3)
+        conflictstyle = zdiff3
+[pull]
+        rebase = true

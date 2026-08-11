@@ -47,15 +47,15 @@ The test: Every changed line should trace directly to the user's request.
 **Define success criteria. Loop until verified.**
 
 Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
+- "Add validation" -> "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" -> "Write a test that reproduces it, then make it pass"
+- "Refactor X" -> "Ensure tests pass before and after"
 
 For multi-step tasks, state a brief plan:
 ```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+1. [Step] -> verify: [check]
+2. [Step] -> verify: [check]
+3. [Step] -> verify: [check]
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
@@ -64,17 +64,24 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 **Lowercase, succinct, only when the why isn't obvious.**
 
-- Lowercase always, including full sentences — except acronyms (API, URL, SQL) or names that require capitalization (React, GitHub).
-- As short as possible — a fragment, not a sentence, whenever a fragment suffices. No fluff.
-- Multi-line comment → block comment, not stacked single-line comments.
-- Only comment on the WHY (hidden constraint, subtle invariant, workaround) — never the WHAT, since well-named code already shows that.
+- Lowercase always, including full sentences - except acronyms (API, URL, SQL) or names that require capitalization (React, GitHub).
+- As short as possible - a fragment, not a sentence, whenever a fragment suffices. No fluff.
+- Multi-line comment -> block comment, not stacked single-line comments.
+- Only comment on the WHY (hidden constraint, subtle invariant, workaround) - never the WHAT, since well-named code already shows that.
 
 ## 6. Git Commits and Pushes
 
 **Never commit or push on my behalf.**
 
 - Do not run `git add`, `git commit`, or `git push` unless I explicitly ask for it in that moment. Diffing and status checks are fine; staging, committing, and pushing are not.
-- When I do explicitly ask you to commit, omit commit attribution — no `Co-Authored-By: Claude` line, no "Generated with Claude Code" trailer.
+- When I do explicitly ask you to commit, omit commit attribution - no `Co-Authored-By: Claude` line, no "Generated with Claude Code" trailer.
+
+## 7. Text
+
+**Use plain ASCII only.**
+
+- Use only ASCII characters in documentation, comments, messages, and generated text files.
+- Avoid Unicode punctuation, symbols, emoji, and mojibake.
 
 ---
 
