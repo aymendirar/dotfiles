@@ -87,4 +87,5 @@ mise use -g stylua
 mise exec -- nvim --headless "+Lazy! install" +qa
 mise exec -- bat cache --build
 
+set +u
 source "${HOME}/.zshrc"
