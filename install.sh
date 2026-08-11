@@ -1,10 +1,11 @@
 #!/bin/zsh
-set -xuo pipefail
+set -euxo pipefail
 
 # this is to be run on a devcontainer
 
-# change to the script's directory
-cd "$(dirname "$0")"
+SCRIPT_DIR="${0:A:h}"
+source "$SCRIPT_DIR/utils.sh"
+cd "$SCRIPT_DIR"
 
 # install oh my zsh
 if [ ! -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]; then
@@ -30,42 +31,23 @@ if ! fzf --version ; then
   install_fzf
 fi
 
-if [ -d "${HOME}/.config/nvim" ]; then
-  rm -rf "${HOME}/.config/nvim"
-fi
-
-if [ -d "${HOME}/.config/tmux" ]; then
-  rm -rf "${HOME}/.config/tmux"
-fi
-
-if [ -f "${HOME}/.gitconfig" ]; then
-  rm "${HOME}/.gitconfig"
-fi
-
-if [ -f "${HOME}/.gitignore_global" ]; then
-  rm "${HOME}/.gitignore_global"
-fi
-
-if [ -d "${HOME}/.config/bat" ]; then
-  rm -rf "${HOME}/.config/bat"
-fi
-
-if [ -d "${HOME}/.config/delta" ]; then
-  rm -rf "${HOME}/.config/delta"
-fi
-
-if [ -d "${HOME}/.config/opencode" ]; then
-  rm -rf "${HOME}/.config/opencode"
-fi
-
-if [ -f "${HOME}/.zshrc" ]; then
-  rm "${HOME}/.zshrc"
-fi
+for target in \
+  "${HOME}/.config/nvim" \
+  "${HOME}/.config/tmux" \
+  "${HOME}/.gitconfig" \
+  "${HOME}/.gitignore_global" \
+  "${HOME}/.config/bat" \
+  "${HOME}/.config/delta" \
+  "${HOME}/.config/opencode" \
+  "${HOME}/.zshrc"; do
+  dotfiles_remove_if_exists "$target"
+done
 
 
 # Copy config files
-cp -r .claude/settings.json ~/.claude
-cp -r .claude/CLAUDE.md ~/.claude
+mkdir -p ~/.config ~/.claude ~/.codex
+cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
+dotfiles_force_symlink "${HOME}/.claude/CLAUDE.md" "${HOME}/.codex/AGENTS.md"
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
 cp -r .config/bat ~/.config
@@ -83,12 +65,8 @@ export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-autocomplete" ] && git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-source "${HOME}/.zshrc"
-
 # need to install TPM for tmux
 [ ! -d "${HOME}/.tmux/plugins/tpm" ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-nvim --headless "+Lazy! install" +qa
 
 # needed for sorbet
 sudo mkdir -p ~/figma/figma/.cache/sorbet-vsc
@@ -106,6 +84,7 @@ mise use -g neovim@0.11.5
 mise use -g prettier
 mise use -g stylua
 
-bat cache --build
+mise exec -- nvim --headless "+Lazy! install" +qa
+mise exec -- bat cache --build
 
 source "${HOME}/.zshrc"

@@ -1,5 +1,9 @@
 #!/bin/zsh
-set -uo pipefail
+set -euo pipefail
+
+SCRIPT_DIR="${0:A:h}"
+source "$SCRIPT_DIR/utils.sh"
+cd "$SCRIPT_DIR"
 
 # Only install Cursor extensions when --cursor is passed
 install_cursor=false
@@ -9,12 +13,13 @@ done
 
 # don't update .vimrc, .zshrc
 
-trash ~/.config/kitty
-trash ~/.config/nvim
-trash ~/.config/tmux
-trash ~/.config/ghostty
+dotfiles_trash_if_exists ~/.config/kitty
+dotfiles_trash_if_exists ~/.config/nvim
+dotfiles_trash_if_exists ~/.config/tmux
+dotfiles_trash_if_exists ~/.config/ghostty
 
 # Copy config directories
+mkdir -p ~/.config ~/.claude ~/.codex
 cp -r .config/kitty ~/.config
 cp -r .config/nvim ~/.config
 cp -r .config/tmux ~/.config
@@ -22,28 +27,22 @@ cp -r .config/ghostty ~/.config
 cp -r .config/tmux/tmux.conf ~/
 cp -r .config/bat ~/.config
 cp -r .config/delta ~/.config
-cp -r .claude ~/.claude
-cp -r .config/bat .config
-cp -r .config/delta .config
+cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
+dotfiles_force_symlink "${HOME}/.claude/CLAUDE.md" ~/.codex/AGENTS.md
 
 # Update opencode config (preserve node_modules)
+mkdir -p ~/.config/opencode
 rm -f ~/.config/opencode/opencode.json ~/.config/opencode/tui.json
 rm -rf ~/.config/opencode/themes
 cp .config/opencode/opencode.json .config/opencode/tui.json ~/.config/opencode
 cp -r .config/opencode/themes ~/.config/opencode
 
-# Copy settings to Cursor
+# Copy shared settings to Cursor and VS Code
 CURSOR_USER_DIR="${HOME}/Library/Application Support/Cursor/User"
+VSCODE_USER_DIR="${HOME}/Library/Application Support/Code/User"
 
-# Update Cursor settings if directory exists
-if [[ -d "${CURSOR_USER_DIR}" ]]; then
-  echo "Updating Cursor settings..."
-  trash "${CURSOR_USER_DIR}/"*.json 2>/dev/null || true
-  cp .vscode/settings.json "${CURSOR_USER_DIR}/"
-  cp .vscode/keybindings.json "${CURSOR_USER_DIR}/"
-else
-  echo "Warning: No Cursor installation found"
-fi
+dotfiles_update_editor_settings "Cursor" "$SCRIPT_DIR/.vscode" "$CURSOR_USER_DIR"
+dotfiles_update_editor_settings "VS Code" "$SCRIPT_DIR/.vscode" "$VSCODE_USER_DIR"
 
 # Install Cursor extensions
 if [[ "$install_cursor" == true ]] && command -v cursor >/dev/null 2>&1 && [[ -f extensions.txt ]]; then
@@ -53,6 +52,6 @@ if [[ "$install_cursor" == true ]] && command -v cursor >/dev/null 2>&1 && [[ -f
   done < extensions.txt
 fi
 
-trash ~/.gitconfig
+dotfiles_trash_if_exists ~/.gitconfig
 
 cp .gitconfig ~

@@ -3,6 +3,9 @@ set -euo pipefail
 
 SETUP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$SETUP_DIR/.." && pwd)"
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source=../utils.sh
+source "$REPO_DIR/utils.sh"
 ENV_FILE="${ENV_FILE:-$SETUP_DIR/.env}"
 
 if [ ! -f "$ENV_FILE" ]; then
@@ -20,10 +23,7 @@ VPS_USER="${VPS_USER:-root}"
 VPS_PORT="${VPS_PORT:-22}"
 SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519}"
 
-if ! command -v sshpass >/dev/null 2>&1; then
-  echo "sshpass is required: brew install hudochenkov/sshpass/sshpass" >&2
-  exit 1
-fi
+dotfiles_require_command sshpass "sshpass is required: brew install hudochenkov/sshpass/sshpass"
 
 ssh_opts=(-p "$VPS_PORT" -o StrictHostKeyChecking=accept-new)
 

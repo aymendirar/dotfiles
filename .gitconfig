@@ -94,11 +94,15 @@
         autoStash = true
         updateRefs = true
 
-# a matter of taste (uncomment if you dare)
-
+# Figma-recommended performance settings for large repositories.
 [core]
-        # fsmonitor = true
-        # untrackedCache = true
+		untrackedCache = true
+[remote "origin"]
+		tagOpt = --no-tags
+
+# a matter of taste (uncomment if you dare)
+[core]
+		# fsmonitor = true
 [merge]
         # (just 'diff3' if git version < 2.3)
         conflictstyle = zdiff3

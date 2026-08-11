@@ -1,9 +1,13 @@
 #!/bin/zsh
-set -uo pipefail
+set -euo pipefail
 
-trash .config/*
-trash .claude/*
-trash .vscode/*
+SCRIPT_DIR="${0:A:h}"
+source "$SCRIPT_DIR/utils.sh"
+cd "$SCRIPT_DIR"
+
+dotfiles_trash_directory_contents .config
+dotfiles_trash_directory_contents .claude
+dotfiles_trash_directory_contents .vscode
 
 # Copy config directories
 cp -r ~/.config/kitty .config
@@ -15,19 +19,9 @@ cp -r ~/.config/ghostty .config
 cp -r ~/.config/opencode .config
 cp -r ~/.claude/CLAUDE.md .claude
 
-# Ensure .vscode directory exists
-mkdir -p .vscode
-
 # Copy Cursor settings
 CURSOR_USER_DIR="${HOME}/Library/Application Support/Cursor/User"
-
-if [[ -f "${CURSOR_USER_DIR}/settings.json" ]]; then
-  echo "Copying Cursor settings..."
-  cp "${CURSOR_USER_DIR}/settings.json" .vscode/
-  cp "${CURSOR_USER_DIR}/keybindings.json" .vscode/ 2>/dev/null || true
-else
-  echo "Warning: No Cursor settings found"
-fi
+dotfiles_capture_editor_settings "Cursor" "$CURSOR_USER_DIR" "$SCRIPT_DIR/.vscode"
 
 # Capture installed Cursor extensions
 if command -v cursor >/dev/null 2>&1; then
@@ -36,7 +30,7 @@ if command -v cursor >/dev/null 2>&1; then
 fi
 
 # trash .zshrc
-trash .gitconfig
+dotfiles_trash_if_exists .gitconfig
 
 # cp ~/.zshrc .
 cp ~/.gitconfig .
