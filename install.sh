@@ -45,7 +45,9 @@ done
 
 
 # Copy config files
-mkdir -p ~/.config ~/.claude ~/.codex
+dotfiles_ensure_directory "${HOME}/.config"
+dotfiles_ensure_directory "${HOME}/.claude"
+dotfiles_ensure_directory "${HOME}/.codex"
 cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
 dotfiles_force_symlink "${HOME}/.claude/CLAUDE.md" "${HOME}/.codex/AGENTS.md"
 cp -r .config/nvim ~/.config

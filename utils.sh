@@ -28,6 +28,17 @@ dotfiles_remove_if_exists() {
   fi
 }
 
+dotfiles_ensure_directory() {
+  local directory="$1"
+  if [ -d "$directory" ]; then
+    return
+  fi
+  if dotfiles_path_exists "$directory"; then
+    mv "$directory" "${directory}.bak.$(date +%s)"
+  fi
+  mkdir -p "$directory"
+}
+
 dotfiles_force_symlink() {
   local source_path="$1"
   local destination_path="$2"
