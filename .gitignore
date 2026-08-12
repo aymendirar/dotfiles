@@ -1,3 +1,9 @@
 .config/nvim/plugin
 **/.DS_Store
 **/.env
+**/*.bak
+**/tmux-client-*.log
+
+# agent runtime state, never ours to track
+**/auth.json
+.config/opencode/package-lock.json
