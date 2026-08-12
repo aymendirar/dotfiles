@@ -43,9 +43,8 @@ dotfiles_ensure_directory "${HOME}/.claude"
 dotfiles_ensure_directory "${HOME}/.codex"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.codex/AGENTS.md"
-# private work skills live in the state repo; surface them to every agent
-STATE_SKILLS_DIR="${STATE_SKILLS_DIR:-$STATE_DIR/repos/figma/skills}"
-dotfiles_link_agent_skills "$STATE_SKILLS_DIR" \
+# private skills live in the state repo; surface them to every agent
+dotfiles_link_state_skills "$STATE_DIR" \
   "${HOME}/.claude/skills" \
   "${HOME}/.codex/skills" \
   "${HOME}/.config/opencode/skills"

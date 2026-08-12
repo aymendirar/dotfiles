@@ -147,6 +147,26 @@ EOF
   fi
 }
 
+# skills are stored per repository in the state checkout, so link every
+# repos/<repo>/skills directory rather than naming one of them here
+dotfiles_link_state_skills() {
+  local state_dir="$1"
+  shift
+
+  if [ ! -d "$state_dir/repos" ]; then
+    printf 'note: no state checkout at %s, skipping agent skill links\n' "$state_dir" >&2
+    return
+  fi
+
+  local source_dir
+  while IFS= read -r source_dir; do
+    [ -n "$source_dir" ] || continue
+    dotfiles_link_agent_skills "$source_dir" "$@"
+  done <<EOF
+$(find "$state_dir/repos" -mindepth 2 -maxdepth 2 -type d -name skills)
+EOF
+}
+
 dotfiles_install_tmux_plugins() {
   local plugins_dir="${HOME}/.tmux/plugins"
   local tpm_dir="${plugins_dir}/tpm"
