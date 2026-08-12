@@ -11,33 +11,31 @@ for arg in "$@"; do
   [[ "$arg" == "--cursor" ]] && install_cursor=true
 done
 
-# don't update .vimrc, .zshrc
+# don't touch .zshrc (may have machine-local edits)
 
-dotfiles_trash_if_exists ~/.config/kitty
-dotfiles_trash_if_exists ~/.config/nvim
-dotfiles_trash_if_exists ~/.config/tmux
-dotfiles_trash_if_exists ~/.config/ghostty
-
-# Copy config directories
+# symlink config files (repo is the source of truth)
 mkdir -p ~/.config ~/.claude ~/.codex
-cp -r .config/kitty ~/.config
-cp -r .config/nvim ~/.config
-cp -r .config/tmux ~/.config
-cp -r .config/ghostty ~/.config
-cp -r .config/tmux/tmux.conf ~/
-cp -r .config/bat ~/.config
-cp -r .config/delta ~/.config
-cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
-dotfiles_force_symlink "${HOME}/.claude/CLAUDE.md" ~/.codex/AGENTS.md
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/kitty" "${HOME}/.config/kitty"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/nvim" "${HOME}/.config/nvim"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/tmux" "${HOME}/.config/tmux"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/ghostty" "${HOME}/.config/ghostty"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/bat" "${HOME}/.config/bat"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/delta" "${HOME}/.config/delta"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.codex/AGENTS.md"
 
-# Update opencode config (preserve node_modules)
-mkdir -p ~/.config/opencode
-rm -f ~/.config/opencode/opencode.json ~/.config/opencode/tui.json
-rm -rf ~/.config/opencode/themes
-cp .config/opencode/opencode.json .config/opencode/tui.json ~/.config/opencode
-cp -r .config/opencode/themes ~/.config/opencode
+# opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
+dotfiles_ensure_directory "${HOME}/.config/opencode"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/opencode.json" "${HOME}/.config/opencode/opencode.json"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/tui.json" "${HOME}/.config/opencode/tui.json"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/themes" "${HOME}/.config/opencode/themes"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
 
-# Copy shared settings to Cursor and VS Code
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig" "${HOME}/.gitconfig"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig-work" "${HOME}/.gitconfig-work"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitignore_global" "${HOME}/.gitignore_global"
+
+# editors do atomic-rename saves that would clobber a symlink, so copy their settings instead
 CURSOR_USER_DIR="${HOME}/Library/Application Support/Cursor/User"
 VSCODE_USER_DIR="${HOME}/Library/Application Support/Code/User"
 
@@ -51,7 +49,3 @@ if [[ "$install_cursor" == true ]] && command -v cursor >/dev/null 2>&1 && [[ -f
     [[ -n "$extension" ]] && cursor --install-extension "$extension"
   done < extensions.txt
 fi
-
-dotfiles_trash_if_exists ~/.gitconfig
-
-cp .gitconfig ~

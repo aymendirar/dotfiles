@@ -5,26 +5,10 @@ dotfiles_path_exists() {
   [ -e "$1" ] || [ -L "$1" ]
 }
 
-dotfiles_trash_if_exists() {
-  local target="$1"
-  if dotfiles_path_exists "$target"; then
-    trash "$target"
-  fi
-}
-
 dotfiles_trash_directory_contents() {
   local directory="$1"
   if [ -d "$directory" ]; then
     find "$directory" -mindepth 1 -maxdepth 1 -exec trash {} \;
-  fi
-}
-
-dotfiles_remove_if_exists() {
-  local target="$1"
-  if [ -d "$target" ] && [ ! -L "$target" ]; then
-    rm -rf "$target"
-  elif dotfiles_path_exists "$target"; then
-    rm -f "$target"
   fi
 }
 

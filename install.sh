@@ -31,35 +31,26 @@ if ! fzf --version ; then
   install_fzf
 fi
 
-for target in \
-  "${HOME}/.config/nvim" \
-  "${HOME}/.config/tmux" \
-  "${HOME}/.gitconfig" \
-  "${HOME}/.gitignore_global" \
-  "${HOME}/.config/bat" \
-  "${HOME}/.config/delta" \
-  "${HOME}/.config/opencode" \
-  "${HOME}/.zshrc"; do
-  dotfiles_remove_if_exists "$target"
-done
-
-
-# Copy config files
+# symlink config files (repo is the source of truth)
 dotfiles_ensure_directory "${HOME}/.config"
 dotfiles_ensure_directory "${HOME}/.claude"
 dotfiles_ensure_directory "${HOME}/.codex"
-cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
-dotfiles_force_symlink "${HOME}/.claude/CLAUDE.md" "${HOME}/.codex/AGENTS.md"
-cp -r .config/nvim ~/.config
-cp -r .config/tmux ~/.config
-cp -r .config/bat ~/.config
-cp -r .config/delta ~/.config
-mkdir -p ~/.config/opencode/themes
-cp .config/opencode/opencode.json .config/opencode/tui.json ~/.config/opencode
-cp -r .config/opencode/themes ~/.config/opencode
-cp work.gitconfig ~/.gitconfig
-cp .gitignore_global ~
-cp work.zshrc ~/.zshrc
+dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.codex/AGENTS.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/nvim" "${HOME}/.config/nvim"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/tmux" "${HOME}/.config/tmux"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/bat" "${HOME}/.config/bat"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/delta" "${HOME}/.config/delta"
+# opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
+dotfiles_ensure_directory "${HOME}/.config/opencode"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/opencode.json" "${HOME}/.config/opencode/opencode.json"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/tui.json" "${HOME}/.config/opencode/tui.json"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/themes" "${HOME}/.config/opencode/themes"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig" "${HOME}/.gitconfig"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig-work" "${HOME}/.gitconfig-work"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitignore_global" "${HOME}/.gitignore_global"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/work.zshrc" "${HOME}/.zshrc"
 
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 

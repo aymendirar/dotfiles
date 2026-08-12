@@ -73,12 +73,18 @@ if [ "$(id -u)" -ne 0 ] && ! id -nG "$DOCKER_USER" | grep -qw docker; then
 fi
 
 echo "==> symlinking configs"
-dotfiles_backup_and_symlink "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.codex/AGENTS.md"
+dotfiles_backup_and_symlink "$DOTFILES_DIR/AGENTS.md" "$HOME/.claude/CLAUDE.md"
+dotfiles_backup_and_symlink "$DOTFILES_DIR/AGENTS.md" "$HOME/.codex/AGENTS.md"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/tmux" "$HOME/.config/tmux"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/bat" "$HOME/.config/bat"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/delta" "$HOME/.config/delta"
-dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/opencode" "$HOME/.config/opencode"
+# opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
+dotfiles_ensure_directory "$HOME/.config/opencode"
+dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/opencode/opencode.json" "$HOME/.config/opencode/opencode.json"
+dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/opencode/tui.json" "$HOME/.config/opencode/tui.json"
+dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/opencode/themes" "$HOME/.config/opencode/themes"
+dotfiles_backup_and_symlink "$DOTFILES_DIR/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/tmux/tmux.conf" "$HOME/.tmux.conf"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.gitignore_global" "$HOME/.gitignore_global"
