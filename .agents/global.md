@@ -42,7 +42,7 @@ Before implementing, identify ambiguities that materially affect scope, behavior
 - Run the narrowest relevant checks during iteration, then broader required checks in proportion to risk.
 - Do not silently update snapshots, fixtures, or baselines merely to make a check pass.
 - Report the exact checks run and their outcomes. Never claim an unrun check passed. Distinguish pre-existing failures from regressions and state what remains unverified.
-- For complex work with dependent steps, keep a short `step -> check` plan. Persist it under `~/state/plans/` only when it should survive the current session.
+- For complex work with dependent steps, keep a short `step -> check` plan. Persist it under `~/state/repos/<repo>/plans/` only when it should survive the current session.
 
 ## Communication
 
@@ -76,14 +76,20 @@ Before implementing, identify ambiguities that materially affect scope, behavior
 - Prefer SSH for state repository remotes when it is configured and reachable. Dotfiles setup provisions `~/state`: the devcontainer installer selects `adirar-figma/state` over authenticated HTTPS because Coder SSH egress may be blocked, while the local update and VPS installers select `aymendirar/state` over SSH. `STATE_REPO` may override the transport. Agents must not clone, initialize, repoint, move, replace, or repair `~/state`. If it is absent or inaccessible, continue without state and report missing context only when materially relevant.
 - Before using `~/state`, verify that it is the root of a Git worktree and that `origin` exactly matches the selected context's HTTPS or SSH URL. If it belongs to the other context or otherwise conflicts, do not use or synchronize it; continue without state and report the mismatch only when materially relevant.
 - Never merge, copy, push, or otherwise synchronize state between `adirar-figma/state` and `aymendirar/state`. Their shared history is only the split point; keep subsequent work and personal context separate.
-- Before substantive repository work or resuming a task, read only the relevant notes under `~/state/repos/<repo>/` and any relevant plan or document.
+- Before substantive repository work or resuming a task, read only the relevant files under `~/state/repos/<repo>/`.
 - When state is needed, an agent may refresh an existing checkout, including during read-only tasks. Inspect status first and pull with `--ff-only` only when it is a clean Git worktree with a configured upstream and required platform approval is available. Otherwise use the local notes, report possible staleness when material, and continue. Do not pull periodically when no task needs state.
 - Create or update state only for work likely to benefit from continuation. Do not mutate state for trivial or read-only tasks unless explicitly requested.
 - Update state at meaningful checkpoints with concise constraints, decisions and reasoning, status, and dead ends worth avoiding. Do not log routine commands, raw tool output, or speculation.
 - Keep notes accurate. Update stale claims in notes you own rather than appending contradictions. In multi-agent work, use separate topic files and designate one agent to perform all `~/state` Git operations; other agents must not stage or commit there.
-- Store reusable documentation in `~/state/docs/`, persistent plans in `~/state/plans/`, and repository notes in `~/state/repos/<repo>/`.
+- Store all durable state under `~/state/repos/<repo>/`, organized only as needed:
+  - `notes/` for resumable task state and checkpoints
+  - `docs/` for reusable documentation and runbooks
+  - `plans/` for implementation, test, and rollout plans
+  - `projects/` for multi-task or multi-PR initiatives
+  - `incidents/` for SEV investigations and follow-up evidence
+  - `decisions/` for durable decisions and their rationale
 - Name every durable state file `YYYYMMDDHHMMSS_topic.ext`, using its creation time in local 24-hour time. Preserve that prefix when editing or moving the file. Repository-control files such as `.gitignore` are exempt.
 - When `~/state` is a Git worktree with the expected upstream, the designated writer must commit and push every completed, non-sensitive state update without separate user confirmation. Do this immediately after verifying the write. This exception waives only the confirmation requirement above; it does not bypass platform approvals or Git safeguards. Inspect status plus staged and unstaged diffs, stage only the exact reviewed paths or hunks written for the task, and verify the complete staged diff. If unrelated work is staged or a touched file has concurrent edits, leave the update local and report it.
-- Use a specific imperative subject: `<repo>: <summary>` for repository notes, `docs: <summary>` for documentation, and `plans: <summary>` for plans.
+- Use a specific imperative subject for every state update: `<repo>: <summary>`.
 - Attempt one push. If it fails, preserve the local commit and report the reason. Do not rebase, merge, resolve conflicts, retry, or force-push without explicit permission. A `~/state` Git failure must not block the primary task.
 - Keep state and scratch notes out of project repository commits.
