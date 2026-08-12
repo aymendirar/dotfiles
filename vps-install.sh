@@ -7,6 +7,8 @@ set -euo pipefail
 
 DOTFILES_REPO="${DOTFILES_REPO:-git@github.com:adirar111/dotfiles.git}"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+STATE_REPO="${STATE_REPO:-git@github.com:aymendirar/state.git}"
+STATE_DIR="${STATE_DIR:-$HOME/state}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=utils.sh
@@ -32,6 +34,11 @@ elif [ ! -d "$DOTFILES_DIR/.git" ]; then
   git clone "$DOTFILES_REPO" "$DOTFILES_DIR"
 else
   git -C "$DOTFILES_DIR" pull --ff-only
+fi
+
+echo "==> state repo at $STATE_DIR"
+if ! dotfiles_ensure_git_checkout "$STATE_REPO" "$STATE_DIR"; then
+  printf 'warning: state checkout unavailable at %s\n' "$STATE_DIR" >&2
 fi
 
 echo "==> oh-my-zsh"

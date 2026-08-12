@@ -23,6 +23,41 @@ dotfiles_ensure_directory() {
   mkdir -p "$directory"
 }
 
+dotfiles_ensure_git_checkout() {
+  local repository="$1"
+  local directory="$2"
+  local checkout_root
+  local directory_root
+  local origin_url
+
+  if [ -d "$directory" ]; then
+    if ! checkout_root="$(git -C "$directory" rev-parse --show-toplevel 2>/dev/null)"; then
+      printf 'existing checkout path is not a Git worktree: %s\n' "$directory" >&2
+      return 1
+    fi
+    checkout_root="$(cd "$checkout_root" && pwd -P)"
+    directory_root="$(cd "$directory" && pwd -P)"
+    if [ "$checkout_root" != "$directory_root" ]; then
+      printf 'checkout path belongs to another Git worktree: %s\n' "$directory" >&2
+      return 1
+    fi
+    if ! origin_url="$(git -C "$directory" remote get-url origin 2>/dev/null)"; then
+      printf 'checkout has no origin remote: %s\n' "$directory" >&2
+      return 1
+    fi
+    if [ "$origin_url" != "$repository" ]; then
+      printf 'checkout origin does not match %s: %s\n' "$repository" "$directory" >&2
+      return 1
+    fi
+    return
+  fi
+  if dotfiles_path_exists "$directory"; then
+    printf 'existing checkout path is not a directory: %s\n' "$directory" >&2
+    return 1
+  fi
+  git clone "$repository" "$directory"
+}
+
 dotfiles_force_symlink() {
   local source_path="$1"
   local destination_path="$2"

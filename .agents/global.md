@@ -9,7 +9,7 @@ These are fallback preferences. Higher-priority requirements, explicit task inst
 - Pull requests, deployments, publications, messages, purchases, database mutations, and other external writes require explicit permission.
 - If completion requires a material expansion of scope or a new side effect, stop and ask.
 - Before a destructive action, resolve the exact target and prefer a reversible approach. Never use a home directory, filesystem root, repository root, broad glob, or unresolved variable as a destructive target.
-- Do not read credential stores unless the task requires it. Never print, commit, upload, or persist credentials, tokens, private keys, personal or customer data, or other sensitive material; redact sensitive output.
+- Do not inspect credential stores unless the task requires it. Never expose, commit, or upload credentials, tokens, private keys, or other secrets. Persist them only to an approved credential or secret store when required by the task. Handle personal, customer, and other sensitive data only as required by the task; minimize it, keep it out of logs and unrelated commits, uploads, or durable state, and redact incidental output.
 
 ## Decisions
 
@@ -63,6 +63,7 @@ Before implementing, identify ambiguities that materially affect scope, behavior
 - Before staging, inspect `git status` and the relevant diff. Stage only reviewed paths or hunks from the task; never use `git add .`. Ask before including unexpected generated artifacts, lockfiles, or build output.
 - Follow the repository's documented or observed commit and pull request style. Use the rules below only as fallbacks.
 - Use an imperative, lowercase subject with no trailing period. Preserve identifiers, acronyms, and proper names at their normal casing, and wrap code names in backticks.
+- When constructing a commit command in a POSIX shell, prevent backticks from being evaluated. In a double-quoted message, escape them: ``git commit -m "add \`name\` support"``.
 - In a monorepo, use `scope: change` when a scope improves clarity. For stacked changes, use `[i/n] scope: change` unless the repository specifies another format.
 - Do not manually append a pull request number unless repository convention requires it.
 - Do not add AI attribution unless the repository requires it.
@@ -72,8 +73,14 @@ Before implementing, identify ambiguities that materially affect scope, behavior
 
 - Use `~/state` for durable, non-sensitive context when it is available. If it is absent or inaccessible, continue without it.
 - Before substantive repository work or resuming a task, read only the relevant notes under `~/state/repos/<repo>/` and any relevant plan or document.
+- Do not synchronize `~/state` during read-only tasks.
+- When fresh remote notes materially affect authorized work, inspect `~/state` status first. Pull with `--ff-only` only when it is a clean Git worktree with a configured upstream and required platform approval is available. Otherwise use the local notes, report possible staleness, and continue. Do not pull periodically.
 - Create or update state only for work likely to benefit from continuation. Do not mutate state for trivial or read-only tasks unless explicitly requested.
 - Update state at meaningful checkpoints with concise constraints, decisions and reasoning, status, and dead ends worth avoiding. Do not log routine commands, raw tool output, or speculation.
-- Keep notes accurate. Update stale claims in notes you own rather than appending contradictions. In multi-agent work, use separate topic files or designate one writer.
-- Store reusable documentation in `~/state/docs/`, persistent plans in `~/state/plans/`, and repository notes in `~/state/repos/<repo>/<topic>.md`.
-- Keep state and scratch notes out of repository commits.
+- Keep notes accurate. Update stale claims in notes you own rather than appending contradictions. In multi-agent work, use separate topic files and designate one agent to perform all `~/state` Git operations; other agents must not stage or commit there.
+- Store reusable documentation in `~/state/docs/`, persistent plans in `~/state/plans/`, and repository notes in `~/state/repos/<repo>/`.
+- Name every durable state file `YYYYMMDDHHMMSS_topic.ext`, using its creation time in local 24-hour time. Preserve that prefix when editing or moving the file. Repository-control files such as `.gitignore` are exempt.
+- When `~/state` is a Git worktree with the expected upstream, the designated writer has standing permission to commit and push a completed, non-sensitive state update without separate user confirmation. This exception waives only the confirmation requirement above; it does not bypass platform approvals or Git safeguards. Inspect status plus staged and unstaged diffs, stage only the exact reviewed paths or hunks written for the task, and verify the complete staged diff. If unrelated work is staged or a touched file has concurrent edits, leave the update local and report it.
+- Use a specific imperative subject: `<repo>: <summary>` for repository notes, `docs: <summary>` for documentation, and `plans: <summary>` for plans.
+- Attempt one push. If it fails, preserve the local commit and report the reason. Do not rebase, merge, resolve conflicts, retry, or force-push without explicit permission. A `~/state` Git failure must not block the primary task.
+- Keep state and scratch notes out of project repository commits.
