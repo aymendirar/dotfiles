@@ -36,9 +36,9 @@ else
   git -C "$DOTFILES_DIR" pull --ff-only
 fi
 
-echo "==> state repo at $STATE_DIR"
+echo "==> personal state repo at $STATE_DIR"
 if ! dotfiles_ensure_git_checkout "$STATE_REPO" "$STATE_DIR"; then
-  printf 'warning: state checkout unavailable at %s\n' "$STATE_DIR" >&2
+  printf 'warning: personal state checkout unavailable at %s\n' "$STATE_DIR" >&2
 fi
 
 echo "==> oh-my-zsh"

@@ -4,13 +4,13 @@ set -euo pipefail
 # this is to be run on a devcontainer
 
 SCRIPT_DIR="${0:A:h}"
-STATE_REPO="${STATE_REPO:-git@github.com:aymendirar/state.git}"
+STATE_REPO="${STATE_REPO:-https://github.com/adirar-figma/state.git}"
 STATE_DIR="${STATE_DIR:-$HOME/state}"
 source "$SCRIPT_DIR/utils.sh"
 cd "$SCRIPT_DIR"
 
 if ! dotfiles_ensure_git_checkout "$STATE_REPO" "$STATE_DIR"; then
-  printf 'warning: state checkout unavailable at %s\n' "$STATE_DIR" >&2
+  printf 'warning: work state checkout unavailable at %s\n' "$STATE_DIR" >&2
 fi
 
 # install oh my zsh

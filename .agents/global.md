@@ -71,10 +71,13 @@ Before implementing, identify ambiguities that materially affect scope, behavior
 
 ## Durable State
 
-- Use `~/state` for durable, non-sensitive context when it is available. If it is absent or inaccessible, continue without it.
+- Use the context-specific private repository at `~/state` for durable, non-sensitive context only when a task needs it. Substantive repository work, resumed work, or a warranted durable update needs state; trivial work does not.
+- Select the state repository before reading or writing it. Use `adirar-figma/state` for Figma, work-owned, or explicitly work tasks, including repositories under `~/figma/`. Use `aymendirar/state` for personal project tasks. If the context is ambiguous and state is needed, ask rather than mixing contexts.
+- Prefer SSH for state repository remotes when it is configured and reachable. Dotfiles setup provisions `~/state`: the devcontainer installer selects `adirar-figma/state` over authenticated HTTPS because Coder SSH egress may be blocked, while the local update and VPS installers select `aymendirar/state` over SSH. `STATE_REPO` may override the transport. Agents must not clone, initialize, repoint, move, replace, or repair `~/state`. If it is absent or inaccessible, continue without state and report missing context only when materially relevant.
+- Before using `~/state`, verify that it is the root of a Git worktree and that `origin` exactly matches the selected context's HTTPS or SSH URL. If it belongs to the other context or otherwise conflicts, do not use or synchronize it; continue without state and report the mismatch only when materially relevant.
+- Never merge, copy, push, or otherwise synchronize state between `adirar-figma/state` and `aymendirar/state`. Their shared history is only the split point; keep subsequent work and personal context separate.
 - Before substantive repository work or resuming a task, read only the relevant notes under `~/state/repos/<repo>/` and any relevant plan or document.
-- Do not synchronize `~/state` during read-only tasks.
-- When fresh remote notes materially affect authorized work, inspect `~/state` status first. Pull with `--ff-only` only when it is a clean Git worktree with a configured upstream and required platform approval is available. Otherwise use the local notes, report possible staleness, and continue. Do not pull periodically.
+- When state is needed, an agent may refresh an existing checkout, including during read-only tasks. Inspect status first and pull with `--ff-only` only when it is a clean Git worktree with a configured upstream and required platform approval is available. Otherwise use the local notes, report possible staleness when material, and continue. Do not pull periodically when no task needs state.
 - Create or update state only for work likely to benefit from continuation. Do not mutate state for trivial or read-only tasks unless explicitly requested.
 - Update state at meaningful checkpoints with concise constraints, decisions and reasoning, status, and dead ends worth avoiding. Do not log routine commands, raw tool output, or speculation.
 - Keep notes accurate. Update stale claims in notes you own rather than appending contradictions. In multi-agent work, use separate topic files and designate one agent to perform all `~/state` Git operations; other agents must not stage or commit there.

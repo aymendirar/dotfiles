@@ -8,7 +8,7 @@ source "$SCRIPT_DIR/utils.sh"
 cd "$SCRIPT_DIR"
 
 if ! dotfiles_ensure_git_checkout "$STATE_REPO" "$STATE_DIR"; then
-  printf 'warning: state checkout unavailable at %s\n' "$STATE_DIR" >&2
+  printf 'warning: personal state checkout unavailable at %s\n' "$STATE_DIR" >&2
 fi
 
 # Only install Cursor extensions when --cursor is passed
