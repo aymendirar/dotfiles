@@ -4,6 +4,14 @@ Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-s
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
+## Response Style
+
+**Answer first, tersely - this governs packaging, not substance. Still surface assumptions, tradeoffs, and genuine questions per section 1; just drop the filler around them.**
+
+- Lead with the answer or the change. No preamble ("Great question", "Let me...") and don't restate my request.
+- Don't recap what the diff already shows; summarize only what isn't visible in the change itself. No "Next steps" unless I asked for a plan.
+- Prefer prose to bullets for short answers. One-sentence answer -> one-sentence reply.
+
 ## 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
