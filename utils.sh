@@ -85,6 +85,43 @@ dotfiles_backup_and_symlink() {
   ln -s "$source_path" "$destination_path"
 }
 
+dotfiles_install_tmux_plugins() {
+  local plugins_dir="${HOME}/.tmux/plugins"
+  local tpm_dir="${plugins_dir}/tpm"
+  local catppuccin_dir="${HOME}/.tmux/catppuccin/tmux"
+  local reload_tmux=false
+
+  if tmux list-sessions >/dev/null 2>&1; then
+    reload_tmux=true
+  fi
+
+  mkdir -p "$plugins_dir" "$(dirname "$catppuccin_dir")"
+
+  if [ ! -d "$tpm_dir/.git" ]; then
+    if dotfiles_path_exists "$tpm_dir"; then
+      printf 'existing TPM path is not a Git checkout: %s\n' "$tpm_dir" >&2
+      return 1
+    fi
+    git clone --depth=1 https://github.com/tmux-plugins/tpm.git "$tpm_dir"
+  fi
+
+  if [ ! -d "$catppuccin_dir/.git" ]; then
+    if dotfiles_path_exists "$catppuccin_dir"; then
+      printf 'existing Catppuccin path is not a Git checkout: %s\n' "$catppuccin_dir" >&2
+      return 1
+    fi
+    git clone --depth=1 --branch v2.3.0 https://github.com/catppuccin/tmux.git "$catppuccin_dir"
+  fi
+
+  # keep an existing tmux server aligned with the path configured in tmux.conf
+  tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$plugins_dir/"
+  "$tpm_dir/bin/install_plugins"
+
+  if [ "$reload_tmux" = true ]; then
+    tmux source-file "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
+  fi
+}
+
 dotfiles_update_editor_settings() {
   local editor_name="$1"
   local source_dir="$2"

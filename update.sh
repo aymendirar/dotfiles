@@ -41,6 +41,10 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig" "${HOME}/.gitconfig"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig-work" "${HOME}/.gitconfig-work"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitignore_global" "${HOME}/.gitignore_global"
 
+if command -v tmux >/dev/null 2>&1; then
+  dotfiles_install_tmux_plugins
+fi
+
 # editors do atomic-rename saves that would clobber a symlink, so copy their settings instead
 CURSOR_USER_DIR="${HOME}/Library/Application Support/Cursor/User"
 VSCODE_USER_DIR="${HOME}/Library/Application Support/Code/User"

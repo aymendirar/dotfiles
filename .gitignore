@@ -1,4 +1,5 @@
 .config/nvim/plugin
+.config/tmux/plugins/
 **/.DS_Store
 **/.env
 **/*.bak

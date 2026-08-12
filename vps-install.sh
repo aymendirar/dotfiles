@@ -62,12 +62,6 @@ if [ ! -d "$HOME/.fzf" ]; then
 fi
 "$HOME/.fzf/install" --key-bindings --completion --no-update-rc >/dev/null
 
-echo "==> tmux plugin manager"
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-  git clone --depth=1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
-fi
-"$HOME/.tmux/plugins/tpm/bin/install_plugins" || true
-
 echo "==> docker"
 if ! command -v docker >/dev/null 2>&1; then
   curl -fsSL https://get.docker.com | $SUDO sh
@@ -96,6 +90,9 @@ dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/tmux/tmux.conf" "$HOME/.tmux.
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.gitignore_global" "$HOME/.gitignore_global"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/vps.zshrc" "$HOME/.zshrc"
+
+echo "==> tmux plugins"
+dotfiles_install_tmux_plugins
 
 echo "==> default shell"
 if [ "$(basename "$SHELL")" != "zsh" ]; then
