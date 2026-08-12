@@ -85,6 +85,30 @@ dotfiles_backup_and_symlink() {
   ln -s "$source_path" "$destination_path"
 }
 
+# never displaces an existing skill: a name that is already taken is reported and
+# skipped, because shadowing an agent's own skill is silent and hard to notice
+dotfiles_link_skill() {
+  local source_path="$1"
+  local destination_path="$2"
+
+  if [ -L "$destination_path" ]; then
+    if [ "$(readlink "$destination_path")" = "$source_path" ]; then
+      return 0
+    fi
+    printf 'skill collision: %s already links to %s, leaving it\n' \
+      "$destination_path" "$(readlink "$destination_path")" >&2
+    return 1
+  fi
+
+  if dotfiles_path_exists "$destination_path"; then
+    printf 'skill collision: %s already exists, not shadowing it with %s\n' \
+      "$destination_path" "$source_path" >&2
+    return 1
+  fi
+
+  ln -s "$source_path" "$destination_path"
+}
+
 dotfiles_link_agent_skills() {
   local source_dir="$1"
   shift
@@ -96,6 +120,7 @@ dotfiles_link_agent_skills() {
 
   local skills_root
   local skill_dir
+  local collisions=0
 
   for skills_root in "$@"; do
     # agents ship their own skills into these directories, so link per skill
@@ -107,11 +132,19 @@ dotfiles_link_agent_skills() {
     while IFS= read -r skill_dir; do
       [ -n "$skill_dir" ] || continue
       [ -f "$skill_dir/SKILL.md" ] || continue
-      dotfiles_backup_and_symlink "$skill_dir" "$skills_root/$(basename "$skill_dir")"
+      if ! dotfiles_link_skill "$skill_dir" "$skills_root/$(basename "$skill_dir")"; then
+        collisions=$((collisions + 1))
+      fi
     done <<EOF
 $(find "$source_dir" -mindepth 1 -maxdepth 1 -type d)
 EOF
   done
+
+  # a name clash is worth fixing, but not worth failing the whole install over
+  if [ "$collisions" -gt 0 ]; then
+    printf 'warning: skipped %d skill link(s) whose name is already taken; rename yours in %s\n' \
+      "$collisions" "$source_dir" >&2
+  fi
 }
 
 dotfiles_install_tmux_plugins() {
