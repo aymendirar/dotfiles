@@ -33,6 +33,12 @@ dotfiles_force_symlink() {
 dotfiles_backup_and_symlink() {
   local source_path="$1"
   local destination_path="$2"
+
+  if [ ! -e "$source_path" ]; then
+    printf 'missing symlink source: %s\n' "$source_path" >&2
+    return 1
+  fi
+
   mkdir -p "$(dirname "$destination_path")"
 
   if [ -L "$destination_path" ] && [ "$(readlink "$destination_path")" = "$source_path" ]; then

@@ -21,15 +21,15 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/tmux" "${HOME}/.config/tmux"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/ghostty" "${HOME}/.config/ghostty"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/bat" "${HOME}/.config/bat"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/delta" "${HOME}/.config/delta"
-dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.claude/CLAUDE.md"
-dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.codex/AGENTS.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.claude/CLAUDE.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.codex/AGENTS.md"
 
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
 dotfiles_ensure_directory "${HOME}/.config/opencode"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/opencode.json" "${HOME}/.config/opencode/opencode.json"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/tui.json" "${HOME}/.config/opencode/tui.json"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/themes" "${HOME}/.config/opencode/themes"
-dotfiles_backup_and_symlink "$SCRIPT_DIR/AGENTS.md" "${HOME}/.config/opencode/AGENTS.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.config/opencode/AGENTS.md"
 
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig" "${HOME}/.gitconfig"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig-work" "${HOME}/.gitconfig-work"
