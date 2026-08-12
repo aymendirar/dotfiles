@@ -85,6 +85,35 @@ dotfiles_backup_and_symlink() {
   ln -s "$source_path" "$destination_path"
 }
 
+dotfiles_link_agent_skills() {
+  local source_dir="$1"
+  shift
+
+  if [ ! -d "$source_dir" ]; then
+    printf 'note: no skills directory at %s, skipping agent skill links\n' "$source_dir" >&2
+    return
+  fi
+
+  local skills_root
+  local skill_dir
+
+  for skills_root in "$@"; do
+    # agents ship their own skills into these directories, so link per skill
+    # rather than the root; drop a whole-root link left by an earlier install
+    if [ -L "$skills_root" ]; then
+      rm "$skills_root"
+    fi
+    dotfiles_ensure_directory "$skills_root"
+    while IFS= read -r skill_dir; do
+      [ -n "$skill_dir" ] || continue
+      [ -f "$skill_dir/SKILL.md" ] || continue
+      dotfiles_backup_and_symlink "$skill_dir" "$skills_root/$(basename "$skill_dir")"
+    done <<EOF
+$(find "$source_dir" -mindepth 1 -maxdepth 1 -type d)
+EOF
+  done
+}
+
 dotfiles_install_tmux_plugins() {
   local plugins_dir="${HOME}/.tmux/plugins"
   local tpm_dir="${plugins_dir}/tpm"
