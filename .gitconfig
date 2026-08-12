@@ -87,8 +87,6 @@
 ; [rerere]
 ;         enabled = true
 ;         autoupdate = true
-[core]
-        excludesfile = ~/.gitignore
 [rebase]
         autoSquash = true
         autoStash = true
@@ -108,3 +106,7 @@
         conflictstyle = zdiff3
 [pull]
         rebase = true
+
+# base identity above is personal; override email for work repos under ~/figma
+[includeIf "gitdir:~/figma/"]
+        path = ~/.gitconfig-work
