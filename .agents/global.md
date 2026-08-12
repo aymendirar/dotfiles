@@ -87,7 +87,8 @@ Before implementing, identify ambiguities that materially affect scope, behavior
 - When state is needed, an agent may refresh an existing checkout, including during read-only tasks. Inspect status first and pull with `--ff-only` only when it is a clean Git worktree with a configured upstream and required platform approval is available. Otherwise use the local notes, report possible staleness when material, and continue. Do not pull periodically when no task needs state.
 - Create or update state only for work likely to benefit from continuation. Do not mutate state for trivial or read-only tasks unless explicitly requested.
 - Update state at meaningful checkpoints with concise constraints, decisions and reasoning, status, and dead ends worth avoiding. Do not log routine commands, raw tool output, or speculation.
-- Keep notes accurate. Update stale claims in notes you own rather than appending contradictions. In multi-agent work, use separate topic files and designate one agent to perform all `~/state` Git operations; other agents must not stage or commit there.
+- Delegate each state repository update to a dedicated background subagent when subagents are available. Give it the exact checkpoint context, continue the primary work in parallel, and collect its result before the final response. If subagents are unavailable, the primary agent becomes the designated state writer.
+- Keep notes accurate. Update stale claims in notes you own rather than appending contradictions. In multi-agent work, use separate topic files. The designated state writer performs all `~/state` file and Git operations; other agents must not edit, stage, or commit there.
 - Store all durable state under `~/state/repos/<repo>/`, organized only as needed:
   - `notes/` for resumable task state and checkpoints
   - `docs/` for reusable documentation and runbooks
