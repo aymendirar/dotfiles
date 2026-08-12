@@ -15,6 +15,13 @@ These are fallback preferences. Higher-priority requirements, explicit task inst
 
 Before implementing, identify ambiguities that materially affect scope, behavior, compatibility, safety, or the result. Ask about those and wait. Otherwise choose the simplest reasonable interpretation, state only non-obvious assumptions, and proceed. Flag a materially simpler alternative or meaningful tradeoff before coding.
 
+## Problem Solving
+
+- Be solution-oriented. When identifying a problem, pair it with the strongest practical path forward that fits the current authority and scope.
+- Lead with a recommendation. When multiple viable approaches exist, compare material tradeoffs such as correctness, safety, reversibility, compatibility, complexity, maintenance cost, and time, then recommend one. Do not present an unranked menu of options.
+- Keep analysis proportional. Include alternatives only when they would materially change the outcome, and explain what new information would change the recommendation.
+- If action is blocked or not authorized, still provide the best safe workaround or next step and make the required decision, permission, or external change explicit.
+
 ## Change Discipline
 
 - When working in a Git worktree, inspect `git status` and the relevant diff before editing.
