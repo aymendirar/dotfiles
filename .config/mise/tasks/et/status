@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#MISE description="Report whether the Eternal Terminal server is running"
+set -euo pipefail
+
+# shellcheck source=./common.sh
+source "$(cd "$(dirname "$0")" && pwd)/common.sh"
+
+if pid=$(et_running_pid); then
+  echo "etserver running (pid $pid)"
+  echo "config: $ET_CFG"
+  echo "log:    $ET_LOG_FILE"
+  # Show the actual bind address: a listener on anything other than 127.0.0.1
+  # means the config was not picked up, which is worth noticing immediately.
+  if command -v ss >/dev/null 2>&1; then
+    ss -lnt 2>/dev/null | awk 'NR==1 || /:2022[[:space:]]/'
+  elif command -v lsof >/dev/null 2>&1; then
+    lsof -nP -iTCP:2022 -sTCP:LISTEN 2>/dev/null || true
+  fi
+  exit 0
+fi
+
+if [ -e "$ET_PID_FILE" ]; then
+  echo "etserver not running (stale pid file at $ET_PID_FILE)"
+else
+  echo "etserver not running"
+fi
+exit 1

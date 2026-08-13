@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#MISE description="Start the Eternal Terminal server on loopback (idempotent)"
+set -euo pipefail
+
+# shellcheck source=./common.sh
+source "$(cd "$(dirname "$0")" && pwd)/common.sh"
+
+if pid=$(et_running_pid); then
+  echo "etserver already running (pid $pid)"
+  exit 0
+fi
+
+if ! command -v etserver >/dev/null 2>&1; then
+  echo "et:start: etserver not installed; run this repo's install.sh" >&2
+  exit 1
+fi
+
+if [ ! -r "$ET_CFG" ]; then
+  echo "et:start: no config at $ET_CFG; run this repo's install.sh" >&2
+  exit 1
+fi
+
+mkdir -p "$ET_STATE_DIR"
+# A leftover pid file from a crashed run would otherwise be picked up by the
+# readiness loop below before etserver has written its own.
+rm -f "$ET_PID_FILE"
+
+etserver --cfgfile "$ET_CFG" --daemon --pidfile "$ET_PID_FILE" >>"$ET_LOG_FILE" 2>&1
+
+# --daemon forks, so the pid file lands a moment after the command returns.
+for _ in $(seq 1 50); do
+  if pid=$(et_running_pid); then
+    echo "etserver started (pid $pid)"
+    echo "log: $ET_LOG_FILE"
+    exit 0
+  fi
+  sleep 0.1
+done
+
+echo "et:start: etserver did not come up within 5s; see $ET_LOG_FILE" >&2
+exit 1

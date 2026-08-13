@@ -52,6 +52,10 @@ dotfiles_link_state_skills "$STATE_DIR" \
   "${HOME}/.config/opencode/skills"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/nvim" "${HOME}/.config/nvim"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/tmux" "${HOME}/.config/tmux"
+# eternal terminal: the repo owns the server config, and the et:* tasks land in
+# mise's global task directory so `mise run et:start` works from any cwd
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/et/et.cfg" "${HOME}/.config/et/et.cfg"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/mise/tasks/et" "${HOME}/.config/mise/tasks/et"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/bat" "${HOME}/.config/bat"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/delta" "${HOME}/.config/delta"
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
@@ -84,11 +88,9 @@ mise exec -- nvim --headless "+Lazy! install" +qa
 mise exec -- bat cache --build
 
 # eternal terminal holds a shell open across network changes and laptop sleep,
-# which plain ssh drops. no apt package ships in the devcontainer image and
-# there is no systemd to run the daemon, so install from the upstream ppa and
-# background it by hand. et is only reachable if something forwards 2022.
-ET_PORT=2022
-
+# which plain ssh drops. no et package ships in the devcontainer image, so
+# install from the upstream ppa. the server itself is driven by the et:* mise
+# tasks linked above rather than systemd, which the devcontainer does not run.
 install_et() {
   if ! command -v add-apt-repository >/dev/null 2>&1; then
     sudo apt-get update -qq && sudo apt-get install -y software-properties-common || return 1
@@ -104,14 +106,7 @@ if ! command -v etserver >/dev/null 2>&1; then
 fi
 
 if command -v etserver >/dev/null 2>&1; then
-  if pgrep -x etserver >/dev/null; then
-    echo "etserver already running on port ${ET_PORT}"
-  else
-    echo "starting etserver on port ${ET_PORT}"
-    # &! is zsh for background-and-disown; plain disown can fail in a
-    # non-interactive shell with no job table, which set -e would treat as fatal
-    nohup etserver --port "${ET_PORT}" >/tmp/etserver.log 2>&1 &!
-  fi
+  mise run et:start || echo "[warn] could not start etserver, continuing" >&2
 else
   echo "[warn] no etserver binary, skipping eternal terminal startup" >&2
 fi

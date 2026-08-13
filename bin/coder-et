@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+#
+# coder-et: run Eternal Terminal against a Coder workspace.
+#
+# Coder Connect (Coder Desktop) publishes a workspace's TCP ports at its .coder
+# hostname, so ET needs no tunnel of its own: `et <host>.coder` reaches etserver
+# on 2022 directly. This wrapper exists only to make sure the server is up
+# first, then hands off to et.
+#
+#   coder-et devcontainer.aymen-devbox-2.adirar.coder
+#
+# Without Coder Connect, see the fallback in this repo's README; it is not
+# wired up here on purpose.
+set -euo pipefail
+
+usage() {
+  cat >&2 <<'USAGE'
+usage: coder-et <hostname> [-- <extra et args>...]
+
+  <hostname>   Coder Connect hostname, e.g. devcontainer.aymen-devbox-2.adirar.coder
+
+Starts etserver on the matching workspace when the hostname identifies one,
+then execs `et <hostname>`.
+USAGE
+  exit 2
+}
+
+host="${1:-}"
+[ -n "$host" ] || usage
+shift
+if [ "${1:-}" = "--" ]; then
+  shift
+fi
+
+if ! command -v et >/dev/null 2>&1; then
+  echo "coder-et: et not found. On macOS: brew install et" >&2
+  exit 1
+fi
+
+# Coder Connect names a workspace <agent>.<workspace>.<owner>.coder, while the
+# coder CLI addresses the same thing as <workspace>.<agent>. Derive the CLI form
+# so the server can be started; anything that is not a .coder name just gets
+# handed to et untouched.
+target=""
+if [ "${host%.coder}" != "$host" ]; then
+  IFS='.' read -r agent workspace _owner _tld <<<"$host"
+  if [ -n "${agent:-}" ] && [ -n "${workspace:-}" ]; then
+    target="${workspace}.${agent}"
+  fi
+fi
+
+if [ -n "$target" ] && command -v coder >/dev/null 2>&1; then
+  echo "coder-et: ensuring etserver is running on ${target}" >&2
+  # Not fatal: if the server is already up, a flaky control-plane call should
+  # not stop us from connecting.
+  coder ssh "$target" -- mise run et:start >&2 ||
+    echo "coder-et: could not confirm etserver, attempting to connect anyway" >&2
+fi
+
+exec et "$host" "$@"

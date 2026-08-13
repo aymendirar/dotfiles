@@ -43,6 +43,11 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig" "${HOME}/.gitconfig"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitconfig-work" "${HOME}/.gitconfig-work"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitignore_global" "${HOME}/.gitignore_global"
 
+# client-side helpers; the devbox has no use for these, so they are not linked
+# by install.sh
+dotfiles_ensure_directory "${HOME}/.local/bin"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/bin/coder-et" "${HOME}/.local/bin/coder-et"
+
 if command -v tmux >/dev/null 2>&1; then
   dotfiles_install_tmux_plugins
 fi

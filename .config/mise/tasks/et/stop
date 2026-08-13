@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#MISE description="Stop the Eternal Terminal server"
+set -euo pipefail
+
+# shellcheck source=./common.sh
+source "$(cd "$(dirname "$0")" && pwd)/common.sh"
+
+if ! pid=$(et_running_pid); then
+  if [ -e "$ET_PID_FILE" ]; then
+    echo "etserver not running, clearing stale pid file"
+    rm -f "$ET_PID_FILE"
+  else
+    echo "etserver not running"
+  fi
+  exit 0
+fi
+
+echo "stopping etserver (pid $pid)"
+kill -TERM "$pid" 2>/dev/null || true
+
+for _ in $(seq 1 50); do
+  et_pid_is_ours "$pid" || break
+  sleep 0.1
+done
+
+# Re-check ownership rather than trusting the loop above: the process may have
+# exited and the pid been handed to something unrelated while we waited.
+if et_pid_is_ours "$pid"; then
+  echo "etserver ignored SIGTERM, sending SIGKILL"
+  kill -KILL "$pid" 2>/dev/null || true
+fi
+
+rm -f "$ET_PID_FILE"
+echo "etserver stopped"
