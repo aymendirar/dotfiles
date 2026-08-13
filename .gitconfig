@@ -79,6 +79,10 @@
 [fetch]
         ; prune = true
         ; pruneTags = true
+        # keep the commit-graph current as commits arrive. a graph written with
+        # --changed-paths records that intent, so these automatic writes carry
+        # the bloom filters forward and path-limited blame/log stay fast
+        writeCommitGraph = true
 
 [help]
         autocorrect = prompt
