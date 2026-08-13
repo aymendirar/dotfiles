@@ -73,15 +73,6 @@ export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-autocomplete" ] && git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-# needed for sorbet
-sudo mkdir -p ~/figma/figma/.cache/sorbet-vsc
-sudo chown -R $USER:$USER ~/figma/figma/.cache/sorbet-vsc
-chmod -R 755 ~/figma/figma/.cache/sorbet-vsc
-
-sudo mkdir -p ~/figma/figma/.cache/sorbet-githook
-sudo chown -R $USER:$USER ~/figma/figma/.cache/sorbet-githook
-chmod -R 755 ~/figma/figma/.cache/sorbet-githook
-
 # install tools
 mise use -g bat
 mise use -g delta
@@ -91,6 +82,39 @@ mise use -g stylua
 
 mise exec -- nvim --headless "+Lazy! install" +qa
 mise exec -- bat cache --build
+
+# eternal terminal holds a shell open across network changes and laptop sleep,
+# which plain ssh drops. no apt package ships in the devcontainer image and
+# there is no systemd to run the daemon, so install from the upstream ppa and
+# background it by hand. et is only reachable if something forwards 2022.
+ET_PORT=2022
+
+install_et() {
+  if ! command -v add-apt-repository >/dev/null 2>&1; then
+    sudo apt-get update -qq && sudo apt-get install -y software-properties-common || return 1
+  fi
+  sudo add-apt-repository -y ppa:jgmath2000/et &&
+    sudo apt-get update -qq &&
+    sudo apt-get install -y et
+}
+
+if ! command -v etserver >/dev/null 2>&1; then
+  echo "installing eternal terminal"
+  install_et || echo "[warn] eternal terminal install failed, continuing without it" >&2
+fi
+
+if command -v etserver >/dev/null 2>&1; then
+  if pgrep -x etserver >/dev/null; then
+    echo "etserver already running on port ${ET_PORT}"
+  else
+    echo "starting etserver on port ${ET_PORT}"
+    # &! is zsh for background-and-disown; plain disown can fail in a
+    # non-interactive shell with no job table, which set -e would treat as fatal
+    nohup etserver --port "${ET_PORT}" >/tmp/etserver.log 2>&1 &!
+  fi
+else
+  echo "[warn] no etserver binary, skipping eternal terminal startup" >&2
+fi
 
 set +u
 source "${HOME}/.zshrc"
