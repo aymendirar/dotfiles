@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion": 1,
+  "app": {
+    "minimalMode": true,
+    "hideTabCloseButton": true
+  },
+  "browser": {
+    "openTerminalLinksInCmuxBrowser": false,
+    "interceptTerminalOpenCommandInCmuxBrowser": false,
+    "hostsToOpenInEmbeddedBrowser": []
+  },
+  "sidebar": {
+    "openPullRequestLinksInCmuxBrowser": false,
+    "openPortLinksInCmuxBrowser": false
+  },
+  "shortcuts": {
+    "bindings": {
+      "newBrowserWorkspace": null
+    }
+  }
+}
