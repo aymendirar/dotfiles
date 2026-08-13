@@ -113,5 +113,8 @@ else
   echo "[warn] no etserver binary, skipping eternal terminal startup" >&2
 fi
 
-set +u
-source "${HOME}/.zshrc"
+# Coder runs this installer in a child process, so sourcing the startup file
+# cannot update the user's next shell. Oh My Zsh also uses intentional nonzero
+# statuses while initializing defaults, which trips this script's errexit mode.
+zsh -n "${HOME}/.zshrc"
+echo "done. start a new shell (or run 'exec zsh') to load ~/.zshrc"
