@@ -1,8 +1,8 @@
 theme = "catppuccin-mocha"
 mode = "auto"
-cursor_line = "off"
+cursor_line = "on"
 line_numbers = true
-wrap_lines = false
+wrap_lines = true
 hunk_headers = true
 copy_decorations = false
 prompt_save_view_preferences = false
