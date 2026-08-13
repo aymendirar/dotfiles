@@ -16,7 +16,11 @@
   },
   "shortcuts": {
     "bindings": {
-      "newBrowserWorkspace": null
+      "newBrowserWorkspace": null,
+      "prevSidebarTab": "cmd+shift+[",
+      "nextSidebarTab": "cmd+shift+]",
+      "prevSurface": null,
+      "nextSurface": null
     }
   }
 }
