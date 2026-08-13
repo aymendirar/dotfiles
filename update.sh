@@ -29,6 +29,8 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/bat" "${HOME}/.config/bat"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/delta" "${HOME}/.config/delta"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.codex/AGENTS.md"
+# cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.cursor/rules/global.mdc"
 
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
 dotfiles_ensure_directory "${HOME}/.config/opencode"

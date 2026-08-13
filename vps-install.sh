@@ -76,6 +76,8 @@ fi
 echo "==> symlinking configs"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.codex/AGENTS.md"
+# cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares
+dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.cursor/rules/global.mdc"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/tmux" "$HOME/.config/tmux"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/bat" "$HOME/.config/bat"

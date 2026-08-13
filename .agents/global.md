@@ -1,3 +1,8 @@
+---
+description: Personal global agent guidelines
+alwaysApply: true
+---
+
 # Agent Guidelines
 
 These are fallback preferences. Higher-priority requirements, explicit task instructions, and the nearest repository-specific guidance take precedence. If equally ranked rules conflict, follow the safer, more specific rule and surface material ambiguity.
