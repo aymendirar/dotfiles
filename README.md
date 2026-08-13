@@ -70,6 +70,26 @@ et devcontainer.aymen-devbox-2.adirar.coder --command 'printf ET_CODER_OK'
 
 The last command prints `ET_CODER_OK` and exits 0.
 
+### On a VPS
+
+`vps-install.sh` installs `et` from the same PPA, copies
+`.config/et/et.vps.cfg` to `/etc/et.cfg`, and enables the packaged systemd
+unit. A VPS has systemd, so the `et:*` mise tasks are not used there:
+
+```bash
+systemctl status et
+```
+
+The VPS config binds `0.0.0.0` rather than loopback, because the box is dialled
+straight from the internet instead of through a Coder tunnel. ET requires a
+full ssh handshake before handing over a terminal, so it is ssh-authenticated
+rather than an open shell, but keep the port behind a firewall that only admits
+addresses you actually connect from. Connect with:
+
+```bash
+et user@vps-hostname
+```
+
 ### Fallback: machines without Coder Desktop
 
 **Not the normal flow.** Only for a machine that cannot run Coder Connect.

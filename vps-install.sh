@@ -73,6 +73,35 @@ if [ "$(id -u)" -ne 0 ] && ! id -nG "$DOCKER_USER" | grep -qw docker; then
   echo "    added $DOCKER_USER to docker group (log out/in, or 'newgrp docker', for it to take effect)"
 fi
 
+echo "==> eternal terminal"
+# a plain ssh session dies when the laptop changes network or sleeps; et
+# reconnects instead. this box has systemd, so the packaged unit owns the
+# server here rather than the et:* mise tasks the devcontainer needs.
+install_et() {
+  if ! command -v add-apt-repository >/dev/null 2>&1; then
+    $SUDO apt-get install -y software-properties-common || return 1
+  fi
+  $SUDO add-apt-repository -y ppa:jgmath2000/et &&
+    $SUDO apt-get update -y &&
+    $SUDO apt-get install -y et
+}
+
+if ! command -v etserver >/dev/null 2>&1; then
+  install_et || echo "[warn] eternal terminal install failed, continuing without it" >&2
+fi
+
+if command -v etserver >/dev/null 2>&1; then
+  # /etc/et.cfg is root-owned and read by the unit, so copy instead of
+  # symlinking into $HOME; install(1) also makes re-runs pick up config edits
+  $SUDO install -m 0644 "$DOTFILES_DIR/.config/et/et.vps.cfg" /etc/et.cfg
+  $SUDO systemctl enable et
+  # restart rather than `enable --now`: this also reloads an already-running
+  # server after the config above changes
+  $SUDO systemctl restart et
+else
+  echo "[warn] no etserver binary, skipping eternal terminal setup" >&2
+fi
+
 echo "==> symlinking configs"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.codex/AGENTS.md"
