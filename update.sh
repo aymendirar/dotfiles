@@ -29,6 +29,7 @@ dotfiles_ensure_directory "${HOME}/.config/cmux"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/cmux/cmux.json" "${HOME}/.config/cmux/cmux.json"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/bat" "${HOME}/.config/bat"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/delta" "${HOME}/.config/delta"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/hunk" "${HOME}/.config/hunk"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.codex/AGENTS.md"
 # cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares

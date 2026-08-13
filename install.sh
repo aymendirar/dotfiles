@@ -58,6 +58,7 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/et/et.cfg" "${HOME}/.config/et/
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/mise/tasks/et" "${HOME}/.config/mise/tasks/et"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/bat" "${HOME}/.config/bat"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/delta" "${HOME}/.config/delta"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/hunk" "${HOME}/.config/hunk"
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
 dotfiles_ensure_directory "${HOME}/.config/opencode"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/opencode.json" "${HOME}/.config/opencode/opencode.json"
@@ -80,6 +81,7 @@ export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 # install tools
 mise use -g bat
 mise use -g delta
+mise use -g github:modem-dev/hunk
 mise use -g neovim@0.11.5
 mise use -g prettier
 mise use -g stylua

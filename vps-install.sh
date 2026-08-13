@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # minimal, idempotent dotfiles setup for a fresh ubuntu vps.
-# installs zsh + oh-my-zsh, tmux + tpm, neovim/bat/delta/just/go/ruby/node/opencode (via mise), fzf, docker,
+# installs zsh + oh-my-zsh, tmux + tpm, neovim/bat/delta/hunk/just/go/ruby/node/opencode (via mise), fzf, docker,
 # and symlinks this repo's configs into place. safe to re-run.
 
 DOTFILES_REPO="${DOTFILES_REPO:-git@github.com:adirar111/dotfiles.git}"
@@ -49,12 +49,12 @@ ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 [ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] || git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 [ -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] || git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
-echo "==> mise (neovim, bat, delta, just, go, ruby, node, opencode)"
+echo "==> mise (neovim, bat, delta, hunk, just, go, ruby, node, opencode)"
 if [ ! -x "$HOME/.local/bin/mise" ]; then
   curl https://mise.run | sh
 fi
 MISE="$HOME/.local/bin/mise"
-"$MISE" use -g neovim@0.11.5 bat delta just go ruby node github:anomalyco/opencode
+"$MISE" use -g neovim@0.11.5 bat delta github:modem-dev/hunk just go ruby node github:anomalyco/opencode
 
 echo "==> fzf"
 if [ ! -d "$HOME/.fzf" ]; then
@@ -111,6 +111,7 @@ dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/tmux" "$HOME/.config/tmux"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/bat" "$HOME/.config/bat"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/delta" "$HOME/.config/delta"
+dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/hunk" "$HOME/.config/hunk"
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
 dotfiles_ensure_directory "$HOME/.config/opencode"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/opencode/opencode.json" "$HOME/.config/opencode/opencode.json"
