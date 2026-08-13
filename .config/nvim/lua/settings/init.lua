@@ -38,9 +38,11 @@ raw_set("set signcolumn=yes")
 raw_set("set laststatus=3")
 raw_set("set noreadonly")
 
--- window settings
-window.foldmethod = "expr"
-window.foldexpr = "nvim_treesitter#foldexpr()"
+-- fold settings; the native lua foldexpr replaced nvim_treesitter#foldexpr() in
+-- 0.10 and avoids a vimscript round trip per line. set globally rather than on
+-- vim.wo so every window gets it, not just the first one
+set.foldmethod = "expr"
+set.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
 
@@ -51,16 +53,20 @@ vim.cmd(":set fillchars+=vert:┃")
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
 vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })
 
-vim.lsp.set_log_level(vim.log.levels.DEBUG)
+-- over ssh there is no local clipboard tool worth reaching for: without a
+-- display the provider silently fails, and with x11 forwarding every yank
+-- round trips. osc52 hands the copy to the terminal emulator instead.
+-- paste stays on the unnamed register because osc52 reads require the terminal
+-- to allow clipboard queries, and nvim blocks waiting on ones that never answer
+if vim.env.SSH_TTY then
+  local osc52 = require("vim.ui.clipboard.osc52")
+  local function paste()
+    return vim.split(vim.fn.getreg("") or "", "\n")
+  end
 
--- vim.g.clipboard = {
---   name = 'OSC 52',
---   copy = {
---     ['+'] = require('vim.ui.clipboard.osc52').copy '+',
---     ['*'] = require('vim.ui.clipboard.osc52').copy '*',
---   },
---   paste = {
---     ['+'] = require('vim.ui.clipboard.osc52').paste '+',
---     ['*'] = require('vim.ui.clipboard.osc52').paste '*',
---   },
--- }
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = { ["+"] = osc52.copy("+"), ["*"] = osc52.copy("*") },
+    paste = { ["+"] = paste, ["*"] = paste },
+  }
+end

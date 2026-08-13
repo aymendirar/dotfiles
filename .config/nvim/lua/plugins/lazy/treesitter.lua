@@ -47,7 +47,11 @@ return {
               return true
             end
           end,
-          additional_vim_regex_highlighting = true,
+          -- this runs :syntax *alongside* treesitter rather than instead of it,
+          -- so it doubles highlighting work on every normal file. large files
+          -- already fall back to :syntax via the disable() above, because
+          -- treesitter never attaches there and syntax stays on by default
+          additional_vim_regex_highlighting = false,
         },
 
         indent = {
@@ -61,7 +65,9 @@ return {
     event = "VeryLazy",
     opts = {
       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-      max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+      -- context is recomputed on every cursor move, so cap how much of it can be
+      -- rendered; unlimited means deeply nested code repaints a lot of lines
+      max_lines = 3, -- How many lines the window should span. Values <= 0 mean no limit.
       trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
       patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
         -- For all filetypes

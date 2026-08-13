@@ -553,5 +553,31 @@ return {
     keys = {
       { "B", "<cmd>GhBlameCurrentLine<cr>", desc = "GitHub Blame Current Line" },
     },
+    config = function()
+      -- gh-blame runs both `git blame` and a `gh api graphql` query through
+      -- plenary's job:sync(), which takes no timeout argument and so falls back
+      -- to plenary's 5s default. the graphql round trip regularly exceeds that
+      -- from a devbox, and blame does too on a large repo. replace the sync
+      -- branch with the same job, given a ceiling we actually clear.
+      local utils = require("gh-blame.utils")
+      local Job = require("plenary.job")
+      local original_run_job = utils.run_job
+      local timeout_ms = 15000
+
+      utils.run_job = function(command, opts, mode)
+        if mode ~= "sync" then
+          return original_run_job(command, opts, mode)
+        end
+
+        local job = Job:new({
+          command = command,
+          cwd = opts.cwd,
+          args = opts.args,
+          enable_recording = true,
+        })
+        job:sync(timeout_ms)
+        return table.concat(job:result(), "\n"), table.concat(job:stderr_result(), "\n")
+      end
+    end,
   },
 }
