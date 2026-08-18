@@ -12,6 +12,7 @@ return {
           "lua",
           "vim",
           "markdown",
+          "markdown_inline",
           "typescript",
           "javascript",
           "python",
