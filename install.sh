@@ -86,7 +86,7 @@ mise use -g github:modem-dev/hunk
 mise use -g neovim@0.11.5
 mise use -g prettier
 mise use -g stylua
-mise use -g worktrunk
+mise use -g aqua:max-sixty/worktrunk
 
 mise exec -- nvim --headless "+Lazy! install" +qa
 mise exec -- bat cache --build
