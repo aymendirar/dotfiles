@@ -5,6 +5,8 @@ local window = vim.wo
 -- lua settings
 set.guicursor = ""
 set.termguicolors = true
+-- give floating windows a border unless a plugin explicitly chooses another style
+set.winborder = "rounded"
 set.hidden = true
 set.number = true
 set.tabstop = 2

@@ -34,6 +34,14 @@ return {
       },
       custom_highlights = function(_)
         return {
+          FloatBorder = { fg = "#ffffff" },
+          BlinkCmpDocBorder = { link = "FloatBorder" },
+          BlinkCmpMenuBorder = { link = "FloatBorder" },
+          BlinkCmpSignatureHelpBorder = { link = "FloatBorder" },
+          FzfLuaBorder = { link = "FloatBorder" },
+          LazyGitBorder = { link = "FloatBorder" },
+          NeoTreeFloatBorder = { link = "FloatBorder" },
+          TelescopeBorder = { link = "FloatBorder" },
           Type = { style = { "bold", "italic" } },
           Function = { style = { "bold", "italic" } },
           ["@type.builtin"] = { style = { "bold", "italic" } },

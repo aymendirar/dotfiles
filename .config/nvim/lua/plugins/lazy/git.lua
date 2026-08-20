@@ -18,6 +18,19 @@ return {
           delay = 50,
         },
       })
+
+      -- OSC 8 links are not clickable in every terminal, so keep PR URLs visible and selectable
+      local gh = require("gitsigns.gh")
+      local create_pr_linespec = gh.create_pr_linespec
+      gh.create_pr_linespec = function(...)
+        local linespec = create_pr_linespec(...)
+        for _, part in ipairs(linespec) do
+          if part[3] then
+            part[1] = part[3]
+          end
+        end
+        return linespec
+      end
     end,
   },
   {
