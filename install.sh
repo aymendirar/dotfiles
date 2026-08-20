@@ -87,6 +87,8 @@ mise use -g neovim@0.11.5
 mise use -g prettier
 mise use -g stylua
 mise use -g aqua:max-sixty/worktrunk
+# Cursor has no registry entry, so use its official archive through mise.
+mise use -g 'http:cursor-agent[url=https://downloads.cursor.com/lab/{{version}}/linux/{{arch()}}/agent-cli-package.tar.gz,version_list_url=https://cursor.com/install,version_regex=lab/([^/]+)/,strip_components=1]@latest'
 
 mise exec -- nvim --headless "+Lazy! install" +qa
 mise exec -- bat cache --build

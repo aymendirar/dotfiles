@@ -42,5 +42,6 @@ alias tmux-kill-rest="tmux kill-session -a"
 alias tmux-attach="tmux attach -d -t"
 
 alias claude="claude --dangerously-skip-permissions"
+alias cursor="agent --yolo --approve-mcps --trust"
 
 export GLOBAL_GEMFILE="~/figma/figma/Gemfile"
