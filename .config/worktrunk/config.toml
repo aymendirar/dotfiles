@@ -1,0 +1,2 @@
+[switch.picker]
+pager = "delta --paging=never --width=$COLUMNS --features=catppuccin-macchiato --side-by-side"

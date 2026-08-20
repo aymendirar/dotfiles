@@ -107,6 +107,8 @@ Apply these only when working in the named language. Repository-specific guidanc
 
 ## Durable State
 
-- Use `~/state` only for durable, non-sensitive context that will help continue substantive work. Read relevant state before substantive or resumed repository work; do not create or update durable notes for trivial or read-only tasks unless explicitly requested.
+- At the start of every agent session, before handling the first request, read `~/dotfiles/.agents/durable-state.md` completely and follow it. If the runbook or a valid `~/state` checkout is unavailable, continue without state and report that only when materially relevant.
+- When the checkout is valid, seed the session by reading the current contents of every durable-context file under `~/state/repos/` whose filesystem modification time falls within the trailing 168 hours at session start. Treat this as a rolling, cross-repository window rather than a calendar week, read files from oldest to newest, and exclude Git metadata, repository-control files, and `skills/`.
+- After seeding the rolling window, read any additional older state relevant to substantive or resumed repository work.
+- Use `~/state` only for durable, non-sensitive context that will help continue substantive work. Do not create or update durable notes for trivial or read-only tasks unless explicitly requested.
 - Treat `~/state` as the state repository. Do not infer or select a different repository based on task context.
-- Before reading or writing state, read `~/dotfiles/.agents/durable-state.md` completely and follow it. If the runbook or a valid state checkout is unavailable, continue without state and report that only when materially relevant.

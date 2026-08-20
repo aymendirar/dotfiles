@@ -5,9 +5,10 @@ Use this runbook only when the global agent guidelines direct you to use `~/stat
 ## Validate and Read State
 
 - Do not clone, initialize, repoint, move, replace, or repair `~/state`.
-- Verify that `~/state` is the root of a Git worktree. If it is not, continue without state and report that only when materially relevant.
-- Before substantive repository work or resuming a task, read only the relevant files under `~/state/repos/<repo>/`.
-- Refresh an existing checkout only when the task needs state. Inspect status first, then pull with `--ff-only` only when the worktree is clean, an upstream is configured, and required platform approval is available. Otherwise use the local notes and report possible staleness when material.
+- At session start, verify that `~/state` is the root of a Git worktree. If it is not, continue without state and report that only when materially relevant.
+- When the checkout is valid, capture the session start time and read the current contents of every regular durable-context file under `~/state/repos/` whose filesystem modification time is in the inclusive interval from 168 hours before session start through session start. Read matching files from oldest to newest so the most recent context is loaded last. This rolling window spans repositories and applies even to trivial or read-only requests. Exclude Git metadata, repository-control files, and everything under `skills/`.
+- Before substantive repository work or resuming a task, read any additional relevant files under `~/state/repos/<repo>/` that fall outside the rolling window.
+- Use the existing local checkout for the rolling-window seed; seeding alone does not justify a refresh. Refresh only when the current task needs fresher state. Inspect status first, then pull with `--ff-only` only when the worktree is clean, an upstream is configured, and required platform approval is available. Otherwise use the local notes and report possible staleness when material.
 
 ## Write State
 

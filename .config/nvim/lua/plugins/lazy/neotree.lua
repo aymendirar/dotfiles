@@ -1,3 +1,17 @@
+local function has_collapsed_directory(tree, node)
+  if node.type == "directory" and (node.loaded == false or (node:has_children() and not node:is_expanded())) then
+    return true
+  end
+
+  for _, child in ipairs(tree:get_nodes(node:get_id())) do
+    if has_collapsed_directory(tree, child) then
+      return true
+    end
+  end
+
+  return false
+end
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
@@ -33,6 +47,7 @@ return {
           },
         },
         ["o"] = "system_open",
+        ["<leader>z"] = { "toggle_directory_recursively", desc = "Toggle directory recursively" },
       },
     },
     filesystem = {
@@ -54,6 +69,24 @@ return {
       },
       use_libuv_file_watcher = true, -- refresh automagically?
       commands = {
+        toggle_directory_recursively = function(state)
+          local node = state.tree:get_node()
+          if not node or node.type ~= "directory" then
+            return
+          end
+
+          if has_collapsed_directory(state.tree, node) then
+            state.commands.expand_all_subnodes(state)
+            return
+          end
+
+          if node:has_children() then
+            local root = state.tree:get_nodes()[1]
+            local command = node:get_id() == root:get_id() and state.commands.close_all_nodes
+              or state.commands.close_all_subnodes
+            command(state)
+          end
+        end,
         -- Override delete to use trash instead of rm
         delete = function(state)
           local path = state.tree:get_node().path

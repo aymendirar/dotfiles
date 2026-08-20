@@ -59,6 +59,7 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/mise/tasks/et" "${HOME}/.config
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/bat" "${HOME}/.config/bat"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/delta" "${HOME}/.config/delta"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/hunk" "${HOME}/.config/hunk"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/worktrunk" "${HOME}/.config/worktrunk"
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
 dotfiles_ensure_directory "${HOME}/.config/opencode"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/opencode.json" "${HOME}/.config/opencode/opencode.json"
@@ -85,6 +86,7 @@ mise use -g github:modem-dev/hunk
 mise use -g neovim@0.11.5
 mise use -g prettier
 mise use -g stylua
+mise use -g worktrunk
 
 mise exec -- nvim --headless "+Lazy! install" +qa
 mise exec -- bat cache --build

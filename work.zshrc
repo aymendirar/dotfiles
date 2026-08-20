@@ -36,6 +36,7 @@ alias tmux-config="cd ~/.config/tmux && v tmux.conf"
 
 alias nuke-swaps="rm ~/.local/state/nvim/swap/*"
 alias source-zshrc="source ~/.zshrc"
+alias update-dotfiles="coder dotfiles https://github.com/figma/dotfiles -y && exec zsh"
 alias source-tmux="tmux source ~/.config/tmux/tmux.conf"
 alias tmux-kill-rest="tmux kill-session -a"
 alias tmux-attach="tmux attach -d -t"
