@@ -84,6 +84,24 @@
         # the bloom filters forward and path-limited blame/log stay fast
         writeCommitGraph = true
 
+# Keep incremental tasks hourly and limit the expensive gc task to weekly.
+# Disable the incremental preset's extra pack-refs task to keep the set explicit.
+[maintenance]
+        strategy = incremental
+[maintenance "prefetch"]
+        schedule = hourly
+[maintenance "commit-graph"]
+        schedule = hourly
+[maintenance "loose-objects"]
+        schedule = hourly
+[maintenance "incremental-repack"]
+        schedule = hourly
+[maintenance "gc"]
+        enabled = true
+        schedule = weekly
+[maintenance "pack-refs"]
+        enabled = false
+
 [help]
         autocorrect = prompt
 [commit]
