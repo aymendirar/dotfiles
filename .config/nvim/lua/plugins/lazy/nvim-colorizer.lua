@@ -1,7 +1,9 @@
 return {
-  "norcalli/nvim-colorizer.lua",
+  "catgoose/nvim-colorizer.lua",
   opts = {
-    "*",
-    css = { rgb_fn = true },
+    filetypes = {
+      "*",
+      css = { rgb_fn = true },
+    },
   },
 }
