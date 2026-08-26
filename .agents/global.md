@@ -47,6 +47,18 @@ Apply these only when working in the named language. Repository-specific guidanc
 - Prefer enumerable methods (`map`, `select`, `each_with_object`, and similar) to manual loops; use guard clauses, `&.`, `||=`, and keyword arguments when they read naturally.
 - Favor plain objects and composition over inheritance and metaprogramming.
 
+## Worktrees
+
+- Perform every task that changes repository files in a dedicated Git worktree. Keep the primary checkout on the repository's default branch as a clean synchronization point. Read-only work may use an existing checkout, and a task may reuse an existing clean worktree already dedicated to its branch.
+- Prefer the `wt` binary when it is available. Start by running `wt list`, then create new work with `wt switch --create <branch> --base ^`. Use `git worktree` directly only when `wt` is unavailable or repository guidance requires it. Never create a worktree inside another worktree.
+- Before creating a worktree, locate the primary checkout and inspect its status. When it is clean, update its default branch from its configured upstream with a fast-forward-only pull, then create the worktree from that updated branch. The default branch is commonly `master` and may be `main` or another repository-configured name; resolve it instead of assuming. If the checkout is dirty, diverged, lacks an upstream, or cannot fast-forward, preserve it and ask before proceeding.
+- Unless the task is explicitly stacked on another change, branch from the freshly updated default branch. Do not branch from whichever commit or worktree happens to be current.
+- Use one worktree and one branch per task. Before creation, inspect existing worktrees and branches so the task does not duplicate an active checkout or reuse a branch owned by other work. Give each worktree a descriptive branch name that follows repository conventions.
+- After creation, verify the worktree path, branch, base commit, and clean status before editing. Re-read repository instructions from the new worktree because its branch may contain different guidance.
+- Keep generated files, caches, build output, dependencies, and task-local scratch data inside the task worktree when practical. Run edits, tests, formatting, staging, and diff review from that same worktree so results cannot leak across concurrent tasks.
+- Keep the worktree until its changes are committed or otherwise safely preserved and the branch is integrated or explicitly abandoned. Inspect status and divergence before cleanup. Prefer `wt remove` when available; omit force flags. With plain Git, remove the exact clean worktree with `git worktree remove`, delete its branch separately only after verifying it is safe, and use `git worktree prune` only for confirmed stale metadata.
+- Never force-remove a dirty worktree, delete an unmerged branch, prune an active worktree, or clean up another user's or agent's work without explicit permission. Do not use manual directory deletion as a substitute for worktree removal.
+
 ## Change Discipline
 
 - When working in a Git worktree, inspect `git status` and the relevant diff before editing.
