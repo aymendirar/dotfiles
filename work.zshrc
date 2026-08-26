@@ -47,3 +47,5 @@ alias claude="claude --dangerously-skip-permissions"
 alias cursor="agent --yolo --approve-mcps --trust"
 
 export GLOBAL_GEMFILE="~/figma/figma/Gemfile"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

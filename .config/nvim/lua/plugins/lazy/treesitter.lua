@@ -1,63 +1,47 @@
+local parsers = {
+  "c",
+  "cpp",
+  "lua",
+  "vim",
+  "markdown",
+  "markdown_inline",
+  "typescript",
+  "javascript",
+  "python",
+  "yaml",
+  "sql",
+  "racket",
+  "proto",
+  "nginx",
+  "ruby",
+  "go",
+  "rust",
+  "terraform",
+  "json",
+  "java",
+}
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     build = ":TSUpdate",
-    event = "VeryLazy",
+    lazy = false,
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "c",
-          "cpp",
-          "lua",
-          "vim",
-          "markdown",
-          "markdown_inline",
-          "typescript",
-          "javascript",
-          "python",
-          "yaml",
-          "sql",
-          "racket",
-          "proto",
-          "nginx",
-          "ruby",
-          "go",
-          "rust",
-          "terraform",
-          "json",
-          "jsonc",
-          "java",
-        },
-        -- Install parsers synchronously (only applied to `ensure_installed`)
-        sync_install = false,
+      require("nvim-treesitter").install(parsers)
 
-        -- Automatically install missing parsers when entering buffer
-        -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-        auto_install = true,
+      local group = vim.api.nvim_create_augroup("TreesitterHighlight", { clear = true })
+      vim.api.nvim_create_autocmd("FileType", {
+        group = group,
+        callback = function(args)
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+          if ok and stats and stats.size > max_filesize then
+            return
+          end
 
-        -- List of parsers to ignore installing (or "all")
-        ignore_install = {},
-
-        highlight = {
-          enable = true,
-          disable = function(_, buf)
-            local max_filesize = 100 * 1024 -- 100 KB
-            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-          -- this runs :syntax *alongside* treesitter rather than instead of it,
-          -- so it doubles highlighting work on every normal file. large files
-          -- already fall back to :syntax via the disable() above, because
-          -- treesitter never attaches there and syntax stays on by default
-          additional_vim_regex_highlighting = false,
-        },
-
-        indent = {
-          -- enable = true, -- this is hit or miss
-        },
+          pcall(vim.treesitter.start, args.buf)
+        end,
       })
     end,
   },
