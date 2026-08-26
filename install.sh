@@ -93,6 +93,46 @@ mise use -g 'http:cursor-agent[url=https://downloads.cursor.com/lab/{{version}}/
 mise exec -- nvim --headless "+Lazy! install" +qa
 mise exec -- bat cache --build
 
+# Keep one Neovim instance on the devbox so a local TUI can attach through an
+# Eternal Terminal tunnel. The listener stays on loopback and tmux keeps it
+# alive when the installer or an interactive shell exits.
+start_nvim_server() {
+  local session_name="nvim-server"
+  local listen_address="127.0.0.1:6666"
+  local repo_dir="${HOME}/figma/figma"
+
+  if nvim --server "$listen_address" --remote-expr '1' >/dev/null 2>&1; then
+    echo "Neovim server already listening on $listen_address"
+    return 0
+  fi
+
+  if tmux has-session -t "$session_name" 2>/dev/null; then
+    echo "[warn] tmux session $session_name exists but Neovim is not listening on $listen_address" >&2
+    return 1
+  fi
+
+  if [ ! -d "$repo_dir" ]; then
+    echo "[warn] no repository at $repo_dir, skipping Neovim server startup" >&2
+    return 1
+  fi
+
+  tmux new-session -d -s "$session_name" -c "$repo_dir" \
+    "exec nvim --headless --listen $listen_address"
+
+  for _ in {1..50}; do
+    if nvim --server "$listen_address" --remote-expr '1' >/dev/null 2>&1; then
+      echo "Neovim server started in tmux session $session_name ($listen_address)"
+      return 0
+    fi
+    sleep 0.1
+  done
+
+  echo "[warn] Neovim server did not start in tmux session $session_name" >&2
+  return 1
+}
+
+start_nvim_server || echo "[warn] could not start Neovim server, continuing" >&2
+
 # eternal terminal holds a shell open across network changes and laptop sleep,
 # which plain ssh drops. no et package ships in the devcontainer image, so
 # install from the upstream ppa. the server itself is driven by the et:* mise

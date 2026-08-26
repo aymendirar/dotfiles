@@ -27,6 +27,8 @@ export PATH="$PATH:$HOME/.cargo/bin:$(go env GOPATH)/bin:/home/ubuntu/.fzf/bin"
 export AWS_CONFIG_FILE="$HOME/figma/figma/config/aws/sso_config"
 
 alias v="nvim"
+alias nvim-tunnel="et -N -t 16666:6666 devcontainer.aymen-devbox.adirar.coder"
+alias nvim-remote="nvim --remote-ui --server 127.0.0.1:16666"
 alias gdiff="git diff -- ':!*/package-lock.json' ':!*/yarn.lock'"
 alias gd="hunk diff"
 alias gs="git status"
