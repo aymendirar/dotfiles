@@ -86,7 +86,9 @@ mise use -g github:modem-dev/hunk
 mise use -g neovim@0.12.5
 mise use -g prettier
 mise use -g stylua
-mise use -g tree-sitter@0.26.13
+# The prebuilt tree-sitter release requires a newer glibc than the devcontainer.
+# Use mise's Cargo backend to build without the unnecessary QuickJS runtime.
+mise use -g --remove tree-sitter 'cargo:tree-sitter-cli[default-features=false]@0.26.13'
 mise use -g aqua:max-sixty/worktrunk
 # Cursor has no registry entry, so use its official archive through mise.
 mise use -g 'http:cursor-agent[url=https://downloads.cursor.com/lab/{{version}}/linux/{{arch()}}/agent-cli-package.tar.gz,version_list_url=https://cursor.com/install,version_regex=lab/([^/]+)/,strip_components=1]@latest'
