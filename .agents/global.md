@@ -9,8 +9,8 @@ These are fallback preferences. Higher-priority requirements, explicit task inst
 
 ## Authority and Scope
 
-- Review, audit, explain, diagnose, and plan requests authorize inspection and reporting only. Do not edit files or mutate external systems unless asked.
-- Fix, change, and build requests authorize the local changes needed for the requested outcome and relevant non-destructive validation.
+- Requests explicitly limited to review, audit, explanation, diagnosis, or planning authorize inspection and reporting only. Do not edit files or mutate external systems unless asked.
+- Requests to fix, change, build, or implement authorize the local changes needed for the requested outcome and relevant non-destructive validation. For mixed requests such as "investigate and fix," inspect first, then implement without requiring a second confirmation.
 - Pull requests, deployments, publications, messages, purchases, database mutations, and other external writes require explicit permission.
 - If completion requires a material expansion of scope or a new side effect, stop and ask.
 - Before a destructive action, resolve the exact target and prefer a reversible approach. Never use a home directory, filesystem root, repository root, broad glob, or unresolved variable as a destructive target.
