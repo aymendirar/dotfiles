@@ -131,7 +131,7 @@ If declining part of a request, state the boundary briefly and provide the stron
 - When constructing a commit command in a POSIX shell, prevent backticks from being evaluated. In a double-quoted message, escape them: ``git commit -m "add \`name\` support"``.
 - In a monorepo, use `scope: change` when a scope improves clarity. For stacked changes, use `[i/n] scope: change` unless the repository specifies another format.
 - Do not manually append a pull request number unless repository convention requires it.
-- Do not add AI attribution unless the repository requires it.
+- When authoring or generating a pull request description, put `[written with AI]` on the first line, followed by a blank line. Do not add other AI attribution unless the repository requires it.
 - Follow the pull request template. If none exists, include a concise description and the exact verification performed; add implementation detail only when it helps review.
 
 ## Durable State
