@@ -37,10 +37,13 @@ if ! fzf --version ; then
   install_fzf
 fi
 
-# symlink config files (repo is the source of truth)
+# install config files (the repo is the source of truth for managed settings)
 dotfiles_ensure_directory "${HOME}/.config"
 dotfiles_ensure_directory "${HOME}/.claude"
 dotfiles_ensure_directory "${HOME}/.codex"
+# Codex owns additional runtime settings in this file, so merge our defaults
+# instead of replacing or symlinking the whole config.
+dotfiles_merge_toml_root_assignments "$SCRIPT_DIR/config.toml" "${HOME}/.codex/config.toml"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.codex/AGENTS.md"
 # cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares

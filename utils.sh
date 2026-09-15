@@ -85,6 +85,122 @@ dotfiles_backup_and_symlink() {
   ln -s "$source_path" "$destination_path"
 }
 
+# merge bare top-level TOML assignments from source into destination. Existing
+# keys are replaced in place and missing keys are inserted before the first
+# table so unrelated settings and tables remain untouched.
+dotfiles_merge_toml_root_assignments() {
+  local source_path="$1"
+  local destination_path="$2"
+  local destination_input
+  local temporary_path
+
+  if [ ! -f "$source_path" ]; then
+    printf 'missing TOML merge source: %s\n' "$source_path" >&2
+    return 1
+  fi
+
+  mkdir -p "$(dirname "$destination_path")"
+  if [ -e "$destination_path" ]; then
+    destination_input="$destination_path"
+  else
+    destination_input="/dev/null"
+  fi
+  temporary_path="$(mktemp "${destination_path}.tmp.XXXXXX")"
+
+  if ! awk '
+    function assignment_key(line, normalized) {
+      normalized = line
+      sub(/^[[:space:]]*/, "", normalized)
+      if (normalized !~ /^[A-Za-z0-9_-]+[[:space:]]*=/) {
+        return ""
+      }
+      sub(/[[:space:]]*=.*/, "", normalized)
+      return normalized
+    }
+
+    function output(line) {
+      print line
+      printed_any = 1
+      last_output_blank = (line ~ /^[[:space:]]*$/)
+    }
+
+    function emit_missing(    i, key, missing_count) {
+      if (missing_emitted) {
+        return 0
+      }
+      missing_emitted = 1
+
+      for (i = 1; i <= source_count; i++) {
+        key = source_order[i]
+        if (!(key in seen)) {
+          missing_count++
+        }
+      }
+      if (missing_count > 0 && printed_any && !last_output_blank) {
+        output("")
+      }
+      for (i = 1; i <= source_count; i++) {
+        key = source_order[i]
+        if (!(key in seen)) {
+          output(source_line[key])
+        }
+      }
+      return missing_count
+    }
+
+    BEGIN {
+      source_root = 1
+      destination_root = 1
+    }
+
+    NR == FNR {
+      if ($0 ~ /^[[:space:]]*\[/) {
+        source_root = 0
+      }
+      key = source_root ? assignment_key($0) : ""
+      if (key != "") {
+        if (!(key in source_line)) {
+          source_order[++source_count] = key
+        }
+        source_line[key] = $0
+      }
+      next
+    }
+
+    destination_root && $0 ~ /^[[:space:]]*\[/ {
+      if (emit_missing() > 0) {
+        output("")
+      }
+      destination_root = 0
+    }
+
+    {
+      key = destination_root ? assignment_key($0) : ""
+      if (key != "" && key in source_line) {
+        if (!(key in seen)) {
+          output(source_line[key])
+          seen[key] = 1
+        }
+        next
+      }
+      output($0)
+    }
+
+    END {
+      emit_missing()
+    }
+  ' "$source_path" "$destination_input" >"$temporary_path"; then
+    rm -f "$temporary_path"
+    return 1
+  fi
+
+  if [ ! -L "$destination_path" ] && [ -f "$destination_path" ] && cmp -s "$temporary_path" "$destination_path"; then
+    rm -f "$temporary_path"
+    return
+  fi
+  mv "$temporary_path" "$destination_path"
+}
+
 # never displaces an existing skill: a name that is already taken is reported and
 # skipped, because shadowing an agent's own skill is silent and hard to notice
 dotfiles_link_skill() {
