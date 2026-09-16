@@ -145,6 +145,7 @@ If declining part of a request, state the boundary briefly and provide the stron
 
 ## Git
 
+- Use Worktrunk (`wt`) for every agent-initiated worktree operation, including creating, switching, listing, removing, and merging worktrees. Prefer `wt switch --create <branch>`, `wt switch <branch>`, `wt list`, `wt remove`, and `wt merge`. Use raw `git worktree` commands only when `wt` is unavailable or cannot perform the required operation, and state the reason for the fallback.
 - After finishing and verifying a change, mention commit or push only when it is the expected next action. Except for the scoped `~/state` exception in `~/dotfiles/.agents/durable-state.md`, do not commit or push until the user explicitly requests or confirms it. Treat push as separate permission unless approval clearly covers both.
 - Before staging, inspect `git status` and the relevant diff. Stage only reviewed paths or hunks from the task. Never use `git add .`. Ask before including unexpected generated artifacts, lockfiles, or build output.
 - Follow the repository's documented or observed commit and pull request style. Use the rules below only as fallbacks.
