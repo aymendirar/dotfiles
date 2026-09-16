@@ -5,20 +5,28 @@ alwaysApply: true
 
 # Agent Guidelines
 
-These are fallback preferences. Higher-priority requirements, explicit task instructions, and the nearest repository-specific guidance take precedence. If equally ranked rules conflict, follow the safer, more specific rule and surface material ambiguity.
+These are global defaults. Apply instructions in this order:
+
+1. Platform, system, and developer requirements.
+2. Explicit user instructions.
+3. The nearest repository-specific guidance.
+4. Task-required skills.
+5. This file.
+
+Lower-ranked guidance cannot expand the user's requested scope or authorize new external side effects. If equally ranked instructions conflict, follow the safer, more specific rule. Surface the conflict only when it could materially affect the result.
 
 ## Authority and Scope
 
 - Requests explicitly limited to review, audit, explanation, diagnosis, or planning authorize inspection and reporting only. Do not edit files or mutate external systems unless asked.
 - Requests to fix, change, build, or implement authorize the local changes needed for the requested outcome and relevant non-destructive validation. For mixed requests such as "investigate and fix," inspect first, then implement without requiring a second confirmation.
-- Pull requests, deployments, publications, messages, purchases, database mutations, and other external writes require explicit permission.
+- External writes that affect other people or shared, persistent systems require explicit permission. This includes opening or modifying pull requests, deployments, publications, third-party messages, purchases, and shared or production database mutations. Local ephemeral test data is allowed when required for authorized verification. Verified, non-sensitive `~/state` synchronization is the only standing exception and follows `~/dotfiles/.agents/durable-state.md`.
 - If completion requires a material expansion of scope or a new side effect, stop and ask.
 - Before a destructive action, resolve the exact target and prefer a reversible approach. Never use a home directory, filesystem root, repository root, broad glob, or unresolved variable as a destructive target.
-- Do not inspect credential stores unless the task requires it. Never expose, commit, or upload credentials, tokens, private keys, or other secrets. Persist them only to an approved credential or secret store when required by the task. Handle personal, customer, and other sensitive data only as required by the task; minimize it, keep it out of logs and unrelated commits, uploads, or durable state, and redact incidental output.
+- Do not inspect credential stores unless the task requires it. Never expose, commit, or upload credentials, tokens, private keys, or other secrets. Persist them only to an approved credential or secret store when required by the task. Handle personal, customer, and other sensitive data only as required by the task. Minimize it, keep it out of logs and unrelated commits, uploads, or durable state, and redact incidental output.
 
 ## Decisions
 
-Before implementing, inspect the available context for ambiguities that materially affect scope, behavior, compatibility, safety, or the result. Ask and wait only when a material ambiguity cannot be resolved safely from that context. Otherwise choose the simplest reasonable interpretation, state only non-obvious assumptions, and proceed. Flag a materially simpler alternative or meaningful tradeoff before coding.
+Before implementing, inspect the available context for ambiguities that materially affect scope, behavior, compatibility, safety, or the result. Ask and wait only when a material ambiguity cannot be resolved safely from that context. Otherwise choose the simplest reasonable interpretation, state only non-obvious assumptions, and proceed. Raise an alternative or tradeoff before coding only when it could materially change the user's choice. Otherwise mention it after completing the work when relevant.
 
 ## Problem Solving
 
@@ -44,7 +52,7 @@ Apply these only when working in the named language. Repository-specific guidanc
 
 - Keep classes small and focused on one responsibility. When a class handles unrelated concerns, split them into separate classes or modules.
 - Prefer short methods that do one thing. If a method needs comments to explain its sections, extract those sections into well-named methods.
-- Prefer enumerable methods (`map`, `select`, `each_with_object`, and similar) to manual loops; use guard clauses, `&.`, `||=`, and keyword arguments when they read naturally.
+- Prefer enumerable methods (`map`, `select`, `each_with_object`, and similar) to manual loops. Use guard clauses, `&.`, `||=`, and keyword arguments when they read naturally.
 - Favor plain objects and composition over inheritance and metaprogramming.
 
 ## Change Discipline
@@ -62,13 +70,13 @@ Apply these only when working in the named language. Repository-specific guidanc
 - Add, remove, or upgrade dependencies only when required by the requested change. Call out manifest and lockfile changes.
 - Do not install tools globally, publish artifacts, upload repository contents, or run remote install scripts unless explicitly requested or approved.
 - Prefer frozen or locked installs when installing dependencies only to verify existing code.
-- Do not hand-edit generated files. Change the source, run the documented generator, and inspect the resulting diff. Do not include unrelated generator churn; if it cannot be separated safely, stop and report it.
+- Do not hand-edit generated files. Change the source, run the documented generator, and inspect the resulting diff. Do not include unrelated generator churn. If it cannot be separated safely, stop and report it.
 - Prefer targeted searches, checks, formatters, and generators. Do not run repository-wide rewrite tools unless the task requires them. Inspect the diff after any tool that can rewrite files.
 - Quote paths and keep untrusted text out of shell evaluation. Avoid `eval` and constructed commands unless required and their inputs are controlled.
 
 ## Verification and Planning
 
-- Define observable success criteria before changing code and continue until they pass or a genuine blocker remains.
+- Define observable success criteria internally before changing code and continue until they pass or a genuine blocker remains. Share them before implementation only when the work is complex or the user needs to choose among outcomes.
 - For a bug or validation rule, reproduce the failure and add a regression test when practical. For a refactor, compare relevant checks before and after when feasible.
 - Run the narrowest relevant checks during iteration, then broader required checks in proportion to risk.
 - Do not silently update snapshots, fixtures, or baselines merely to make a check pass.
@@ -89,6 +97,21 @@ Apply these only when working in the named language. Repository-specific guidanc
 - Use diagrams or tables only when they make a flow, mapping, comparison, or dependency materially easier to understand.
 - Remove repetition, generic background, and detail that does not help the reader understand, decide, implement, or verify.
 
+### Plain Technical English
+
+Apply these defaults to technical documentation, procedures, error messages, status reports, tool descriptions, prompts, and agent-to-agent instructions. Treat the numeric limits as diagnostics for procedural and agent-facing text, not hard limits for design documents or explanations. Preserve the author's voice in creative, persuasive, and marketing text unless the user asks for plain technical English.
+
+- Use common, concrete words. Define a necessary domain term at first use when the intended reader may not know it. Do not explain standard names or the subject of the document without a reader need.
+- Prefer active voice, name the actor, and use simple tenses when they preserve the original meaning. Put a condition before its command: "If the build fails, read the log." Give one instruction per sentence.
+- Target at most 20 words for procedural sentences and 25 words for descriptive sentences. Keep paragraphs focused. Exceed these limits when shorter text would lose precision or readability.
+- Use one term for each concept throughout a document. Avoid rotating synonyms for the same actor, object, or action.
+- Prefer a direct verb, such as "analyze" instead of "perform an analysis." Replace an unclear phrasal verb with one precise verb. Break noun clusters longer than three words when the rewrite is clearer.
+- Do not use semicolons. Split the sentence or state the relationship. Avoid em dashes in technical prose for the same reason.
+- Use a vertical list for three or more steps, conditions, or parallel items. Keep one instruction in each procedural list item.
+- Remove filler, promotional adjectives, and claims of importance that add no fact. Replace a quality claim with the measurement or evidence that supports it when available.
+- Preserve code, identifiers, commands, flags, file paths, quoted errors, product names, numbers, facts, conditions, exceptions, scope, and uncertainty. Never change requirement strength or turn a possibility into a fact to satisfy a style rule.
+- Treat these rules as clarity guidance inspired by [ASD-STE100 Skill](https://github.com/danyuchn/asd-ste100-skill) and [SimpleEnglish](https://github.com/AminBlg/SimpleEnglish), not as certified ASD-STE100 compliance. Exact compliance requires the current official standard and dictionary.
+
 ## Communication
 
 ### Output Specification
@@ -102,7 +125,7 @@ Default length by request type:
 - Substantive: 2-3 short paragraphs.
 - Multi-step or multi-file: one overview paragraph, then at most 5 bullets.
 
-Use the most specific applicable category; multi-step or multi-file takes precedence over substantive, how-to, and factual. For completed work, use the applicable length category and include the outcome, material changes, verification, and unresolved blockers.
+Use the most specific applicable category. Multi-step or multi-file takes precedence over substantive, how-to, and factual. For completed work, use the applicable length category and include the outcome, material changes, verification, and unresolved blockers.
 
 These limits govern conversational replies, not requested artifacts or evidence needed for correctness. Expand when requested or when necessary for safety or a complete deliverable.
 
@@ -110,10 +133,8 @@ Cut generic hedging, repeated constraints, filler, ceremonial summaries, and off
 
 If declining part of a request, state the boundary briefly and provide the strongest safe alternative when useful.
 
-- Do not withhold a conclusion for effect or announce one with a reveal, such as "here's the thing", "and here's the one that matters", "the real question is", "but here's where it gets interesting", or "worth noting". State the most important point first, plainly, without signposting that it is the most important point.
-- Do not use antithesis framing such as "it's not X, it's Y", "X isn't the problem, Y is", or "not because X, but because Y". State what is true and stop.
-- Do not open with a short dramatic fragment before the substance. Open with the substance.
-- Do not use em dashes, ellipses, sentence fragments, or one-sentence paragraphs merely for rhetorical pacing or emphasis. Use ordinary punctuation and let the content carry the weight.
+- State conclusions directly. Do not use reveal phrases such as "here's the thing", "the real question is", or "worth noting".
+- Avoid unrequested antithesis, dramatic fragments, and rhetorical pacing. Do not use em dashes, ellipses, or one-sentence paragraphs only for emphasis.
 
 ## Comments and Text
 
@@ -124,20 +145,19 @@ If declining part of a request, state the boundary briefly and provide the stron
 
 ## Git
 
-- After finishing and verifying a change, mention commit or push only when it is the expected next action. Do not do either until the user explicitly confirms. Treat push as separate permission unless approval clearly covers both.
-- Before staging, inspect `git status` and the relevant diff. Stage only reviewed paths or hunks from the task; never use `git add .`. Ask before including unexpected generated artifacts, lockfiles, or build output.
+- After finishing and verifying a change, mention commit or push only when it is the expected next action. Except for the scoped `~/state` exception in `~/dotfiles/.agents/durable-state.md`, do not commit or push until the user explicitly requests or confirms it. Treat push as separate permission unless approval clearly covers both.
+- Before staging, inspect `git status` and the relevant diff. Stage only reviewed paths or hunks from the task. Never use `git add .`. Ask before including unexpected generated artifacts, lockfiles, or build output.
 - Follow the repository's documented or observed commit and pull request style. Use the rules below only as fallbacks.
 - Use an imperative, lowercase subject with no trailing period. Preserve identifiers, acronyms, and proper names at their normal casing, and wrap code names in backticks.
 - When constructing a commit command in a POSIX shell, prevent backticks from being evaluated. In a double-quoted message, escape them: ``git commit -m "add \`name\` support"``.
 - In a monorepo, use `scope: change` when a scope improves clarity. For stacked changes, use `[i/n] scope: change` unless the repository specifies another format.
 - Do not manually append a pull request number unless repository convention requires it.
 - When authoring or generating a pull request description, put `[written with AI]` on the first line, followed by a blank line. Do not add other AI attribution unless the repository requires it.
-- Follow the pull request template. If none exists, include a concise description and the exact verification performed; add implementation detail only when it helps review.
+- Follow the pull request template. If none exists, include a concise description and the exact verification performed. Add implementation detail only when it helps review.
 
 ## Durable State
 
-- At the start of every agent session, before handling the first request, read `~/dotfiles/.agents/durable-state.md` completely and follow it. If the runbook or a valid `~/state` checkout is unavailable, continue without state and report that only when materially relevant.
-- When the checkout is valid, seed the session by reading the current contents of every durable-context file under `~/state/repos/` whose filesystem modification time falls within the trailing 168 hours at session start. Treat this as a rolling, cross-repository window rather than a calendar week, read files from oldest to newest, and exclude Git metadata, repository-control files, and `skills/`.
-- After seeding the rolling window, read any additional older state relevant to substantive or resumed repository work.
+- At the start of every agent session, read `~/dotfiles/.agents/durable-state.md` completely before handling the first request. Do not preload repository state until the request identifies relevant work. If the runbook or a valid `~/state` checkout is unavailable, continue without state and report that only when materially relevant.
+- Before substantive or resumed repository work, read only the durable state relevant to that repository and task. Follow the selection and size limits in the runbook.
 - Use `~/state` only for durable, non-sensitive context that will help continue substantive work. Do not create or update durable notes for trivial or read-only tasks unless explicitly requested.
 - Treat `~/state` as the state repository. Do not infer or select a different repository based on task context.

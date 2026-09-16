@@ -6,15 +6,16 @@ Use this runbook only when the global agent guidelines direct you to use `~/stat
 
 - Do not clone, initialize, repoint, move, replace, or repair `~/state`.
 - At session start, verify that `~/state` is the root of a Git worktree. If it is not, continue without state and report that only when materially relevant.
-- When the checkout is valid, capture the session start time and read the current contents of every regular durable-context file under `~/state/repos/` whose filesystem modification time is in the inclusive interval from 168 hours before session start through session start. Read matching files from oldest to newest so the most recent context is loaded last. This rolling window spans repositories and applies even to trivial or read-only requests. Exclude Git metadata, repository-control files, and everything under `skills/`.
-- Before substantive repository work or resuming a task, read any additional relevant files under `~/state/repos/<repo>/` that fall outside the rolling window.
-- Use the existing local checkout for the rolling-window seed; seeding alone does not justify a refresh. Refresh only when the current task needs fresher state. Inspect status first, then pull with `--ff-only` only when the worktree is clean, an upstream is configured, and required platform approval is available. Otherwise use the local notes and report possible staleness when material.
+- Do not read repository state until the request identifies substantive work or resumes a prior task. Trivial and unrelated requests do not require repository state.
+- For substantive or resumed work, inspect filenames under `~/state/repos/<repo>/` and select only files relevant to the task. Start with at most three files whose combined content is no more than 20,000 bytes. Read the selected files from oldest to newest. If one necessary file exceeds the limit, read only its relevant sections. If that context is insufficient, expand selectively and explain the need only when it affects the user.
+- Do not seed unrelated repositories. Do not use modification time alone to infer relevance because checkout operations can change timestamps without changing content.
+- Refresh only when the current task needs fresher state. Inspect status first, then pull with `--ff-only` only when the worktree is clean, an upstream is configured, and required platform approval is available. Otherwise use the local notes and report possible staleness when material.
 
 ## Write State
 
 - Create or update state only when the work is likely to benefit from continuation. Do not mutate it for trivial or read-only tasks unless explicitly requested.
 - Record concise constraints, decisions and reasoning, current status, and dead ends worth avoiding at meaningful checkpoints. Do not record routine commands, raw tool output, speculation, secrets, or sensitive data.
-- Delegate each update to a dedicated background subagent when available. Give it the exact checkpoint context, continue the primary work in parallel, and collect its result before the final response. If no subagent is available, the primary agent is the designated state writer.
+- The primary agent is the designated state writer unless the active platform explicitly authorizes delegation for this task. When delegation is authorized, use one dedicated writer and collect its result before the final response.
 - The designated writer owns all `~/state` file and Git operations. Other agents must not edit, stage, or commit there.
 - Keep notes accurate by updating stale claims instead of appending contradictions. Use separate topic files for concurrent multi-agent work.
 - Keep state and scratch notes out of project repository commits.
@@ -37,7 +38,8 @@ Skills under `~/state/repos/<repo>/skills/` are private tooling rather than dura
 
 ## Commit and Push State
 
-- When `~/state` has a configured upstream, the designated writer must commit and push each completed non-sensitive state update immediately after verification and without separate user confirmation. This exception applies only to state updates and does not bypass platform approvals or Git safeguards.
+- The global agent instructions grant standing authorization to commit and push completed, non-sensitive `~/state` updates. This exception applies only to the state repository and does not authorize commits or pushes elsewhere.
+- The designated writer must commit each completed state update immediately after verification. If `~/state` has a configured upstream, push the commit immediately. Platform approvals and Git safeguards still apply.
 - Inspect status plus staged and unstaged diffs. Stage only the exact reviewed paths or hunks written for the task, then verify the complete staged diff. If unrelated work is staged or a touched file has concurrent edits, leave the update local and report it.
 - Use a specific imperative commit subject: `<repo>: <summary>`.
 - Attempt one push. If it fails, preserve the local commit and report the reason. Do not rebase, merge, resolve conflicts, retry, or force-push without explicit permission. A state Git failure must not block the primary task.
