@@ -1,2 +1,4 @@
+model = "gpt-6-sol"
+model_reasoning_effort = "xhigh"
 model_context_window = 872000
 model_auto_compact_token_limit = 800000
