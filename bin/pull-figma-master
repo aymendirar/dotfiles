@@ -1,0 +1,31 @@
+#!/bin/zsh
+set -euo pipefail
+
+readonly repo_dir="${FIGMA_REPO_DIR:-${HOME}/figma/figma}"
+readonly git_bin="/usr/bin/git"
+
+log() {
+  printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S %Z')" "$*"
+}
+
+if [[ ! -d "$repo_dir/.git" ]]; then
+  log "error: primary Git checkout not found at $repo_dir"
+  exit 1
+fi
+
+branch="$($git_bin -C "$repo_dir" symbolic-ref --quiet --short HEAD || true)"
+if [[ "$branch" != "master" ]]; then
+  log "skipping: $repo_dir is on ${branch:-a detached HEAD}, not master"
+  exit 0
+fi
+
+if ! $git_bin -C "$repo_dir" diff --quiet --ignore-submodules -- ||
+  ! $git_bin -C "$repo_dir" diff --cached --quiet --ignore-submodules --; then
+  log "skipping: $repo_dir has tracked changes"
+  exit 0
+fi
+
+log "pulling origin/master into $repo_dir"
+GIT_TERMINAL_PROMPT=0 \
+  GIT_SSH_COMMAND="/usr/bin/ssh -o BatchMode=yes -o UseKeychain=yes" \
+  $git_bin -C "$repo_dir" pull --ff-only origin master

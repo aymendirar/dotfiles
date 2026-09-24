@@ -36,6 +36,21 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.codex/AGEN
 # cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.cursor/rules/global.mdc"
 
+# Keep the primary Figma checkout current. Feature work lives in separate
+# worktrees, and the pull script still guards against a dirty or non-master
+# primary checkout before changing it.
+FIGMA_MASTER_AGENT_LABEL="com.adirar.pull-figma-master"
+FIGMA_MASTER_AGENT_PATH="${HOME}/Library/LaunchAgents/${FIGMA_MASTER_AGENT_LABEL}.plist"
+dotfiles_ensure_directory "${HOME}/Library/LaunchAgents"
+dotfiles_backup_and_symlink \
+  "$SCRIPT_DIR/launchd/${FIGMA_MASTER_AGENT_LABEL}.plist" \
+  "$FIGMA_MASTER_AGENT_PATH"
+launchctl bootout "gui/$(id -u)" "$FIGMA_MASTER_AGENT_PATH" >/dev/null 2>&1 || true
+launchctl enable "gui/$(id -u)/${FIGMA_MASTER_AGENT_LABEL}"
+if ! launchctl bootstrap "gui/$(id -u)" "$FIGMA_MASTER_AGENT_PATH"; then
+  printf 'warning: could not load %s\n' "$FIGMA_MASTER_AGENT_LABEL" >&2
+fi
+
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
 dotfiles_ensure_directory "${HOME}/.config/opencode"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/opencode/opencode.json" "${HOME}/.config/opencode/opencode.json"

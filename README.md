@@ -2,6 +2,14 @@
 
 handy dandy settings, defaults, and configurations
 
+## Automatic Figma master updates
+
+On macOS, `update.sh` installs a LaunchAgent that runs
+`bin/pull-figma-master` every five minutes. The script fast-forwards
+`~/figma/figma` from `origin/master` and skips the run when the primary
+checkout is not on `master` or has tracked changes. Output is written to
+`~/Library/Logs/pull-figma-master.log`.
+
 ## Eternal Terminal on a Coder devbox
 
 A plain `ssh` session dies when the laptop changes network or sleeps. Eternal
