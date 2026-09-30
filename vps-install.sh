@@ -5,7 +5,7 @@ set -euo pipefail
 # installs zsh + oh-my-zsh, tmux + tpm, neovim/bat/delta/hunk/just/go/ruby/node/opencode (via mise), fzf, docker,
 # and symlinks this repo's configs into place. safe to re-run.
 
-DOTFILES_REPO="${DOTFILES_REPO:-git@github.com:adirar111/dotfiles.git}"
+DOTFILES_REPO="${DOTFILES_REPO:-git@github.com:aymendirar/dotfiles.git}"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 STATE_REPO="${STATE_REPO:-git@github.com:aymendirar/state.git}"
 STATE_DIR="${STATE_DIR:-$HOME/state}"
@@ -105,8 +105,15 @@ fi
 echo "==> symlinking configs"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.codex/AGENTS.md"
+dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.config/figaro/AGENTS.md"
 # cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.cursor/rules/global.mdc"
+dotfiles_link_agent_skills "$DOTFILES_DIR/skills" \
+  "$HOME/.claude/skills" \
+  "$HOME/.codex/skills" \
+  "$HOME/.config/opencode/skills" \
+  "$HOME/.config/figaro/skills"
+dotfiles_link_state_skills "$STATE_DIR" "$HOME/.config/figaro/skills"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/tmux" "$HOME/.config/tmux"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/bat" "$HOME/.config/bat"

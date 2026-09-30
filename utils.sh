@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # shellcheck shell=bash
 # Shared helpers for the dotfiles Bash and Zsh scripts.
 
@@ -58,13 +60,6 @@ dotfiles_ensure_git_checkout() {
   git clone "$repository" "$directory"
 }
 
-dotfiles_force_symlink() {
-  local source_path="$1"
-  local destination_path="$2"
-  mkdir -p "$(dirname "$destination_path")"
-  ln -sfn "$source_path" "$destination_path"
-}
-
 dotfiles_backup_and_symlink() {
   local source_path="$1"
   local destination_path="$2"
@@ -83,6 +78,18 @@ dotfiles_backup_and_symlink() {
     mv "$destination_path" "${destination_path}.bak.$(date +%s)"
   fi
   ln -s "$source_path" "$destination_path"
+}
+
+dotfiles_install_cron_job() {
+  local marker="$1"
+  local job="$2"
+  local temporary_path
+
+  temporary_path="$(mktemp)"
+  crontab -l 2>/dev/null | grep -Fv "# $marker" >"$temporary_path" || true
+  printf '%s # %s\n' "$job" "$marker" >>"$temporary_path"
+  crontab "$temporary_path"
+  rm "$temporary_path"
 }
 
 # merge bare top-level TOML assignments from source into destination. Existing

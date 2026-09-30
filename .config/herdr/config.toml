@@ -1,0 +1,24 @@
+onboarding = false
+
+[theme]
+name = "catppuccin"
+
+[keys]
+prefix = "ctrl+f"
+copy_mode = "prefix+]"
+split_horizontal = "prefix+f"
+resize_pane_left = "prefix+ctrl+h"
+resize_pane_down = "prefix+ctrl+j"
+resize_pane_up = "prefix+ctrl+k"
+resize_pane_right = "prefix+ctrl+l"
+close_tab = "prefix+w"
+workspace_picker = "prefix+shift+o"
+
+[ui]
+tab_bar_position = "bottom"
+sidebar_start_collapsed = true
+sidebar_collapsed_mode = "compact"
+pane_outer_borders = false
+pane_gaps = false
+pane_scrollbars = false
+prompt_new_tab_name = false

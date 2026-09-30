@@ -10,10 +10,35 @@ These are global defaults. Apply instructions in this order:
 1. Platform, system, and developer requirements.
 2. Explicit user instructions.
 3. The nearest repository-specific guidance.
-4. Task-required skills.
-5. This file.
+4. This file's writing and communication preferences.
+5. Task-required skills.
+6. Other defaults in this file.
 
 Lower-ranked guidance cannot expand the user's requested scope or authorize new external side effects. If equally ranked instructions conflict, follow the safer, more specific rule. Surface the conflict only when it could materially affect the result.
+
+## Writing and Communication
+
+Apply these preferences to replies, technical documentation, procedures, error messages, and agent instructions. Follow requested formats, required artifact schemas, and product copy guidelines where applicable.
+
+- Lead with the answer. Include the facts, reasoning, uncertainty, and next action the reader needs. For completed work, state the outcome, material changes, verification, and unresolved blockers.
+- Keep factual answers short. Expand when the reader needs explanation or evidence. Omit preambles, restating the question, routine process narration, and conclusions that repeat the answer.
+- Choose structure to fit the content. Use numbered lists for sequences or rankings and bullets for parallel items. Do not force a paragraph count, sentence length, or list size.
+- Use concrete nouns, direct verbs, and consistent terms. Prefer active voice and name the actor. Define domain terms only when the reader needs them.
+- Put conditions before instructions. Keep each paragraph focused and split dense sentences when that makes them easier to follow.
+- Remove repetition, filler, generic praise, stock transitions, and promotional language. Replace unsupported quality claims with specific behavior or evidence.
+- Preserve facts, identifiers, quotations, conditions, exceptions, requirement strength, and uncertainty when editing. Shortening must not change meaning.
+- Preserve the author's voice. State judgments when they help the task and explain their basis. Do not manufacture personality, emotion, informality, or variation.
+- Do not use semicolons or em dashes in technical prose. Avoid unrequested antithesis, ellipses, dramatic fragments, and rhetorical pacing.
+- Organize documents in the order the reader needs the information. Use descriptive headings, keep code examples beside the behavior they explain, and link supporting references with descriptive text.
+- Use diagrams and tables only when they explain a flow or comparison more clearly than prose.
+- If declining part of a request, state the boundary briefly and provide a practical alternative when useful.
+
+## Comments and Text
+
+- Match the repository and language's comment conventions.
+- Add concise comments for non-obvious reasons, constraints, or invariants. Do not narrate obvious code. Describe behavior when documenting a public API or contract.
+- When no convention applies, prefer lowercase comment prose except for names, identifiers, and acronyms.
+- Default to plain ASCII in prose you author. Preserve Unicode required by existing text, user-provided content, identifiers, localization, protocols, accessibility, tests, or data.
 
 ## Authority and Scope
 
@@ -37,9 +62,10 @@ Before implementing, inspect the available context for ambiguities that material
 
 ## Design and Implementation
 
-- Prefer the simplest complete solution. Add complexity only for a concrete current requirement, an observed failure, or an established repository pattern.
-- Build small, focused pieces that compose through clear interfaces. Reuse existing primitives before adding helpers, layers, extension points, dependencies, or configuration for hypothetical reuse.
+- Prefer the simplest complete solution. Reuse existing code before adding abstractions, configuration, dependencies, or compatibility paths. Add them only for a current requirement or an established repository pattern.
+- Keep related logic together. Extract a function or method when its name expresses a meaningful operation, it removes meaningful duplication, or it isolates behavior that needs independent testing. Do not extract solely to shorten code or remove a comment.
 - Optimize for readability by humans and agents. Prefer descriptive names, explicit data flow, and familiar control flow over cleverness or hidden indirection.
+- Validate external input at system boundaries and handle credible failures there. Within application code, rely on documented and enforced contracts. Do not hide failures with blanket catches, silent defaults, or unexplained fallbacks.
 - Optimize performance only for an explicit target or a measured bottleneck.
 - Respect existing service, module, package, and abstraction boundaries. Put behavior with its owner and cross boundaries through public interfaces rather than reaching into another component's internals.
 - Write idiomatic code for the language and framework in use. Follow surrounding repository conventions and use established tooling.
@@ -50,16 +76,14 @@ Apply these only when working in the named language. Repository-specific guidanc
 
 ### Ruby
 
-- Keep classes small and focused on one responsibility. When a class handles unrelated concerns, split them into separate classes or modules.
-- Prefer short methods that do one thing. If a method needs comments to explain its sections, extract those sections into well-named methods.
-- Prefer enumerable methods (`map`, `select`, `each_with_object`, and similar) to manual loops. Use guard clauses, `&.`, `||=`, and keyword arguments when they read naturally.
-- Favor plain objects and composition over inheritance and metaprogramming.
+- Give each class a cohesive responsibility. Prefer plain objects and composition over inheritance and metaprogramming.
+- Prefer enumerable methods (`map`, `select`, `each_with_object`, and similar), guard clauses, and keyword arguments when they clarify the code.
+- Use `&.` only when `nil` is an expected state. Use `||=` only when replacing both `nil` and `false` is intended.
 
 ## Change Discipline
 
 - When working in a Git worktree, inspect `git status` and the relevant diff before editing.
 - Treat changes and untracked files that predate the task as user-owned. Do not overwrite, revert, stash, clean, stage, or reformat them. If task changes overlap and cannot be separated safely, stop and ask.
-- Handle credible failures at external and public boundaries. Skip branches only for states excluded by a documented and enforced invariant.
 - Match the repository's existing style. Do not refactor, reformat, or clean up unrelated code.
 - Remove imports, variables, functions, and files made obsolete by your changes. Leave pre-existing issues alone and mention them only when relevant.
 - Every intentional change should support the request or its verification.
@@ -78,74 +102,16 @@ Apply these only when working in the named language. Repository-specific guidanc
 
 - Define observable success criteria internally before changing code and continue until they pass or a genuine blocker remains. Share them before implementation only when the work is complex or the user needs to choose among outcomes.
 - For a bug or validation rule, reproduce the failure and add a regression test when practical. For a refactor, compare relevant checks before and after when feasible.
+- Test observable behavior. Avoid tests that merely repeat the implementation or mock away the behavior being checked.
 - Run the narrowest relevant checks during iteration, then broader required checks in proportion to risk.
 - Do not silently update snapshots, fixtures, or baselines merely to make a check pass.
 - Report the exact checks run and their outcomes. Never claim an unrun check passed. Distinguish pre-existing failures from regressions and state what remains unverified.
 - For complex work with dependent steps, keep a short `step -> check` plan. Persist it under `~/state/repos/<repo>/plans/` only when it should survive the current session.
-
-## Documentation Writing
-
-- Organize documents around a clear top-to-bottom flow. Establish the purpose and context, develop the design or argument in dependency order, and end with decisions, verification, rollout, risks, or open questions as applicable.
-- Use descriptive headings and short sections so readers can find the main point, decision, and supporting detail quickly.
-- Lead each section with its conclusion or purpose. Keep prose direct, concrete, and concise, especially in technical and design documents.
-- Use structure according to meaning:
-  1. Numbered lists for ordered steps, ranked items, and primary arguments.
-     (i) Lowercase Roman numerals such as `(i)` and `(ii)` for subordinate ordered points.
-  2. Bullets for unordered facts, options, constraints, and checks.
-- Place focused code examples next to the behavior they explain. Keep examples minimal, realistic, and consistent with the surrounding repository.
-- Link references readers are likely to follow or need to verify when a stable target exists. Prefer descriptive Markdown hyperlinks over bare paths or URLs.
-- Use diagrams or tables only when they make a flow, mapping, comparison, or dependency materially easier to understand.
-- Remove repetition, generic background, and detail that does not help the reader understand, decide, implement, or verify.
-
-### Plain Technical English
-
-Apply these defaults to technical documentation, procedures, error messages, status reports, tool descriptions, prompts, and agent-to-agent instructions. Treat the numeric limits as diagnostics for procedural and agent-facing text, not hard limits for design documents or explanations. Preserve the author's voice in creative, persuasive, and marketing text unless the user asks for plain technical English.
-
-- Use common, concrete words. Define a necessary domain term at first use when the intended reader may not know it. Do not explain standard names or the subject of the document without a reader need.
-- Prefer active voice, name the actor, and use simple tenses when they preserve the original meaning. Put a condition before its command: "If the build fails, read the log." Give one instruction per sentence.
-- Target at most 20 words for procedural sentences and 25 words for descriptive sentences. Keep paragraphs focused. Exceed these limits when shorter text would lose precision or readability.
-- Use one term for each concept throughout a document. Avoid rotating synonyms for the same actor, object, or action.
-- Prefer a direct verb, such as "analyze" instead of "perform an analysis." Replace an unclear phrasal verb with one precise verb. Break noun clusters longer than three words when the rewrite is clearer.
-- Do not use semicolons. Split the sentence or state the relationship. Avoid em dashes in technical prose for the same reason.
-- Use a vertical list for three or more steps, conditions, or parallel items. Keep one instruction in each procedural list item.
-- Remove filler, promotional adjectives, and claims of importance that add no fact. Replace a quality claim with the measurement or evidence that supports it when available.
-- Preserve code, identifiers, commands, flags, file paths, quoted errors, product names, numbers, facts, conditions, exceptions, scope, and uncertainty. Never change requirement strength or turn a possibility into a fact to satisfy a style rule.
-- Treat these rules as clarity guidance inspired by [ASD-STE100 Skill](https://github.com/danyuchn/asd-ste100-skill) and [SimpleEnglish](https://github.com/AminBlg/SimpleEnglish), not as certified ASD-STE100 compliance. Exact compliance requires the current official standard and dictionary.
-
-## Communication
-
-### Output Specification
-
-Lead with the answer. Omit preambles, restating the question, process narration, and redundant conclusions.
-
-Default length by request type:
-
-- Factual or yes/no: 1-2 sentences.
-- How-to: a short list with no introductory line.
-- Substantive: 2-3 short paragraphs.
-- Multi-step or multi-file: one overview paragraph, then at most 5 bullets.
-
-Use the most specific applicable category. Multi-step or multi-file takes precedence over substantive, how-to, and factual. For completed work, use the applicable length category and include the outcome, material changes, verification, and unresolved blockers.
-
-These limits govern conversational replies, not requested artifacts or evidence needed for correctness. Expand when requested or when necessary for safety or a complete deliverable.
-
-Cut generic hedging, repeated constraints, filler, ceremonial summaries, and offers of further help. Keep specific facts, numbers, names, decisions, material tradeoffs, uncertainty, caveats, verification, and required next actions. Brevity means fewer words, not fewer relevant facts.
-
-If declining part of a request, state the boundary briefly and provide the strongest safe alternative when useful.
-
-- State conclusions directly. Do not use reveal phrases such as "here's the thing", "the real question is", or "worth noting".
-- Avoid unrequested antithesis, dramatic fragments, and rhetorical pacing. Do not use em dashes, ellipses, or one-sentence paragraphs only for emphasis.
-
-## Comments and Text
-
-- Match the repository and language's comment conventions.
-- Add concise comments for non-obvious reasons, constraints, or invariants. Do not narrate obvious code. Describe behavior when documenting a public API or contract.
-- When no convention applies, prefer lowercase comment prose except for names, identifiers, and acronyms.
-- Default to plain ASCII in prose you author. Preserve Unicode required by existing text, user-provided content, identifiers, localization, protocols, accessibility, tests, or data.
+- Once the requested outcome is verified and required checks pass, inspect the diff for unnecessary changes, report the result, and stop. Do not expand the work without a new requirement or evidence of an unresolved problem.
 
 ## Git
 
-- Use Worktrunk (`wt`) for every agent-initiated worktree operation, including creating, switching, listing, removing, and merging worktrees. Prefer `wt switch --create <branch>`, `wt switch <branch>`, `wt list`, `wt remove`, and `wt merge`. Use raw `git worktree` commands only when `wt` is unavailable or cannot perform the required operation, and state the reason for the fallback.
+- If Worktrunk (`wt`) is available, use it for worktree operations. If it is unavailable or cannot perform the required operation, use Git directly.
 - After finishing and verifying a change, mention commit or push only when it is the expected next action. Except for the scoped `~/state` exception in `~/dotfiles/.agents/durable-state.md`, do not commit or push until the user explicitly requests or confirms it. Treat push as separate permission unless approval clearly covers both.
 - Before staging, inspect `git status` and the relevant diff. Stage only reviewed paths or hunks from the task. Never use `git add .`. Ask before including unexpected generated artifacts, lockfiles, or build output.
 - Follow the repository's documented or observed commit and pull request style. Use the rules below only as fallbacks.
@@ -158,7 +124,6 @@ If declining part of a request, state the boundary briefly and provide the stron
 
 ## Durable State
 
-- At the start of every agent session, read `~/dotfiles/.agents/durable-state.md` completely before handling the first request. Do not preload repository state until the request identifies relevant work. If the runbook or a valid `~/state` checkout is unavailable, continue without state and report that only when materially relevant.
-- Before substantive or resumed repository work, read only the durable state relevant to that repository and task. Follow the selection and size limits in the runbook.
+- Before substantive or resumed repository work, or an explicit request to use durable state, read `~/dotfiles/.agents/durable-state.md` and perform its startup checks. Then read only state relevant to the repository and task, within the runbook's limits. Skip the runbook and state for trivial or unrelated requests. If the runbook or a valid `~/state` checkout is unavailable, continue without state and report that only when materially relevant.
 - Use `~/state` only for durable, non-sensitive context that will help continue substantive work. Do not create or update durable notes for trivial or read-only tasks unless explicitly requested.
 - Treat `~/state` as the state repository. Do not infer or select a different repository based on task context.

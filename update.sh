@@ -24,6 +24,7 @@ mkdir -p ~/.config ~/.claude ~/.codex
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/kitty" "${HOME}/.config/kitty"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/nvim" "${HOME}/.config/nvim"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/tmux" "${HOME}/.config/tmux"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/herdr/config.toml" "${HOME}/.config/herdr/config.toml"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/ghostty" "${HOME}/.config/ghostty"
 dotfiles_ensure_directory "${HOME}/.config/cmux"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/cmux/cmux.json" "${HOME}/.config/cmux/cmux.json"
@@ -33,23 +34,26 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/hunk" "${HOME}/.config/hunk"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/worktrunk" "${HOME}/.config/worktrunk"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.codex/AGENTS.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.config/figaro/AGENTS.md"
 # cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.cursor/rules/global.mdc"
+dotfiles_link_agent_skills "$SCRIPT_DIR/skills" \
+  "${HOME}/.claude/skills" \
+  "${HOME}/.codex/skills" \
+  "${HOME}/.config/opencode/skills" \
+  "${HOME}/.config/figaro/skills"
+dotfiles_link_state_skills "$STATE_DIR" "${HOME}/.config/figaro/skills"
 
-# Keep the primary Figma checkout current. Feature work lives in separate
-# worktrees, and the pull script still guards against a dirty or non-master
-# primary checkout before changing it.
-FIGMA_MASTER_AGENT_LABEL="com.adirar.pull-figma-master"
-FIGMA_MASTER_AGENT_PATH="${HOME}/Library/LaunchAgents/${FIGMA_MASTER_AGENT_LABEL}.plist"
-dotfiles_ensure_directory "${HOME}/Library/LaunchAgents"
-dotfiles_backup_and_symlink \
-  "$SCRIPT_DIR/launchd/${FIGMA_MASTER_AGENT_LABEL}.plist" \
-  "$FIGMA_MASTER_AGENT_PATH"
-launchctl bootout "gui/$(id -u)" "$FIGMA_MASTER_AGENT_PATH" >/dev/null 2>&1 || true
-launchctl enable "gui/$(id -u)/${FIGMA_MASTER_AGENT_LABEL}"
-if ! launchctl bootstrap "gui/$(id -u)" "$FIGMA_MASTER_AGENT_PATH"; then
-  printf 'warning: could not load %s\n' "$FIGMA_MASTER_AGENT_LABEL" >&2
+# Remove the old LaunchAgent file. Any already-loaded job exits at logout.
+FIGMA_MASTER_AGENT_PATH="${HOME}/Library/LaunchAgents/com.adirar.pull-figma-master.plist"
+if [ -L "$FIGMA_MASTER_AGENT_PATH" ]; then
+  rm "$FIGMA_MASTER_AGENT_PATH"
 fi
+
+dotfiles_ensure_directory "${HOME}/.local/state"
+dotfiles_install_cron_job \
+  "dotfiles: pull-figma-master" \
+  "*/5 * * * * \"$SCRIPT_DIR/bin/pull-figma-master\" >> \"$HOME/.local/state/pull-figma-master.log\" 2>&1"
 
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
 dotfiles_ensure_directory "${HOME}/.config/opencode"

@@ -114,9 +114,6 @@ map("n", "<leader>o", "", {
 
 map("n", "<leader>e", ":lua vim.diagnostic.open_float(nil, {focus=false})<CR>", options)
 
-map("n", "<leader>dl", ":DistantLaunch ssh://thetis.students.cs.ubc.ca<CR>", options)
-map("n", "<leader>doh", ":DistantOpen /home/a/adirar01<CR>", options)
-
 map("n", "<leader>gl", ":GitConflictListQf<CR>", options)
 map("n", "<leader>gt", ":GitConflictChooseTheirs<CR>", options)
 map("n", "<leader>go", ":GitConflictChooseOurs<CR>", options)
@@ -141,10 +138,3 @@ map("n", "<leader>sf", ":set filetype=", {})
 
 map("n", "<leader>za", "zR", {})
 map("n", "<leader>zc", "zM", {})
-
-map("n", "<leader>tn", ":Telescope neoclip o<CR>", options)
-
-map("n", "<leader>df", "<cmd>DevdocsFetch<CR>", options)
-map("n", "<leader>du", "<cmd>DevdocsUninstall<CR>", options)
-map("n", "<leader>di", "<cmd>DevdocsInstall<CR>", options)
-map("n", "<leader>do", "<cmd>DevdocsOpen<CR>", options)

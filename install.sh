@@ -46,15 +46,23 @@ dotfiles_ensure_directory "${HOME}/.codex"
 dotfiles_merge_toml_root_assignments "$SCRIPT_DIR/config.toml" "${HOME}/.codex/config.toml"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.codex/AGENTS.md"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.config/figaro/AGENTS.md"
 # cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.agents/global.md" "${HOME}/.cursor/rules/global.mdc"
+dotfiles_link_agent_skills "$SCRIPT_DIR/skills" \
+  "${HOME}/.claude/skills" \
+  "${HOME}/.codex/skills" \
+  "${HOME}/.config/opencode/skills" \
+  "${HOME}/.config/figaro/skills"
 # private skills live in the state repo; surface them to every agent
 dotfiles_link_state_skills "$STATE_DIR" \
   "${HOME}/.claude/skills" \
   "${HOME}/.codex/skills" \
-  "${HOME}/.config/opencode/skills"
+  "${HOME}/.config/opencode/skills" \
+  "${HOME}/.config/figaro/skills"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/nvim" "${HOME}/.config/nvim"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/tmux" "${HOME}/.config/tmux"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/herdr/config.toml" "${HOME}/.config/herdr/config.toml"
 # eternal terminal: the repo owns the server config, and the et:* tasks land in
 # mise's global task directory so `mise run et:start` works from any cwd
 dotfiles_backup_and_symlink "$SCRIPT_DIR/.config/et/et.cfg" "${HOME}/.config/et/et.cfg"
@@ -76,6 +84,17 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/work.zshrc" "${HOME}/.zshrc"
 
 dotfiles_install_tmux_plugins
 
+# The devcontainer does not run systemd, so start cron through its init script.
+if ! command -v crontab >/dev/null 2>&1; then
+  sudo apt-get update -qq
+  sudo apt-get install -y cron
+fi
+sudo service cron start
+dotfiles_ensure_directory "${HOME}/.local/state"
+dotfiles_install_cron_job \
+  "dotfiles: pull-figma-master" \
+  "*/5 * * * * \"$SCRIPT_DIR/bin/pull-figma-master\" >> \"$HOME/.local/state/pull-figma-master.log\" 2>&1"
+
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
@@ -86,6 +105,11 @@ export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 mise use -g bat
 mise use -g delta
 mise use -g github:modem-dev/hunk
+mise use -g github:qltysh/qlty
+if ! command -v herdr >/dev/null 2>&1; then
+  mise use -g github:herdrdev/herdr
+fi
+mise exec -- herdr --version
 mise use -g neovim@0.12.5
 mise use -g prettier
 mise use -g stylua

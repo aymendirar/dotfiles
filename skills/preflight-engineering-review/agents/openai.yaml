@@ -1,0 +1,6 @@
+interface:
+  display_name: "Preflight Engineering Review"
+  short_description: "Explicit engineering and polish preflight review"
+  default_prompt: "Use $preflight-engineering-review before committing or pushing these changes."
+policy:
+  allow_implicit_invocation: false

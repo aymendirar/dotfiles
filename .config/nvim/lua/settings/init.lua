@@ -1,6 +1,5 @@
 local set = vim.opt
 local raw_set = vim.api.nvim_command
-local window = vim.wo
 
 -- lua settings
 set.guicursor = ""
@@ -30,8 +29,6 @@ set.fileencoding = "utf-8"
 
 set.cursorline = false
 
-set.hidden = true
-
 -- raw settings
 
 raw_set("set clipboard=unnamedplus")
@@ -45,8 +42,6 @@ raw_set("set noreadonly")
 -- vim.wo so every window gets it, not just the first one
 set.foldmethod = "expr"
 set.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
-vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
 
 vim.g.maplocalleader = ","
 

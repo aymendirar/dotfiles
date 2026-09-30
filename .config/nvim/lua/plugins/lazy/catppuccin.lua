@@ -49,14 +49,9 @@ return {
         }
       end,
       integrations = {
-        notify = true,
-        lsp_saga = true,
         treesitter = true,
         treesitter_context = true,
-        cmp = true,
-        gitgutter = false,
         gitsigns = true,
-        ts_rainbow = true,
         neotree = {
           enabled = true,
           show_root = true,
@@ -77,10 +72,6 @@ return {
             information = { "underline" },
           },
         },
-        -- indent_blankline = {
-        --   enabled = true,
-        --   colored_indent_levels = false,
-        -- },
         telescope = {
           enabled = true,
         },

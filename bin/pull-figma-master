@@ -3,6 +3,12 @@ set -euo pipefail
 
 readonly repo_dir="${FIGMA_REPO_DIR:-${HOME}/figma/figma}"
 readonly git_bin="/usr/bin/git"
+readonly ssh_bin="/usr/bin/ssh"
+
+ssh_command="$ssh_bin -o BatchMode=yes"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  ssh_command+=" -o UseKeychain=yes"
+fi
 
 log() {
   printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S %Z')" "$*"
@@ -25,7 +31,8 @@ if ! $git_bin -C "$repo_dir" diff --quiet --ignore-submodules -- ||
   exit 0
 fi
 
-log "pulling origin/master into $repo_dir"
+log "fast-forwarding master from origin/master in $repo_dir"
 GIT_TERMINAL_PROMPT=0 \
-  GIT_SSH_COMMAND="/usr/bin/ssh -o BatchMode=yes -o UseKeychain=yes" \
-  $git_bin -C "$repo_dir" pull --ff-only origin master
+  GIT_SSH_COMMAND="$ssh_command" \
+  $git_bin -C "$repo_dir" fetch --no-tags origin master
+$git_bin -C "$repo_dir" merge --ff-only origin/master
