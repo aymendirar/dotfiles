@@ -50,12 +50,11 @@ vim.cmd(":set fillchars+=vert:┃")
 vim.api.nvim_set_hl(0, "LineNr", { fg = "#737994" })
 vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "#737994" })
 
--- over ssh there is no local clipboard tool worth reaching for: without a
--- display the provider silently fails, and with x11 forwarding every yank
--- round trips. osc52 hands the copy to the terminal emulator instead.
+-- remote linux sessions may omit SSH_TTY, but their clipboard belongs to the
+-- attached terminal rather than a clipboard tool on the remote host.
 -- paste stays on the unnamed register because osc52 reads require the terminal
 -- to allow clipboard queries, and nvim blocks waiting on ones that never answer
-if vim.env.SSH_TTY then
+if vim.env.SSH_TTY or vim.uv.os_uname().sysname == "Linux" then
   local osc52 = require("vim.ui.clipboard.osc52")
   local function paste()
     return vim.split(vim.fn.getreg("") or "", "\n")
