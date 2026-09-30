@@ -5,8 +5,12 @@ name = "catppuccin"
 
 [keys]
 prefix = "ctrl+f"
-copy_mode = "prefix+]"
+copy_mode = "prefix+ctrl+d"
 split_horizontal = "prefix+f"
+next_workspace = "prefix+u"
+previous_workspace = "prefix+y"
+next_agent = "prefix+period"
+previous_agent = "prefix+comma"
 resize_pane_left = "prefix+ctrl+h"
 resize_pane_down = "prefix+ctrl+j"
 resize_pane_up = "prefix+ctrl+k"
