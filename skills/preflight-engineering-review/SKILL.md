@@ -16,11 +16,13 @@ Pause any Git write named in the explicit invocation until this review completes
 3. Record the reviewed state, including `HEAD`, the intended base or upstream, status, and the full intended diff. A material change after review invalidates the result.
 4. Tell the user that the preflight review is running before the requested write.
 
+Use the PR's stated goals, or the user's intended change when no PR exists, to scope the review and requested fixes.
+
 Do not stage, commit, push, create or update a PR, or mutate remote state during this phase.
 
 ## Run independent reviews
 
-Launch at least three read-only subagents in parallel. Give each reviewer the repository path, applicable instructions, reviewed base and head, and raw diff scope. Do not give them another reviewer's conclusions. Adapt the roles to the change when useful, while covering these concerns:
+Launch at least three read-only subagents in parallel. Give each reviewer the repository path, applicable instructions, PR goals, reviewed base and head, and raw diff scope. Include the scope guidance and rules for separate PR suggestions in each reviewer's task. Do not give them another reviewer's conclusions. Adapt the roles to the change when useful, while covering these concerns:
 
 - correctness and regressions: behavior, edge cases, API or data-contract compatibility, concurrency, and failure handling;
 - verification and maintainability: missing tests, test quality, readability, repository conventions, and unnecessary complexity. This reviewer also runs the self-contained polish pass below;
@@ -28,7 +30,7 @@ Launch at least three read-only subagents in parallel. Give each reviewer the re
 
 Use Google's [What to look for in a code review](https://google.github.io/eng-practices/review/reviewer/looking-for.html) as the shared review standard. Start with the change's design, intended behavior, user impact, and fit within the system before reviewing line-level details. Review every human-written changed line and enough surrounding code to understand it. Check that tests can fail for relevant defects and names communicate purpose. Confirm that comments explain non-obvious reasons and documentation matches changed behavior. Apply repository conventions. Exercise user-facing behavior when practical. Reason explicitly about races and deadlocks when the change adds concurrency. Treat a personal style preference as non-blocking unless a repository rule supports it.
 
-Require each reviewer to inspect evidence directly and return only actionable findings. Each finding must include severity, file and line when available, concrete impact, evidence or reproduction, and the smallest practical fix. A reviewer with no findings must say so explicitly.
+Require each reviewer to inspect evidence directly and return only actionable findings. Each finding must identify whether it belongs in the current PR or a separate PR and include severity, file and line when available, concrete impact, evidence or reproduction, and the smallest practical fix. A reviewer with no findings must say so explicitly.
 
 For the polish pass, read each changed source, test, and documentation file in full. Run three checks:
 
@@ -51,18 +53,20 @@ Wait for every reviewer. Verify their claims against the code, deduplicate overl
 - P2: meaningful defect, regression risk, or missing coverage;
 - P3: worthwhile low-risk improvement.
 
-Use engineering judgment to decide the gate without asking the user to approve the report. Automatically fix each P0 or P1 finding when a clear, scoped, and safe fix is available. Prefer the smallest practical fix and do not change unrelated behavior. P2 or P3 findings do not automatically block the write or require a fix.
+You may flag unrelated issues or improvements that belong in other PRs. Label each `Separate PR` in the review report and explain why it is outside this PR's goals. Leave the decision to pursue it to the author, and do not automatically fix it or use it to block the current PR. Defects caused by the change that affect its correctness or safety belong in the current PR.
+
+Use engineering judgment to decide the gate without asking the user to approve the report. Automatically fix each P0 or P1 finding for the current PR when a clear, scoped, and safe fix is available. Prefer the smallest practical fix and do not change unrelated behavior. P2 or P3 findings do not automatically block the write or require a fix.
 
 Treat polish findings as P3 unless they reveal a substantive defect. Report them without blocking the write. If the invocation explicitly asks for polish fixes, apply only clear, scoped, behavior-preserving changes, then run focused checks and repeat review of the affected code.
 
-After fixing a major finding, validate the fix and run a focused repeat review of the affected concerns. Continue until no P0 or P1 finding remains or a genuine blocker requires the user. Do not require another user response solely because an authorized fix changed the diff.
+After fixing a major finding, validate the fix and run a focused repeat review of the affected concerns. Continue until no P0 or P1 finding for the current PR remains or a genuine blocker requires the user. Do not require another user response solely because an authorized fix changed the diff.
 
 Block a requested write only when the review is incomplete, the reviewed state remains unsafe, or a fix requires a product decision, material scope expansion, or authority not granted by the invocation. Explain the blocker and the decision or authorization needed.
 
 Prepare one concise final report with:
 
 1. the reviewed scope and checks run;
-2. consolidated findings in priority order, with locations and fixes;
+2. findings for the current PR in priority order, with locations and fixes, followed by any suggestions labeled `Separate PR`;
 3. disagreements, uncertainty, and reviewers that found nothing;
 4. the disposition of each retained finding and the recommended path forward;
 5. `Gate status: passed.` or `Gate status: blocked: <reason>.`
