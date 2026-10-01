@@ -44,16 +44,20 @@ dotfiles_link_agent_skills "$SCRIPT_DIR/skills" \
   "${HOME}/.config/figaro/skills"
 dotfiles_link_state_skills "$STATE_DIR" "${HOME}/.config/figaro/skills"
 
-# Remove the old LaunchAgent file. Any already-loaded job exits at logout.
+# stop the legacy automated updater before switching to the foreground loop.
+FIGMA_MASTER_AGENT_LABEL="gui/$(id -u)/com.adirar.pull-figma-master"
+if launchctl print "$FIGMA_MASTER_AGENT_LABEL" >/dev/null 2>&1; then
+  launchctl bootout "$FIGMA_MASTER_AGENT_LABEL"
+fi
 FIGMA_MASTER_AGENT_PATH="${HOME}/Library/LaunchAgents/com.adirar.pull-figma-master.plist"
 if [ -L "$FIGMA_MASTER_AGENT_PATH" ]; then
   rm "$FIGMA_MASTER_AGENT_PATH"
 fi
 
-dotfiles_ensure_directory "${HOME}/.local/state"
-dotfiles_install_cron_job \
-  "dotfiles: pull-figma-master" \
-  "*/5 * * * * \"$SCRIPT_DIR/bin/pull-figma-master\" >> \"$HOME/.local/state/pull-figma-master.log\" 2>&1"
+dotfiles_remove_cron_job "dotfiles: pull-figma-master"
+dotfiles_ensure_directory "${HOME}/.local/bin"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/bin/pull-figma-master" "${HOME}/.local/bin/pull-figma-master"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/bin/pull-figma-master-loop" "${HOME}/.local/bin/pull-figma-master-loop"
 
 # opencode writes runtime state (auth.json) into this dir, so keep it real and link only our files
 dotfiles_ensure_directory "${HOME}/.config/opencode"
@@ -68,7 +72,6 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/.gitignore_global" "${HOME}/.gitignore_
 
 # client-side helpers; the devbox has no use for these, so they are not linked
 # by install.sh
-dotfiles_ensure_directory "${HOME}/.local/bin"
 dotfiles_backup_and_symlink "$SCRIPT_DIR/bin/coder-et" "${HOME}/.local/bin/coder-et"
 
 if command -v tmux >/dev/null 2>&1; then

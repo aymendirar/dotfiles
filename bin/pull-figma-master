@@ -5,10 +5,15 @@ readonly repo_dir="${FIGMA_REPO_DIR:-${HOME}/figma/figma}"
 readonly git_bin="/usr/bin/git"
 readonly ssh_bin="/usr/bin/ssh"
 
-ssh_command="$ssh_bin -o BatchMode=yes"
+# keep helper tools available even when launched from a minimal environment.
+export PATH="/opt/homebrew/bin:/usr/local/bin:${HOME}/.local/bin:${HOME}/.local/share/mise/shims:${repo_dir}/.devcontainer/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
+export GIT_TERMINAL_PROMPT=0
+
+ssh_command="$ssh_bin -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2"
 if [[ "$(uname -s)" == "Darwin" ]]; then
   ssh_command+=" -o UseKeychain=yes"
 fi
+export GIT_SSH_COMMAND="$ssh_command"
 
 log() {
   printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S %Z')" "$*"
@@ -19,20 +24,80 @@ if [[ ! -d "$repo_dir/.git" ]]; then
   exit 1
 fi
 
-branch="$($git_bin -C "$repo_dir" symbolic-ref --quiet --short HEAD || true)"
-if [[ "$branch" != "master" ]]; then
-  log "skipping: $repo_dir is on ${branch:-a detached HEAD}, not master"
-  exit 0
+checkout_is_ready() {
+  local branch
+  local expected_head="${1:-}"
+  branch="$($git_bin -C "$repo_dir" symbolic-ref --quiet --short HEAD || true)"
+  if [[ "$branch" != "master" ]]; then
+    log "skipping: $repo_dir is on ${branch:-a detached HEAD}, not master"
+    return 1
+  fi
+  if [[ -n "$expected_head" && "$($git_bin -C "$repo_dir" rev-parse HEAD)" != "$expected_head" ]]; then
+    log "skipping: HEAD changed while preparing the update"
+    return 1
+  fi
+
+  if ! $git_bin -C "$repo_dir" diff --quiet --ignore-submodules -- ||
+    ! $git_bin -C "$repo_dir" diff --cached --quiet --ignore-submodules --; then
+    log "skipping: $repo_dir has tracked changes"
+    return 1
+  fi
+}
+
+# the OS releases this lock on exit, including after an interrupted run.
+zmodload zsh/system
+lock_path="$repo_dir/.git/pull-figma-master.lock"
+: >> "$lock_path"
+if zsystem flock -t 1 -f lock_fd "$lock_path"; then
+  :
+else
+  lock_result=$?
+  if [[ "$lock_result" == 2 ]]; then
+    log "skipping: another master update is running"
+    exit 0
+  fi
+  log "error: could not lock $repo_dir"
+  exit 1
 fi
 
-if ! $git_bin -C "$repo_dir" diff --quiet --ignore-submodules -- ||
-  ! $git_bin -C "$repo_dir" diff --cached --quiet --ignore-submodules --; then
-  log "skipping: $repo_dir has tracked changes"
-  exit 0
+checkout_is_ready || exit 0
+if ! $git_bin -C "$repo_dir" lfs version >/dev/null; then
+  log "error: Git LFS is unavailable; install git-lfs before updating master"
+  exit 1
 fi
 
-log "fast-forwarding master from origin/master in $repo_dir"
-GIT_TERMINAL_PROMPT=0 \
-  GIT_SSH_COMMAND="$ssh_command" \
-  $git_bin -C "$repo_dir" fetch --no-tags origin master
-$git_bin -C "$repo_dir" merge --ff-only origin/master
+readonly original_head="$($git_bin -C "$repo_dir" rev-parse HEAD)"
+log "fetching origin/master in $repo_dir"
+if ! $git_bin -C "$repo_dir" fetch --no-tags origin master; then
+  log "error: fetch failed; checkout was not changed"
+  exit 1
+fi
+checkout_is_ready "$original_head" || exit 0
+readonly target_head="$($git_bin -C "$repo_dir" rev-parse refs/remotes/origin/master)"
+if [[ "$original_head" == "$target_head" ]]; then
+  log "master is already up to date"
+  exit 0
+fi
+if ! $git_bin -C "$repo_dir" merge-base --is-ancestor "$original_head" "$target_head"; then
+  log "error: master has diverged from origin/master; refusing to update"
+  exit 1
+fi
+
+# cache changed LFS objects before Git starts replacing working-tree files.
+lfs_paths=("${(@f)$($git_bin -C "$repo_dir" lfs ls-files --name-only "$original_head" "$target_head")}")
+for lfs_path in "${lfs_paths[@]}"; do
+  [[ -n "$lfs_path" ]] || continue
+  log "preparing LFS file: $lfs_path"
+  if ! $git_bin -C "$repo_dir" show "$target_head:$lfs_path" |
+    $git_bin -C "$repo_dir" lfs smudge "$lfs_path" >/dev/null; then
+    log "error: LFS download failed; checkout was not changed"
+    exit 1
+  fi
+done
+
+# fetches and LFS downloads can take long enough for the user to switch branches.
+checkout_is_ready "$original_head" || exit 0
+
+log "fast-forwarding master to $target_head"
+$git_bin -C "$repo_dir" merge --ff-only --no-edit --no-stat "$target_head"
+log "master updated successfully"

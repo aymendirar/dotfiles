@@ -80,15 +80,25 @@ dotfiles_backup_and_symlink() {
   ln -s "$source_path" "$destination_path"
 }
 
-dotfiles_install_cron_job() {
+dotfiles_remove_cron_job() {
   local marker="$1"
-  local job="$2"
+  local entries
+  local filtered
   local temporary_path
 
+  command -v crontab >/dev/null 2>&1 || return 0
+  entries="$(crontab -l 2>/dev/null)" || return 0
+  filtered="$(awk -v marker="# $marker" 'substr($0, length($0) - length(marker) + 1) != marker' <<< "$entries")"
+  [[ "$filtered" != "$entries" ]] || return 0
+
   temporary_path="$(mktemp)"
-  crontab -l 2>/dev/null | grep -Fv "# $marker" >"$temporary_path" || true
-  printf '%s # %s\n' "$job" "$marker" >>"$temporary_path"
-  crontab "$temporary_path"
+  if [[ -n "$filtered" ]]; then
+    printf '%s\n' "$filtered" >"$temporary_path"
+  fi
+  if ! crontab "$temporary_path"; then
+    rm "$temporary_path"
+    return 1
+  fi
   rm "$temporary_path"
 }
 

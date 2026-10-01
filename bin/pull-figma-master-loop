@@ -1,0 +1,16 @@
+#!/bin/zsh
+set -euo pipefail
+
+readonly updater="${0:A:h}/pull-figma-master"
+sleep_pid=""
+trap 'if [[ -n "$sleep_pid" ]]; then kill "$sleep_pid" 2>/dev/null || true; fi; exit 0' INT TERM
+
+while true; do
+  if ! "$updater"; then
+    printf '[%s] update failed; retrying in 5 minutes\n' "$(date '+%Y-%m-%d %H:%M:%S %Z')"
+  fi
+  sleep 300 &
+  sleep_pid=$!
+  wait "$sleep_pid"
+  sleep_pid=""
+done

@@ -84,16 +84,14 @@ dotfiles_backup_and_symlink "$SCRIPT_DIR/work.zshrc" "${HOME}/.zshrc"
 
 dotfiles_install_tmux_plugins
 
-# The devcontainer does not run systemd, so start cron through its init script.
-if ! command -v crontab >/dev/null 2>&1; then
+dotfiles_remove_cron_job "dotfiles: pull-figma-master"
+if ! command -v git-lfs >/dev/null 2>&1; then
   sudo apt-get update -qq
-  sudo apt-get install -y cron
+  sudo apt-get install -y git-lfs
 fi
-sudo service cron start
-dotfiles_ensure_directory "${HOME}/.local/state"
-dotfiles_install_cron_job \
-  "dotfiles: pull-figma-master" \
-  "*/5 * * * * \"$SCRIPT_DIR/bin/pull-figma-master\" >> \"$HOME/.local/state/pull-figma-master.log\" 2>&1"
+dotfiles_ensure_directory "${HOME}/.local/bin"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/bin/pull-figma-master" "${HOME}/.local/bin/pull-figma-master"
+dotfiles_backup_and_symlink "$SCRIPT_DIR/bin/pull-figma-master-loop" "${HOME}/.local/bin/pull-figma-master-loop"
 
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
@@ -193,3 +191,4 @@ fi
 # statuses while initializing defaults, which trips this script's errexit mode.
 zsh -n "${HOME}/.zshrc"
 echo "done. start a new shell (or run 'exec zsh') to load ~/.zshrc"
+echo "run ~/.local/bin/pull-figma-master-loop in a mux pane to keep master updated"
