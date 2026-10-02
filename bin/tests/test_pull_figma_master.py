@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Exercise the updater with local Git and LFS remotes and cron's environment."""
+"""Exercise the updater with local remotes and full or partial Git clones."""
 
+import argparse
 import os
 from pathlib import Path
 import subprocess
@@ -10,7 +11,7 @@ import tempfile
 UPDATER = Path(__file__).resolve().parents[1] / "pull-figma-master"
 
 
-def main():
+def main(partial_clone=False):
     with tempfile.TemporaryDirectory(prefix="pull-figma-master-test-") as directory:
         root = Path(directory)
         home = root / "home"
@@ -63,6 +64,9 @@ def main():
             return git(writer, "rev-parse", "HEAD")
 
         git(root, "init", "--bare", "--initial-branch=master", str(remote))
+        if partial_clone:
+            git(remote, "config", "uploadpack.allowFilter", "true")
+            git(remote, "config", "uploadpack.allowAnySHA1InWant", "true")
         git(root, "init", "--initial-branch=master", str(writer))
         git(writer, "config", "user.name", "Updater test")
         git(writer, "config", "user.email", "updater@example.invalid")
@@ -73,17 +77,32 @@ def main():
         git(writer, "add", "--", ".gitattributes")
         git(writer, "remote", "add", "origin", str(remote))
         publish("first")
-        git(root, "clone", str(remote), str(checkout))
+        if partial_clone:
+            git(root, "clone", "--filter=blob:none", remote.as_uri(), str(checkout))
+        else:
+            git(root, "clone", str(remote), str(checkout))
         git(checkout, "lfs", "install", "--local")
         git(checkout, "lfs", "pull")
 
+        (writer / ".gitattributes").write_text(
+            "*.bin filter=lfs diff=lfs merge=lfs -text\n"
+            "*.asset filter=lfs diff=lfs merge=lfs -text\n"
+        )
+        (writer / "new.asset").write_bytes(b"newly tracked asset" * 128)
+        git(writer, "add", "--", ".gitattributes", "new.asset")
         target = publish("second")
+        if partial_clone:
+            git(checkout, "fetch", "--no-tags", "origin", "master")
+            missing = git(checkout, "rev-list", "--objects", "--missing=print", "HEAD..origin/master")
+            pointer_oid = git(writer, "rev-parse", f"{target}:asset.bin")
+            assert f"?{pointer_oid}" in missing, missing
         expect_update(True, "master updated successfully")
         assert git(checkout, "rev-parse", "HEAD") == target
         assert git(checkout, "status", "--porcelain") == ""
         assert (checkout / "asset.bin").read_bytes() == b"second" * 128
+        assert (checkout / "new.asset").read_bytes() == b"newly tracked asset" * 128
         expect_update(True, "already up to date")
-        print("PASS: cron PATH, LFS download, clean fast-forward, repeat run")
+        print("PASS: minimal PATH, LFS download, changed attributes, clean fast-forward, repeat run")
 
         (checkout / "a-first.txt").write_text("user edit")
         expect_update(True, "has tracked changes")
@@ -165,4 +184,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--partial-clone", action="store_true")
+    main(parser.parse_args().partial_clone)

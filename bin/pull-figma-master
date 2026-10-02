@@ -83,8 +83,23 @@ if ! $git_bin -C "$repo_dir" merge-base --is-ancestor "$original_head" "$target_
   exit 1
 fi
 
+# Git's attribute lookup supports partial clones without scanning missing history blobs.
+changed_paths=("${(@0)$($git_bin -C "$repo_dir" diff --name-only --no-renames --diff-filter=AMT -z "$original_head" "$target_head" --)}")
+# drop the empty field created by Git's final NUL delimiter.
+changed_paths[-1]=()
+lfs_paths=()
+if [[ -n "${changed_paths[1]:-}" ]]; then
+  file_attributes=("${(@0)$(printf '%s\0' "${changed_paths[@]}" |
+    $git_bin -C "$repo_dir" check-attr --source="$target_head" --stdin -z filter)}")
+  file_attributes[-1]=()
+  for ((attribute_index = 1; attribute_index <= ${#file_attributes}; attribute_index += 3)); do
+    if [[ "${file_attributes[$((attribute_index + 2))]}" == "lfs" ]]; then
+      lfs_paths+=("${file_attributes[$attribute_index]}")
+    fi
+  done
+fi
+
 # cache changed LFS objects before Git starts replacing working-tree files.
-lfs_paths=("${(@f)$($git_bin -C "$repo_dir" lfs ls-files --name-only "$original_head" "$target_head")}")
 for lfs_path in "${lfs_paths[@]}"; do
   [[ -n "$lfs_path" ]] || continue
   log "preparing LFS file: $lfs_path"
