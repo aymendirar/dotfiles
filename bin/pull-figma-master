@@ -8,6 +8,8 @@ readonly ssh_bin="/usr/bin/ssh"
 # keep helper tools available even when launched from a minimal environment.
 export PATH="/opt/homebrew/bin:/usr/local/bin:${HOME}/.local/bin:${HOME}/.local/share/mise/shims:${repo_dir}/.devcontainer/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PATH:-}"
 export GIT_TERMINAL_PROMPT=0
+# source browsing does not need LFS asset downloads.
+export GIT_LFS_SKIP_SMUDGE=1
 
 ssh_command="$ssh_bin -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=2"
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -44,6 +46,17 @@ checkout_is_ready() {
   fi
 }
 
+require_free_space() {
+  local available_kb
+  available_kb="$(df -Pk "$repo_dir" | awk 'NR == 2 { print $4 }')"
+  if (( available_kb < 1048576 )); then
+    log "error: less than 1 GiB free at $repo_dir; refusing to update"
+    return 1
+  fi
+}
+
+require_free_space
+
 # the OS releases this lock on exit, including after an interrupted run.
 zmodload zsh/system
 lock_path="$repo_dir/.git/pull-figma-master.lock"
@@ -61,10 +74,6 @@ else
 fi
 
 checkout_is_ready || exit 0
-if ! $git_bin -C "$repo_dir" lfs version >/dev/null; then
-  log "error: Git LFS is unavailable; install git-lfs before updating master"
-  exit 1
-fi
 
 readonly original_head="$($git_bin -C "$repo_dir" rev-parse HEAD)"
 log "fetching origin/master in $repo_dir"
@@ -72,6 +81,7 @@ if ! $git_bin -C "$repo_dir" fetch --no-tags origin master; then
   log "error: fetch failed; checkout was not changed"
   exit 1
 fi
+require_free_space
 checkout_is_ready "$original_head" || exit 0
 readonly target_head="$($git_bin -C "$repo_dir" rev-parse refs/remotes/origin/master)"
 if [[ "$original_head" == "$target_head" ]]; then
@@ -82,36 +92,6 @@ if ! $git_bin -C "$repo_dir" merge-base --is-ancestor "$original_head" "$target_
   log "error: master has diverged from origin/master; refusing to update"
   exit 1
 fi
-
-# Git's attribute lookup supports partial clones without scanning missing history blobs.
-changed_paths=("${(@0)$($git_bin -C "$repo_dir" diff --name-only --no-renames --diff-filter=AMT -z "$original_head" "$target_head" --)}")
-# drop the empty field created by Git's final NUL delimiter.
-changed_paths[-1]=()
-lfs_paths=()
-if [[ -n "${changed_paths[1]:-}" ]]; then
-  file_attributes=("${(@0)$(printf '%s\0' "${changed_paths[@]}" |
-    $git_bin -C "$repo_dir" check-attr --source="$target_head" --stdin -z filter)}")
-  file_attributes[-1]=()
-  for ((attribute_index = 1; attribute_index <= ${#file_attributes}; attribute_index += 3)); do
-    if [[ "${file_attributes[$((attribute_index + 2))]}" == "lfs" ]]; then
-      lfs_paths+=("${file_attributes[$attribute_index]}")
-    fi
-  done
-fi
-
-# cache changed LFS objects before Git starts replacing working-tree files.
-for lfs_path in "${lfs_paths[@]}"; do
-  [[ -n "$lfs_path" ]] || continue
-  log "preparing LFS file: $lfs_path"
-  if ! $git_bin -C "$repo_dir" show "$target_head:$lfs_path" |
-    $git_bin -C "$repo_dir" lfs smudge "$lfs_path" >/dev/null; then
-    log "error: LFS download failed; checkout was not changed"
-    exit 1
-  fi
-done
-
-# fetches and LFS downloads can take long enough for the user to switch branches.
-checkout_is_ready "$original_head" || exit 0
 
 log "fast-forwarding master to $target_head"
 $git_bin -C "$repo_dir" merge --ff-only --no-edit --no-stat "$target_head"

@@ -5,6 +5,7 @@ import argparse
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 
 
@@ -83,6 +84,7 @@ def main(partial_clone=False):
             git(root, "clone", str(remote), str(checkout))
         git(checkout, "lfs", "install", "--local")
         git(checkout, "lfs", "pull")
+        starting_head = git(checkout, "rev-parse", "HEAD")
 
         (writer / ".gitattributes").write_text(
             "*.bin filter=lfs diff=lfs merge=lfs -text\n"
@@ -96,13 +98,41 @@ def main(partial_clone=False):
             missing = git(checkout, "rev-list", "--objects", "--missing=print", "HEAD..origin/master")
             pointer_oid = git(writer, "rev-parse", f"{target}:asset.bin")
             assert f"?{pointer_oid}" in missing, missing
+
+        disk_counter = root / "disk-checks"
+        disk_check = checkout / ".devcontainer/bin/df"
+        disk_check.parent.mkdir(parents=True)
+        disk_check.write_text(
+            f"#!{sys.executable}\n"
+            "import os\nfrom pathlib import Path\n"
+            "counter = Path(os.environ['TEST_DISK_COUNTER'])\n"
+            "count = int(counter.read_text()) + 1 if counter.exists() else 1\n"
+            "counter.write_text(str(count))\n"
+            "available = 0 if count >= int(os.environ['TEST_LOW_DISK_AFTER']) else 2097152\n"
+            "print('Filesystem 1024-blocks Used Available Capacity Mounted')\n"
+            "print(f'test 4194304 0 {available} 0% /test')\n"
+        )
+        disk_check.chmod(0o755)
+        environment['TEST_DISK_COUNTER'] = str(disk_counter)
+        for fail_after in (1, 2):
+            environment['TEST_LOW_DISK_AFTER'] = str(fail_after)
+            disk_counter.unlink(missing_ok=True)
+            expect_update(False, "less than 1 GiB free")
+            assert git(checkout, "rev-parse", "HEAD") == starting_head
+            assert (checkout / "a-first.txt").read_text() == "first"
+            assert git(checkout, "diff", "--quiet") == ""
+            assert git(checkout, "diff", "--cached", "--quiet") == ""
+        disk_check.unlink()
+        print("PASS: low disk before or after fetch preserves the checkout")
+
         expect_update(True, "master updated successfully")
         assert git(checkout, "rev-parse", "HEAD") == target
         assert git(checkout, "status", "--porcelain") == ""
-        assert (checkout / "asset.bin").read_bytes() == b"second" * 128
-        assert (checkout / "new.asset").read_bytes() == b"newly tracked asset" * 128
+        assert (checkout / "a-first.txt").read_text() == "second"
+        assert (checkout / "asset.bin").read_bytes() == git(writer, "show", f"{target}:asset.bin").encode() + b"\n"
+        assert (checkout / "new.asset").read_bytes() == git(writer, "show", f"{target}:new.asset").encode() + b"\n"
         expect_update(True, "already up to date")
-        print("PASS: minimal PATH, LFS download, changed attributes, clean fast-forward, repeat run")
+        print("PASS: source update, skip LFS downloads, clean fast-forward, repeat run")
 
         (checkout / "a-first.txt").write_text("user edit")
         expect_update(True, "has tracked changes")
@@ -146,13 +176,13 @@ def main(partial_clone=False):
         git(checkout, "remote", "set-url", "origin", original_remote)
         print("PASS: failed fetch preserves checkout")
 
-        publish("missing-lfs-object", push_lfs=False)
-        expect_update(False, "LFS download failed; checkout was not changed")
+        target = publish("missing-lfs-object", push_lfs=False)
+        expect_update(True, "master updated successfully")
         assert git(checkout, "rev-parse", "HEAD") == target
         assert git(checkout, "status", "--porcelain") == ""
-        assert (checkout / "a-first.txt").read_text() == "second"
-        git(writer, "lfs", "push", "--all", "origin", "master")
-        print("PASS: failed LFS download preserves branch, index, and files")
+        assert (checkout / "a-first.txt").read_text() == "missing-lfs-object"
+        assert (checkout / "asset.bin").read_bytes() == git(writer, "show", f"{target}:asset.bin").encode() + b"\n"
+        print("PASS: missing LFS assets do not block code updates")
 
         upload_pack = root / "upload-pack"
         upload_pack.write_text(
@@ -171,6 +201,7 @@ def main(partial_clone=False):
         git(checkout, "checkout", "master")
         print("PASS: branch switch during fetch is preserved")
 
+        publish("remote commit", push_lfs=False)
         git(checkout, "config", "user.name", "Updater test")
         git(checkout, "config", "user.email", "updater@example.invalid")
         (checkout / "local.txt").write_text("local commit")
