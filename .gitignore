@@ -8,3 +8,4 @@
 # agent runtime state, never ours to track
 **/auth.json
 .config/opencode/package-lock.json
+.config/hunk/state.json
