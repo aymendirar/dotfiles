@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create engineering FigJam"
+  short_description: "Build editable engineering architecture boards"
+  default_prompt: "Use $create-eng-figjam to create or improve an editable engineering FigJam board from the project context and source links."
