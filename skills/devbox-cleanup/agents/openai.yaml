@@ -1,0 +1,4 @@
+interface:
+  display_name: "Devbox cleanup"
+  short_description: "Reclaim devbox storage while protecting active work"
+  default_prompt: "Use $devbox-cleanup to audit and clean both home and system storage on my devbox."
