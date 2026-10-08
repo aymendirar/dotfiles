@@ -67,6 +67,8 @@ Before implementing, inspect the available context for ambiguities that material
 
 ## Design and Implementation
 
+- Before changing existing behavior, inspect affected callers, tests, and contracts. Preserve behavior outside the requested change, including return values, defaults, error handling, and side effects.
+- Verify unfamiliar API signatures, options, and defaults against the repository's installed version, source, or authoritative documentation. Do not invent interfaces or claim compatibility without evidence.
 - Prefer the simplest complete solution. Reuse existing code before adding abstractions, configuration, dependencies, or compatibility paths. Add them only for a current requirement or an established repository pattern.
 - Keep related logic together. Extract a function or method when its name expresses a meaningful operation, it removes meaningful duplication, or it isolates behavior that needs independent testing. Do not extract solely to shorten code or remove a comment.
 - Optimize for readability by humans and agents. Prefer descriptive names, explicit data flow, and familiar control flow over cleverness or hidden indirection.
@@ -107,8 +109,8 @@ Apply these only when working in the named language. Repository-specific guidanc
 ## Verification and Planning
 
 - Define observable success criteria internally before changing code and continue until they pass or a genuine blocker remains. Share them before implementation only when the work is complex or the user needs to choose among outcomes.
-- For a bug or validation rule, reproduce the failure and add a regression test when practical. For a refactor, compare relevant checks before and after when feasible.
-- Test observable behavior. Avoid tests that merely repeat the implementation or mock away the behavior being checked.
+- For a bug fix or validation rule, reproduce the failure and add a regression test when practical. Confirm that the regression test fails against the unfixed behavior and passes with the fix. For a refactor, compare relevant checks before and after when feasible.
+- Test the observable contract, including relevant failure cases. Avoid tests that merely repeat the implementation or mock away the behavior being checked.
 - Run the narrowest relevant checks during iteration, then broader required checks in proportion to risk.
 - Do not silently update snapshots, fixtures, or baselines merely to make a check pass.
 - Report the exact checks run and their outcomes. Never claim an unrun check passed. Distinguish pre-existing failures from regressions and state what remains unverified.
@@ -125,8 +127,9 @@ Apply these only when working in the named language. Repository-specific guidanc
 - When constructing a commit command in a POSIX shell, prevent backticks from being evaluated. In a double-quoted message, escape them: ``git commit -m "add \`name\` support"``.
 - In a monorepo, use `scope: change` when a scope improves clarity. For stacked changes, use `[i/n] scope: change` unless the repository specifies another format.
 - Do not manually append a pull request number unless repository convention requires it.
+- Each PR should address one coherent problem and include its necessary implementation and verification. Keep independent cleanup, renames, formatting, and refactors out of the PR. Prefer a cohesive change over an arbitrary line-count limit.
 - When authoring or generating a pull request description, put `[written with AI]` on the first line, followed by a blank line. Do not add other AI attribution unless the repository requires it.
-- Follow the pull request template. If none exists, include a concise description and the exact verification performed. Add implementation detail only when it helps review.
+- Follow the pull request template. Describe the concrete problem and resulting behavior for a reviewer who has not seen the conversation. Include a before/after example when useful, exact validation and outcomes, and material compatibility or rollout risks when applicable. Omit file-by-file narration, conversational history, and unsupported claims.
 
 ## Durable State
 
