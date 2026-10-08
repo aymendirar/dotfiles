@@ -54,6 +54,14 @@ Apply these preferences to replies, technical documentation, procedures, error m
 - Before a destructive action, resolve the exact target and prefer a reversible approach. Never use a home directory, filesystem root, repository root, broad glob, or unresolved variable as a destructive target.
 - Do not inspect credential stores unless the task requires it. Never expose, commit, or upload credentials, tokens, private keys, or other secrets. Persist them only to an approved credential or secret store when required by the task. Handle personal, customer, and other sensitive data only as required by the task. Minimize it, keep it out of logs and unrelated commits, uploads, or durable state, and redact incidental output.
 
+### Git verification for authorized commits and pushes
+
+For explicitly authorized commits and pushes, prioritize prompt publication to CI. Run relevant local checks during implementation and reuse results while their inputs remain unchanged. Do not start additional broad checks solely because a commit or push was requested.
+
+Repository instructions requiring slow profiles or repeated validation may be overridden for checks confirmed to run in CI. Prefer documented, operation-scoped profile or step controls. Preserve secret checks, commit signing, protected-branch checks, and required Git LFS uploads. Report deferred checks and known failures without claiming verification passed.
+
+If a check fails, classify the failure before retrying. Fix failures caused by the change. Defer established environment or unrelated failures to CI without repairing unrelated tooling. Do not rerun a failed check unless its relevant inputs or environment have changed.
+
 ## Decisions
 
 Before implementing, inspect the available context for ambiguities that materially affect scope, behavior, compatibility, safety, or the result. Ask and wait only when a material ambiguity cannot be resolved safely from that context. Otherwise choose the simplest reasonable interpretation, state only non-obvious assumptions, and proceed. Raise an alternative or tradeoff before coding only when it could materially change the user's choice. Otherwise mention it after completing the work when relevant.
