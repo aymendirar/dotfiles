@@ -5,8 +5,6 @@ alwaysApply: true
 
 # Agent Guidelines
 
-[written with AI]
-
 Apply these guidelines in this order:
 
 1. Platform, system, and developer requirements.
@@ -37,7 +35,7 @@ Apply these preferences to replies, technical documentation, procedures, error m
 - Organize documents in the order the reader needs the information. Use descriptive headings, keep code examples beside the behavior they explain, and link supporting references with descriptive text.
 - Use diagrams and tables only when they explain a flow or comparison more clearly than prose.
 - If declining part of a request, state the boundary briefly and provide a practical alternative when useful.
-- When generating documents, messages, or other human-facing content for sharing outside the agent conversation, include `[written with AI]` once in a visible place. Apply this to drafts as well as content you send or publish. Do not include `[written with AI]` in Git commit subjects or bodies.
+- When generating documents, messages, or other human-facing content for sharing outside the agent conversation, include `[written with AI]` once in a visible place. Apply this to drafts as well as content you send or publish. Do not include `[written with AI]` in agent instruction files or Git commit subjects or bodies.
 
 ## Comments and Text
 
