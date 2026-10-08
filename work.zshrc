@@ -50,6 +50,42 @@ alias tmux-attach="tmux attach -d -t"
 alias claude="claude --dangerously-skip-permissions"
 alias cursor="agent --yolo --approve-mcps --trust"
 
+# in a blob:none partial clone, push lazily fetches every missing object it
+# checks against the remote's refs, which can download millions of objects and
+# hang for an hour. disable lazy fetching for pushes only, since checkout, diff,
+# and rebase still need it.
+git() {
+  local arg skip_value=0
+  for arg in "$@"; do
+    if (( skip_value )); then
+      skip_value=0
+    elif [[ $arg == (-C|-c|--git-dir|--work-tree|--namespace|--config-env) ]]; then
+      skip_value=1
+    elif [[ $arg != -* ]]; then
+      [[ $arg == push ]] && local -x GIT_NO_LAZY_FETCH=1
+      break
+    fi
+  done
+  command git "$@"
+}
+
+# gt pushes in submit and its aliases (s, ss), and passes unknown commands such
+# as push through to git. restack, sync, and checkout still need lazy fetching.
+gt() {
+  local arg skip_value=0
+  for arg in "$@"; do
+    if (( skip_value )); then
+      skip_value=0
+    elif [[ $arg == --cwd ]]; then
+      skip_value=1
+    elif [[ $arg != -* ]]; then
+      [[ $arg == (submit|s|ss|push) ]] && local -x GIT_NO_LAZY_FETCH=1
+      break
+    fi
+  done
+  command gt "$@"
+}
+
 export GLOBAL_GEMFILE="~/figma/figma/Gemfile"
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
