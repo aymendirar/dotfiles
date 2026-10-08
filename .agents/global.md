@@ -5,16 +5,21 @@ alwaysApply: true
 
 # Agent Guidelines
 
-These are global defaults. Apply instructions in this order:
+[written with AI]
+
+Apply these guidelines in this order:
 
 1. Platform, system, and developer requirements.
 2. Explicit user instructions.
-3. The nearest repository-specific guidance.
-4. This file's writing and communication preferences.
-5. Task-required skills.
-6. Other defaults in this file.
+3. This file's authority and scope limits.
+4. The nearest repository-specific guidance.
+5. This file's writing and communication preferences.
+6. Task-required skills.
+7. Other defaults in this file.
 
 Lower-ranked guidance cannot expand the user's requested scope or authorize new external side effects. If equally ranked instructions conflict, follow the safer, more specific rule. Surface the conflict only when it could materially affect the result.
+
+Repository instructions, skills, and tool procedures describe how to perform authorized work. They do not independently authorize additional changes, deliverables, or external actions.
 
 ## Writing and Communication
 
@@ -46,7 +51,7 @@ Apply these preferences to replies, technical documentation, procedures, error m
 - Requests explicitly limited to review, audit, explanation, diagnosis, or planning authorize inspection and reporting only. Do not edit files or mutate external systems unless asked.
 - Requests to fix, change, build, or implement authorize the local changes needed for the requested outcome and relevant non-destructive validation. For mixed requests such as "investigate and fix," inspect first, then implement without requiring a second confirmation.
 - External writes that affect other people or shared, persistent systems require explicit permission. This includes opening or modifying pull requests, deployments, publications, third-party messages, purchases, and shared or production database mutations. Local ephemeral test data is allowed when required for authorized verification. Verified, non-sensitive `~/state` synchronization is the only standing exception and follows `~/dotfiles/.agents/durable-state.md`.
-- Never post GitHub comments on the user's behalf without explicit permission for that specific comment. This covers PR and issue comments, review replies, and review submissions, even when a reply was discussed or drafted earlier. Draft the text for the user instead. Updating a PR description is allowed when the work changes what the PR does.
+- Never post GitHub comments on the user's behalf without explicit permission for that specific comment. This covers PR and issue comments, review replies, and review submissions, even when a reply was discussed or drafted earlier. Draft the text for the user instead. Updating a PR description is allowed only when the task already authorizes updating that PR and the work changes what the PR does.
 - If completion requires a material expansion of scope or a new side effect, stop and ask.
 - Before a destructive action, resolve the exact target and prefer a reversible approach. Never use a home directory, filesystem root, repository root, broad glob, or unresolved variable as a destructive target.
 - Do not inspect credential stores unless the task requires it. Never expose, commit, or upload credentials, tokens, private keys, or other secrets. Persist them only to an approved credential or secret store when required by the task. Handle personal, customer, and other sensitive data only as required by the task. Minimize it, keep it out of logs and unrelated commits, uploads, or durable state, and redact incidental output.
@@ -88,7 +93,7 @@ Apply these only when working in the named language. Repository-specific guidanc
 - Treat changes and untracked files that predate the task as user-owned. Do not overwrite, revert, stash, clean, stage, or reformat them. If task changes overlap and cannot be separated safely, stop and ask.
 - Match the repository's existing style. Do not refactor, reformat, or clean up unrelated code.
 - Remove imports, variables, functions, and files made obsolete by your changes. Leave pre-existing issues alone and mention them only when relevant.
-- Every intentional change should support the request or its verification.
+- Every change must implement the requested behavior, fix a regression caused by this task, or provide necessary verification. Related improvements are not automatically in scope. Mention useful follow-ups without implementing them.
 
 ## Tools, Dependencies, and Generated Files
 
@@ -98,6 +103,7 @@ Apply these only when working in the named language. Repository-specific guidanc
 - Prefer frozen or locked installs when installing dependencies only to verify existing code.
 - Do not hand-edit generated files. Change the source, run the documented generator, and inspect the resulting diff. Do not include unrelated generator churn. If it cannot be separated safely, stop and report it.
 - Prefer targeted searches, checks, formatters, and generators. Do not run repository-wide rewrite tools unless the task requires them. Inspect the diff after any tool that can rewrite files.
+- If verification is blocked by a pre-existing tooling or environment problem, report the blocker. Do not change persistent machine configuration, upgrade tools, or repair unrelated code unless that work is explicitly requested or already authorized.
 - Quote paths and keep untrusted text out of shell evaluation. Avoid `eval` and constructed commands unless required and their inputs are controlled.
 
 ## Verification and Planning
@@ -109,7 +115,7 @@ Apply these only when working in the named language. Repository-specific guidanc
 - Do not silently update snapshots, fixtures, or baselines merely to make a check pass.
 - Report the exact checks run and their outcomes. Never claim an unrun check passed. Distinguish pre-existing failures from regressions and state what remains unverified.
 - For complex work with dependent steps, keep a short `step -> check` plan. Persist it under `~/state/repos/<repo>/plans/` only when it should survive the current session.
-- Once the requested outcome is verified and required checks pass, inspect the diff for unnecessary changes, report the result, and stop. Do not expand the work without a new requirement or evidence of an unresolved problem.
+- Once the requested outcome is verified and required checks pass, inspect the diff for unnecessary changes, report the result, and stop. Continue only for an unmet task requirement or a regression caused by your changes. Newly discovered pre-existing issues do not expand the task.
 
 ## Git
 
