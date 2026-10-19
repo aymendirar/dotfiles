@@ -114,12 +114,6 @@
         autoStash = true
         updateRefs = true
 
-# Figma-recommended performance settings for large repositories.
-[core]
-		untrackedCache = true
-[remote "origin"]
-		tagOpt = --no-tags
-
 # a matter of taste (uncomment if you dare)
 [core]
 		# fsmonitor = true
@@ -128,7 +122,3 @@
         conflictstyle = zdiff3
 [pull]
         rebase = true
-
-# base identity above is personal; override email for work repos under ~/figma
-[includeIf "gitdir:~/figma/"]
-        path = ~/.gitconfig-work

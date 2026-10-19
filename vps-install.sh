@@ -75,8 +75,7 @@ fi
 
 echo "==> eternal terminal"
 # a plain ssh session dies when the laptop changes network or sleeps; et
-# reconnects instead. this box has systemd, so the packaged unit owns the
-# server here rather than the et:* mise tasks the devcontainer needs.
+# reconnects instead. the packaged systemd unit manages the server.
 install_et() {
   if ! command -v add-apt-repository >/dev/null 2>&1; then
     $SUDO apt-get install -y software-properties-common || return 1
@@ -105,15 +104,16 @@ fi
 echo "==> symlinking configs"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.claude/CLAUDE.md"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.codex/AGENTS.md"
-dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.config/figaro/AGENTS.md"
 # cursor only always-applies a rule as an .mdc carrying alwaysApply frontmatter, which global.md declares
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.agents/global.md" "$HOME/.cursor/rules/global.mdc"
 dotfiles_link_agent_skills "$DOTFILES_DIR/skills" \
   "$HOME/.claude/skills" \
   "$HOME/.codex/skills" \
-  "$HOME/.config/opencode/skills" \
-  "$HOME/.config/figaro/skills"
-dotfiles_link_state_skills "$STATE_DIR" "$HOME/.config/figaro/skills"
+  "$HOME/.config/opencode/skills"
+dotfiles_link_state_skills "$STATE_DIR" \
+  "$HOME/.claude/skills" \
+  "$HOME/.codex/skills" \
+  "$HOME/.config/opencode/skills"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/tmux" "$HOME/.config/tmux"
 dotfiles_backup_and_symlink "$DOTFILES_DIR/.config/bat" "$HOME/.config/bat"

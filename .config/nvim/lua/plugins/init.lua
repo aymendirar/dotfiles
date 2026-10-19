@@ -16,7 +16,6 @@ require("lazy").setup({
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "catppuccin" } },
-  -- the update checker git-fetches every plugin on a timer, which is steady
-  -- background network and cpu on a remote devbox. run :Lazy check by hand
+  -- check for plugin updates manually with :Lazy check
   checker = { enabled = false, notify = false },
 })

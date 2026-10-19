@@ -443,12 +443,6 @@
   "window.commandCenter": true,
   "security.workspace.trust.enabled": true,
   "redhat.telemetry.enabled": false,
-  "remote.SSH.remotePlatform": {
-    "coder-vscode.coder.figdev.systems--adirar--aymen-devbox-5.devcontainer": "linux",
-    "coder-vscode.coder.figdev.systems--adirar--aymen-devbox-3.devcontainer": "linux",
-    "coder-vscode.coder.figdev.systems--adirar--aymen-devbox-2.devcontainer": "linux",
-    "coder-vscode.coder.figdev.systems--adirar--aymen-devbox-4.devcontainer": "linux"
-  },
   "remote.SSH.connectTimeout": 1800,
   "remote.SSH.reconnectionGraceTime": 28800,
   "remote.SSH.serverShutdownTimeout": 28800,

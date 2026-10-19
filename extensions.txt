@@ -16,7 +16,6 @@ catppuccin.catppuccin-vsc-icons
 christian-kohler.npm-intellisense
 christian-kohler.path-intellisense
 clinyong.vscode-css-modules
-coder.coder-remote
 cpsc213-ta.sm213-assembly-syntax-highlighting
 dbaeumer.vscode-eslint
 eamodio.gitlens
